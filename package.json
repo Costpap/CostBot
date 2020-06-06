@@ -1,0 +1,33 @@
+{
+  "name": "costbot",
+  "version": "1.2.3",
+  "description": "A thing I made",
+  "main": "index.js",
+  "dependencies": {
+    "@pm2/io": "^4.3.5",
+    "discord.js": "^12.2.0",
+    "humanize-duration": "^3.23.0",
+    "pm2": "^4.4.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.31.0",
+    "@typescript-eslint/parser": "^2.31.0",
+    "eslint": "^7.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 ecosystem.config.js",
+    "restart": "pm2 restart ecosystem.config.js",
+    "stop": "pm2 stop ecosystem.config.js",
+    "start-node": "node .",
+    "lint": "eslint ."
+  },
+  "keywords": [
+    "costbot",
+    "costpap",
+    "cost",
+    "bot"
+  ],
+  "author": "Costpap#0006 (312629697567522817)",
+  "license": "MIT"
+}
