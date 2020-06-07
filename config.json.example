@@ -1,6 +1,5 @@
 {
 	"prefix": "Your bot's prefix here",
-	"token": "The token of your Discord Bot Application",
 	"botOwner": ["Your ID"],
 	"botAdmin": ["A list of IDs of trusted people"]
 }

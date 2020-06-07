@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const fs = require('fs');
 const Discord = require('discord.js');
-const { prefix, token, botAdmin, botOwner } = require('./config.json');
+const { prefix, botAdmin, botOwner } = require('./config.json');
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
 const client = new Discord.Client({
@@ -89,4 +91,4 @@ client.on('message', async message => {
 
 });
 
-client.login(token);
+client.login(process.env.TOKEN);
