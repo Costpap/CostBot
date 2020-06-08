@@ -19,6 +19,9 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
+if (!process.env.TOKEN) return console.error('Missing client token. Shutting down...');
+if (!prefix || prefix.length > 5) return console.error('Prefix is either missing or too long. Shutting down...');
+
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error)),
 
 client.on('ready', () => {
@@ -75,8 +78,7 @@ client.on('message', async message => {
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
 			const sentMessage = await message.reply(`please wait ${timeLeft.toFixed(1)} second(s) before using \`${command.name}\` again.`);
-			sentMessage.delete({ timeout: 3000 });
-			return;
+			return sentMessage.delete({ timeout: 3000 });
 		}
 	} timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
