@@ -11,8 +11,6 @@ module.exports = {
 		message.delete();
 
 		const messageArgs = args.slice(0);
-		// eslint-disable-next-line no-unused-vars
-		const manyMessageArgs = messageArgs.join(' ');
 		if (!message.mentions.channels.size) {
 			if (args[0] === 'embed') {
 				const embed = new Discord.MessageEmbed()
@@ -23,7 +21,7 @@ module.exports = {
 
 				return message.channel.send(embed);
 			}
-			message.channel.send(messageArgs.slice(0).join(' '));
+			return message.channel.send(messageArgs.slice(0).join(' '));
 		}
 
 		const sayChannel = message.mentions.channels.first(); {
