@@ -32,8 +32,12 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-if (!process.env.TOKEN) console.error('Missing client token. Shutting down...');
-if (!prefix || prefix.length > 5) console.error('Prefix is either missing or too long. Shutting down...');
+if (!process.env.TOKEN) { 
+	return console.error('Missing client token. Shutting down...');
+}
+if (!prefix || prefix.length > 5) {
+return console.error('Prefix is either missing or too long. Shutting down...');
+}
 
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error)),
 
