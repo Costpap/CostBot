@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "@pm2/io": "^4.3.5",
+    "@pm2/node-runtime-stats": "^0.3.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "humanize-duration": "^3.23.0",
