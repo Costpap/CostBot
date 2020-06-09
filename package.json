@@ -3,7 +3,6 @@
   "version": "1.2.3",
   "description": "A thing I made",
   "repository": "https://github.com/Costpap/CostBot",
-  "type": "module",
   "main": "index.ts",
   "dependencies": {
     "@pm2/io": "^4.3.5",
