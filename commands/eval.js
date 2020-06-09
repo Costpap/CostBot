@@ -1,13 +1,13 @@
-import { MessageEmbed } from 'discord.js';
+const Discord = require('discord.js');
 
-export default {
+module.exports = {
 	name: 'eval',
 	description: 'Runs JavaScript code.',
 	ownerOnly: true,
 	usage: 'code',
 	args: true,
-	async execute({ message, args }: { message: any; args: any; }) {
-		const clean = (text: string) => {
+	async execute(message, args) {
+		const clean = text => {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}
 		};
@@ -17,7 +17,7 @@ export default {
 
 			if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
 
-			const embed = new MessageEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('GREEN')
 				.setTitle('Evaluation Successful')
 				.addFields(
@@ -31,7 +31,7 @@ export default {
 		}
 		catch (error) {
 			console.error('Eval:', error);
-			const embed = new MessageEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('RED')
 				.setTitle('Evaluation Error')
 				.addFields(

@@ -1,14 +1,14 @@
-import { MessageEmbed } from 'discord.js';
-import humanizeDuration from 'humanize-duration';
-import { author, version } from '../../package.json';
+const Discord = require('discord.js');
+const humanizeDuration = require('humanize-duration');
+const { author, version } = require('../package.json');
 
-export default {
+module.exports = {
 	name: 'info',
 	description: 'Sends you information about the bot.',
 	aliases: ['information'],
 	cooldown: 5,
 	execute(message) {
-		const embed = new MessageEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setThumbnail(message.client.user.displayAvatarURL({ dynamic: true }))
 			.setTitle(`${message.client.user.username} Information`)

@@ -1,11 +1,11 @@
-export default {
+module.exports = {
 	name: 'prune',
 	description: 'Prune up to 99 messages.',
 	aliases: ['purge', 'delete', 'remove'],
 	usage: '[number of messages]',
 	guildOnly: true,
 	cooldown: 10,
-	async execute({ message, args }: { message: any; args: any; }) {
+	async execute(message, args) {
 		if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('You need the `Manage Messages` permission in order to use this command!');
 		}

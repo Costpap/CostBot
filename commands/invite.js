@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	name: 'invite',
 	description: 'Sends you a link to invite the bot.',
 	aliases: ['inv'],

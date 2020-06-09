@@ -1,31 +1,31 @@
 import dotenv from 'dotenv'
+
 dotenv.config();
 
-import { readdirSync } from 'fs';
-import { Intents, Client, Collection, Message } from 'discord.js';
-import { prefix, botAdmin, botOwner } from '../config.json';
+import * as fs from 'fs';
+import * as Discord from 'discord.js';
+import { prefix, botAdmin, botOwner } from './config.json';
 
 interface Command {
 	name: string,
 	description: string,
 	aliases: string[],
-	usage: string,
 	cooldown: number,
-	execute: (message: Message, args: string[]) => void
+	execute(message: any): Function,
 }
 
-const intents = new Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
-const client = new Client({
+const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
+const client = new Discord.Client({
 	ws: { intents: intents },
 	presence: { activity: { name: 'Costpap shout', type: 'LISTENING' }, status: 'online' },
 });
 
-client.commands = new Collection();
-const cooldowns = new Collection();
+client.commands = new Discord.Collection();
+const cooldowns = new Discord.Collection();
 
-const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.ts'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-const importCommand = async (command: any): Promise<Command> => (await import(`./commands/${command}`) as Command);
+const importCommand = async (command: any): Promise<Command> => return (await import(`./commands/${command}`) as Command);
 
 for (const file of commandFiles) {
 	const command = importCommand(file);
@@ -33,18 +33,16 @@ for (const file of commandFiles) {
 }
 
 if (!process.env.TOKEN) { 
-	console.error('Missing client token. Shutting down...');
-	process.exit(1);
+	return console.error('Missing client token. Shutting down...');
 }
 if (!prefix || prefix.length > 5) {
-	console.error('Prefix is either missing or too long. Shutting down...');
-	process.exit(1);
+return console.error('Prefix is either missing or too long. Shutting down...');
 }
 
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error)),
 
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user?.tag}!`);
+	console.log(`Logged in as ${client.user.tag}!`);
 });
 
 
@@ -52,10 +50,10 @@ client.on('message', async message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args: Array<string> = message.content.slice(prefix.length).split(/ +/);
-	const commandName: string = args.shift?().toLowerCase();
+	const commandName: string = args.shift().toLowerCase();
 
 	const command = client.commands.get(commandName)
-	|| client.commands.find((cmd: { aliases: string | string[]; }) => cmd.aliases && cmd.aliases.includes(commandName));
+	|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;
 
@@ -63,16 +61,15 @@ client.on('message', async message => {
 	if (command.adminOnly && (botAdmin.includes(message.author.id) !== true) || (command.ownerOnly && (botOwner.includes(message.author.id) !== true))) return message.reply('You cannot use this command!');
 	if (command.guildOnly && message.channel.type !== 'text') return message.reply(':x: I can\'t execute this command inside DMs!');
 	if (command.args && !args.length) {
-		let reply = `:warning: You didn't provide any arguments, ${message.author}!` 
-		if (command.usage) + `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``
+		let reply = `:warning: You didn't provide any arguments, ${message.author}!` + `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\`` || undefined;
 		return message.channel.send(reply);
 	}
 
 
-	if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Collection());
+	if (!cooldowns.has(command.name)) cooldowns.set(command.name, new Discord.Collection());
 
 	const now = Date.now();
-	const timestamps = cooldowns.get(command.name) as Collection<any, any>;
+	const timestamps = cooldowns.get(command.name) as Discord.Collection<any, any>;
 	const cooldownAmount = (command.cooldown || 3) * 1000;
 
 	if (timestamps.has(message.author.id)) {

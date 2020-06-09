@@ -1,8 +1,8 @@
-import * as Discord from 'discord.js';
-import { version } from '../../package.json';
-import humanizeDuration from 'humanize-duration';
+const Discord = require('discord.js');
+const { version } = require('../package.json');
+const humanizeDuration = require('humanize-duration');
 
-export default {
+module.exports = {
 	name: 'stats',
 	description: 'Shows statistics about this bot.',
 	aliases: ['statistics', 'uptime'],

@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	name: 'avatar',
 	description: 'Get the avatar URL of the mentioned user(s), or your own avatar.',
 	aliases: ['icon', 'pfp'],

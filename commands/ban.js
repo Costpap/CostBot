@@ -1,10 +1,10 @@
-export default {
+module.exports = {
 	name: 'ban',
 	description: 'Bans the @mentioned user from your server.',
 	guildOnly: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
-	execute({ message, args }: { message: any; args: any; }) {
+	execute(message, args) {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to ban them!');
 		}
