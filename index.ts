@@ -1,9 +1,9 @@
-import dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
 dotenv.config();
 
 import { readdirSync } from 'fs';
 import { Intents, Client, Collection, Message } from 'discord.js';
-import { prefix, botAdmin, botOwner } from '../config.json';
+const { prefix, botAdmin, botOwner } = require('./config.json');
 
 interface Command {
 	name: string,

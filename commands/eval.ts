@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js';
 
 export default {
 	name: 'eval',
-	description: 'Runs JavaScript code.',
+	description: 'Runs TypeScript code.', // JavaScript bad
 	ownerOnly: true,
 	usage: 'code',
 	args: true,
@@ -21,8 +21,8 @@ export default {
 				.setColor('GREEN')
 				.setTitle('Evaluation Successful')
 				.addFields(
-					{ name: 'Input', value: `\`\`\`js\n${code}\`\`\`` },
-					{ name: 'Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
+					{ name: 'Input', value: `\`\`\`ts\n${code}\`\`\`` },
+					{ name: 'Output', value: `\`\`\`ts\n${clean(evaled)}\`\`\`` },
 				)
 				.setTimestamp()
 				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
@@ -35,8 +35,8 @@ export default {
 				.setColor('RED')
 				.setTitle('Evaluation Error')
 				.addFields(
-					{ name: 'Input', value: `\`\`\`js\n${code}\`\`\`` },
-					{ name: 'Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
+					{ name: 'Input', value: `\`\`\`ts\n${code}\`\`\`` },
+					{ name: 'Error message', value: `\`\`\`ts\n${error.message}\`\`\`` },
 				)
 				.setTimestamp()
 				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
