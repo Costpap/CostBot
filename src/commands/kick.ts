@@ -1,10 +1,10 @@
-module.exports = {
+export default {
 	name: 'kick',
 	description: 'Kicks the @mentioned user from your server.',
 	guildOnly: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
-	execute(message, args) {
+	execute({ message, args }: { message: any; args: any; }) {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to kick them!');
 		}

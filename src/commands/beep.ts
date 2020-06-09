@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	name: 'beep',
 	description: 'Beeps the bot!',
 	cooldown: 5,

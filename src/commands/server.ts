@@ -1,13 +1,13 @@
-const Discord = require('discord.js');
+import { MessageEmbed }from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'server',
 	description: 'Display info about this server.',
 	aliases: ['server-info', 'si', 'guild', 'guild-info', 'gi'],
 	guildOnly: true,
 	cooldown: 5,
 	execute(message) {
-		const embed = new Discord.MessageEmbed()
+		const embed = new MessageEmbed()
 			.setColor('RANDOM')
 			.setTitle(`${message.guild.name}`)
 			.addFields(
@@ -15,7 +15,7 @@ module.exports = {
 				{ name: 'Server Region:', value: message.guild.region, inline: true },
 				{ name: 'Total Channels:', value: message.guild.channels.cache.size, inline: true },
 				{ name: 'Server Members:', value: message.guild.memberCount, inline: true },
-				{ name: `Server Roles (${message.guild.roles.cache.size}):`, value: message.guild.roles.cache.map(role => role).join(', ') },
+				{ name: `Server Roles (${message.guild.roles.cache.size}):`, value: message.guild.roles.cache.map((role: any) => role).join(', ') },
 			)
 			.setTimestamp(message.guild.createdAt)
 			.setFooter(`Server ID: ${message.guild.id}`);

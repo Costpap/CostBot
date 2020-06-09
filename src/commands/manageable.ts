@@ -1,6 +1,6 @@
-const Discord = require('discord.js');
+import * as Discord from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'manageable',
 	description: 'Shows if the bot can manage this user or not.',
 	aliases: ['mod-able', 'modable'],

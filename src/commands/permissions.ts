@@ -1,6 +1,6 @@
-const Discord = require('discord.js');
+import * as Discord from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'permissions',
 	description: 'Displays the permissions and roles of the mentioned user.',
 	aliases: ['perms', 'roles', 'permlist', 'rolelist'],

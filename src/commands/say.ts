@@ -1,19 +1,19 @@
-const Discord = require('discord.js');
+import { MessageEmbed } from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'say',
 	description: 'Sends a message through the bot',
 	adminOnly: true,
 	args: true,
 	usage: '(#optional-channel) [text]',
 	cooldown: 5,
-	execute(message, args) {
+	execute({ message, args }: { message: any; args: any; }) {
 		message.delete();
 
 		const messageArgs = args.slice(0);
 		if (!message.mentions.channels.size) {
 			if (args[0] === 'embed') {
-				const embed = new Discord.MessageEmbed()
+				const embed = new MessageEmbed()
 					.setColor('#6293f5')
 					.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
 					.setDescription(messageArgs.slice(1).join(' '))
@@ -26,7 +26,7 @@ module.exports = {
 
 		const sayChannel = message.mentions.channels.first(); {
 			if (args[0] === 'embed') {
-				const embed = new Discord.MessageEmbed()
+				const embed = new MessageEmbed()
 					.setColor('#6293f5')
 					.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
 					.setDescription(messageArgs.slice(2).join(' '))

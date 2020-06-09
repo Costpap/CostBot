@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	name: 'mute',
 	description: 'Mutes the @mentioned user in your server.',
 	disabled: true,

@@ -1,13 +1,13 @@
-const Discord = require('discord.js');
+import { MessageEmbed } from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'user-info',
 	description: 'Display info about the mentioned user.',
 	aliases: ['whois', 'info', 'ui'],
 	cooldown: 5,
 	execute(message) {
 		const member = message.mentions.members.first() || message.member;
-		const embed = new Discord.MessageEmbed()
+		const embed = new MessageEmbed()
 			.setColor(member.displayHexColor)
 			.setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
 			.setDescription(`User mention: ${member} \n User ID: \`${member.id}\``)

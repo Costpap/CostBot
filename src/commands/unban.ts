@@ -1,11 +1,11 @@
-module.exports = {
+export default {
 	name: 'unban',
 	description: 'Bans the @mentioned user from your server.',
 	aliases: 'un-ban',
 	guildOnly: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
-	execute(message, args) {
+	execute({ message, args }: { message: any; args: any; }) {
 
 		if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('You need the `Ban Members` permission in order to use this command!');

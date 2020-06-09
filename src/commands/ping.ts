@@ -1,7 +1,7 @@
-const Discord = require('discord.js');
+import * as Discord from 'discord.js';
 const { version } = require('../package.json');
 
-module.exports = {
+export default {
 	name: 'ping',
 	description: 'Pings the bot!',
 	cooldown: 5,
