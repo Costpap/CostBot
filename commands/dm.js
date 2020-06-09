@@ -16,12 +16,37 @@ module.exports = {
 			if (args[0] === 'embed') {
 				const embed = new Discord.MessageEmbed()
 					.setColor('#6293f5')
-					.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
 					.setDescription(messageArgs.slice(2).join(' '))
 					.setTimestamp();
-
-				return dmUser.send(embed);
+				if (args[1] === 'name') {
+					embed.setDescription(messageArgs.slice(3).join(' '));
+					embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }));
+					try {
+						return dmUser.send(embed),
+						message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+					}
+					catch (error) {
+						console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+						message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
+					}
+				}
+				try {
+					return dmUser.send(embed),
+					message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+				}
+				catch (error) {
+					console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+					message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
+				}
 			}
-			dmUser.send(messageArgs.slice(1).join(' '));}
+			try {
+				dmUser.send(messageArgs.slice(1).join(' '));
+				message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+			}
+			catch (error) {
+				console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+				message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
+			}
+		}
 	},
 };
