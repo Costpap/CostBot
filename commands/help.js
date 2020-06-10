@@ -19,7 +19,7 @@ module.exports = {
 			.setTitle('Here\'s a list of all my commands:')
 			.setDescription(commands.map(command => command.name).join(', '))
 			.setTimestamp()
-			.setFooter(`You can send \`${prefix}help [command name]\` to get info on a specific command!`)
+			.setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`)
 
 			return message.author.send(embed)
 				.then(() => {
