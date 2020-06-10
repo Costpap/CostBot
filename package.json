@@ -4,18 +4,21 @@
   "description": "A thing I made",
   "repository": "https://github.com/Costpap/CostBot",
   "main": "index.js",
+  "private": true,
   "dependencies": {
-    "@pm2/io": "^4.3.5",
-    "@pm2/node-runtime-stats": "^0.3.2",
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "humanize-duration": "^3.23.0",
-    "pm2": "^4.4.0"
+    "humanize-duration": "^3.23.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.31.0",
     "@typescript-eslint/parser": "^2.31.0",
     "eslint": "^7.0.0"
+  },
+  "optionalDependencies": {
+    "@pm2/io": "^4.3.5",
+    "@pm2/node-runtime-stats": "^0.3.2",
+    "pm2": "^4.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
