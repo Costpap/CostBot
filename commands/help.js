@@ -13,11 +13,15 @@ module.exports = {
 		const { commands } = message.client;
 
 		if (!args.length) {
-			data.push('Here\'s a list of all my commands:');
-			data.push(commands.map(command => command.name).join(', '));
-			data.push(`\nYou can send \`${prefix}help [command name]\` to get info on a specific command!`);
+			const embed = new Discord.MessageEmbed()
+			.setColor('#6293f5')
+			.setAuthor(`${message.client.user.username} Help`, message.client.user.displayAvatarURL({ dynamic: true }))
+			.setTitle('Here\'s a list of all my commands:')
+			.setDescription(commands.map(command => command.name).join(', '))
+			.setTimestamp()
+			.setFooter(`You can send \`${prefix}help [command name]\` to get info on a specific command!`)
 
-			return message.author.send(data, { split: true })
+			return message.author.send(embed)
 				.then(() => {
 					if (message.channel.type === 'dm') return;
 					message.reply('I\'ve sent you a DM with all my commands!');
