@@ -40,7 +40,7 @@ client.on('message', async message => {
 
 	if (!command) return;
 
-	if (command.disabled == true) {
+	if (command.disabled === true) {
 		return message.channel.send(':warning: This command has been temporarily disabled.');
 	}
 	if (command.ownerOnly && (botOwner.includes(message.author.id) !== true)) {
