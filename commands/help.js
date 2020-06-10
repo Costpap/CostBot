@@ -49,6 +49,12 @@ module.exports = {
 		if (command.description) {
 			embed.addField('Description:', command.description);
 		}
+		if (command.ownerOnly) {
+			embed.addField('Permission level:', 'Bot Owner')
+		}
+		if (command.adminOnly) {
+			embed.addField('Permission level:', 'Bot Administrator')
+		}
 		if (command.usage) {
 			embed.addField('Usage:', `${prefix}${command.name} ${command.usage}`);
 		}
