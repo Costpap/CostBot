@@ -1,7 +1,7 @@
 module.exports = {
 	name: 'unban',
 	description: 'Bans the @mentioned user from your server.',
-	aliases: 'un-ban',
+	aliases: ['un-ban'],
 	guildOnly: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
