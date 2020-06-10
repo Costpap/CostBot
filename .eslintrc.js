@@ -1,5 +1,5 @@
 module.exports = {
-	'extends': 'eslint:recommended',
+	'extends': ['eslint:recommended', 'plugin:prettier/recommended'],
 	'env': {
 		'node': true,
 		'es6': true,
@@ -30,7 +30,6 @@ module.exports = {
 		'no-var': 'error',
 		'object-curly-spacing': ['error', 'always'],
 		'prefer-const': 'error',
-		'quotes': ['error', 'single', { 'avoidEscape': true } ],
 		'semi': ['error', 'always'],
 		'space-before-blocks': 'error',
 		'space-before-function-paren': ['error', {
