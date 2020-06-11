@@ -16,11 +16,6 @@
     "eslint": "^7.0.0",
     "prettier": "2.0.5"
   },
-  "optionalDependencies": {
-    "@pm2/io": "^4.3.5",
-    "@pm2/node-runtime-stats": "^0.3.2",
-    "pm2": "^4.4.0"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node .",
