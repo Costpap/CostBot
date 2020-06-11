@@ -42,17 +42,17 @@ module.exports = {
 		const embed = new Discord.MessageEmbed();
 		embed.setColor('#6293f5');
 		embed.setTitle(`**Command Name:** ${command.name}`);
-		if (command.disabled == 'true') {
+		if (command.disabled) {
 			embed.setDescription(':warning: This command is currently **disabled**.');
 		}
 		command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases:' : 'Alias:', command.aliases.join(', ')) : '';
 		if (command.description) {
 			embed.addField('Description:', command.description);
 		}
-		if (command.ownerOnly = 'true') {
+		if (command.ownerOnly) {
 			embed.addField('Permission level:', 'Bot Owner')
 		}
-		if (command.adminOnly = 'true') {
+		if (command.adminOnly) {
 			embed.addField('Permission level:', 'Bot Administrator')
 		}
 		if (command.usage) {
