@@ -3,6 +3,7 @@ module.exports = {
 	description: 'Prune up to 99 messages.',
 	aliases: ['purge', 'delete', 'remove'],
 	usage: '[number of messages]',
+	args: true,
 	guildOnly: true,
 	cooldown: 10,
 	async execute(message, args) {

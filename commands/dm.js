@@ -8,6 +8,9 @@ module.exports = {
 	usage: 'userID text',
 	cooldown: 5,
 	execute(message, args) {
+		if (!message.mentions.users.size) {
+			return message.reply('you need to tag a user in order to send them a DM!');
+		}
 		const dmUser = message.mentions.users.first(); {
 			if (dmUser.bot) return message.reply('You cannot send messages to this user!');
 			message.delete();

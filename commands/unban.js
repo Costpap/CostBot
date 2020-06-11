@@ -6,9 +6,11 @@ module.exports = {
 	usage: '@member (optional reason)',
 	cooldown: 10,
 	execute(message, args) {
-
+		if (!args.length) {
+			return message.reply('you need to provide the ID of a user to unban!')
+		}
 		if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
-			return message.reply('You need the `Ban Members` permission in order to use this command!');
+			return message.reply('you need the `Ban Members` permission in order to use this command!');
 		}
 		try {
 			const messageArgs = args.slice(0);
