@@ -17,7 +17,7 @@ module.exports = {
 				{ name: 'Bot uptime:', value: humanizeDuration(message.client.uptime), inline: true },
 			)
 			.setTimestamp()
-			.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ dynamic: true }));
+			.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 		message.channel.send(embed);
 	},
 };

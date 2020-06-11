@@ -15,7 +15,7 @@ module.exports = {
 			if (args[0] === 'embed') {
 				const embed = new Discord.MessageEmbed()
 					.setColor('#6293f5')
-					.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+					.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
 					.setDescription(messageArgs.slice(1).join(' '))
 					.setTimestamp();
 
@@ -28,7 +28,7 @@ module.exports = {
 			if (args[0] === 'embed') {
 				const embed = new Discord.MessageEmbed()
 					.setColor('#6293f5')
-					.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }))
+					.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
 					.setDescription(messageArgs.slice(2).join(' '))
 					.setTimestamp();
 

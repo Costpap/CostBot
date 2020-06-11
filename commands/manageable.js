@@ -17,7 +17,7 @@ module.exports = {
 				{ name: 'Bannable:', value: member.bannable, inline: true },
 			)
 			.setTimestamp()
-			.setFooter(`Requested by ${message.author.tag}`, `${message.author.displayAvatarURL({ dynamic: true })}`);
+			.setFooter(`Requested by ${message.author.tag}`, `${message.author.displayAvatarURL({ format: 'png', dynamic: true })}`);
 
 		message.channel.send(embed);
 	},

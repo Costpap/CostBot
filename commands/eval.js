@@ -25,7 +25,7 @@ module.exports = {
 					{ name: 'Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
 				)
 				.setTimestamp()
-				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
+				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 
 			message.channel.send(embed);
 		}
@@ -39,7 +39,7 @@ module.exports = {
 					{ name: 'Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
 				)
 				.setTimestamp()
-				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
+				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 			message.channel.send(embed);
 		}
 	},

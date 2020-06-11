@@ -14,7 +14,7 @@ module.exports = {
 		if (!args.length) {
 			const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
-			.setAuthor(`${message.client.user.username} Help`, message.client.user.displayAvatarURL({ dynamic: true }))
+			.setAuthor(`${message.client.user.username} Help`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
 			.setTitle('Here\'s a list of all my commands:')
 			.setDescription(commands.map(command => command.name).join(', '))
 			.setTimestamp()
@@ -42,17 +42,17 @@ module.exports = {
 		const embed = new Discord.MessageEmbed();
 		embed.setColor('#6293f5');
 		embed.setTitle(`**Command Name:** ${command.name}`);
-		if (command.disabled) {
+		if (command.disabled == 'true') {
 			embed.setDescription(':warning: This command is currently **disabled**.');
 		}
 		command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases:' : 'Alias:', command.aliases.join(', ')) : '';
 		if (command.description) {
 			embed.addField('Description:', command.description);
 		}
-		if (command.ownerOnly) {
+		if (command.ownerOnly = 'true') {
 			embed.addField('Permission level:', 'Bot Owner')
 		}
-		if (command.adminOnly) {
+		if (command.adminOnly = 'true') {
 			embed.addField('Permission level:', 'Bot Administrator')
 		}
 		if (command.usage) {
@@ -60,7 +60,7 @@ module.exports = {
 		}
 		embed.addField('Cooldown:', `${command.cooldown || 3} second(s)`);
 		embed.setTimestamp();
-		embed.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ dynamic: true }));
+		embed.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 
 		message.channel.send(embed);
 	},

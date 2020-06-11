@@ -10,7 +10,7 @@ module.exports = {
 	execute(message) {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
-			.setThumbnail(message.client.user.displayAvatarURL({ dynamic: true }))
+			.setThumbnail(message.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
 			.setTitle(`${message.client.user.username} Information`)
 			.addFields(
 				{ name: 'Developer:', value: author },

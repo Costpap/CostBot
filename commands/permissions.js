@@ -16,7 +16,7 @@ module.exports = {
 				{ name: 'User permissions:', value: `\`\`\`${member.permissions.toArray(permissions => permissions).join(', ')}\`\`\`` },
 			)
 			.setTimestamp()
-			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
+			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 
 		message.channel.send(embed);
 	},

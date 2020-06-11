@@ -23,7 +23,7 @@ module.exports = {
 					.setTimestamp();
 				if (args[1] === 'name') {
 					embed.setDescription(messageArgs.slice(3).join(' '));
-					embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ dynamic: true }));
+					embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 					try {
 						dmUser.send(embed);
 						return message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);

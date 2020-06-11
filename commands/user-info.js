@@ -9,9 +9,9 @@ module.exports = {
 		const member = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)
-			.setAuthor(member.user.tag, member.user.displayAvatarURL({ dynamic: true }))
+			.setAuthor(member.user.tag, member.user.displayAvatarURL({ format: 'png', dynamic: true }))
 			.setDescription(`User mention: ${member} \n User ID: \`${member.id}\``)
-			.setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
+			.setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true }))
 			.addFields(
 				{ name: 'Nickname:', value: member.displayName, inline: true },
 				{ name: 'User Status:', value: member.presence.status, inline: true },
@@ -21,7 +21,7 @@ module.exports = {
 				{ name: 'Joined Discord:', value: member.user.createdAt, inline: true },
 			)
 			.setTimestamp()
-			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ dynamic: true }));
+			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 
 		message.channel.send(embed);
 	},
