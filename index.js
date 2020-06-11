@@ -17,7 +17,6 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
-	console.log(`Successfully loaded command ${command.name}`)
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`)
 
