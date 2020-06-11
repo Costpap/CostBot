@@ -5,7 +5,7 @@ module.exports = {
 	ownerOnly: true,
 	cooldown: 60,
 	execute(message) {
-		console.warn(`Shutdown initiated by ${message.author.tag}.`),
+		console.log(`Shutdown initiated by ${message.author.tag}.`),
 		message.channel.send(':white_check_mark: Shutting down...')
 			.then(() => process.exit());
 	},

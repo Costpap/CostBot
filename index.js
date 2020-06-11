@@ -17,7 +17,9 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
+	console.log(`Successfully loaded command ${command.name}`)
 }
+console.log(`Successfully loaded all ${client.commands.size} commands!`)
 
 if (!process.env.TOKEN) return console.error('Missing client token. Shutting down...');
 if (!prefix || prefix.length > 5) return console.error('Prefix is either missing or too long. Shutting down...');
