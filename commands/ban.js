@@ -13,6 +13,9 @@ module.exports = {
 			return message.reply('You need the `Ban Members` permission in order to use this command!');
 		}
 		const user = message.mentions.users.first();
+		if (user === message.author) {
+			return message.reply('please don\'t ban yourself!');
+		}
 		if (user.bannable === false) {
 			return message.channel.send(':x: I cannot ban this user! \n**Please make sure that my highest role is above theirs.**');
 		}

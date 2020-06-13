@@ -12,6 +12,9 @@ module.exports = {
 		if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Ban Members` permission in order to use this command!');
 		}
+		if (args[0] === message.author.id) {
+			return message.channel.send('How do you unban yourself? :thinking:');
+		}
 		try {
 			const messageArgs = args.slice(0);
 			message.guild.members.unban(args[0], [(messageArgs.slice(1).join(' '))]);

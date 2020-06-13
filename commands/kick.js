@@ -14,6 +14,9 @@ module.exports = {
 			return message.reply('you need the `Kick Members` permission in order to use this command!');
 		}
 		const member = message.mentions.members.first();
+		if (member === message.member) {
+			return message.reply('please don\'t kick yourself!');
+		}
 		if (member.kickable === false) {
 			return message.channel.send(':x: I cannot kick this user! \n**Please make sure that my highest role is above theirs.**');
 		}
