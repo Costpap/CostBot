@@ -48,14 +48,6 @@ client.on('message', async message => {
 	|| command.adminOnly && (botAdmin.includes(message.author.id) !== true))) {
 		return message.reply('You cannot use this command!');
 	}
-
-	if (command.adminOnly && (botAdmin.includes(message.author.id) !== true)) {
-		return message.reply('You cannot use this command!');
-	}
-
-	if (command.guildOnly && message.channel.type !== 'text') {
-		return message.reply(':x: I can\'t execute this command inside DMs!');
-	}
 	if (command.args && !args.length) {
 		let reply = `:warning: You didn't provide any arguments, ${message.author}!`;
 
