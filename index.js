@@ -44,7 +44,8 @@ client.on('message', async message => {
 	if (command.disabled === true) {
 		return message.channel.send(':warning: This command has been temporarily disabled.');
 	}
-	if (command.ownerOnly && (botOwner.includes(message.author.id) !== true)) {
+	if (command.ownerOnly && (botOwner.includes(message.author.id) !== true
+	|| command.adminOnly && (botAdmin.includes(message.author.id) !== true))) {
 		return message.reply('You cannot use this command!');
 	}
 
