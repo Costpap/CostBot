@@ -7,7 +7,7 @@ module.exports = {
 	args: true,
 	usage: 'userID text',
 	cooldown: 5,
-	execute(message, args) {
+	async execute(message, args) {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to send them a DM!');
 		}
@@ -26,7 +26,8 @@ module.exports = {
 					embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 					try {
 						dmUser.send(embed);
-						return message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+						const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+						sentMessage.delete({ timeout: 5000 });
 					}
 					catch (error) {
 						console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
@@ -36,7 +37,8 @@ module.exports = {
 
 				try {
 					dmUser.send(embed);
-					return message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+					const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
 					console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
@@ -46,7 +48,8 @@ module.exports = {
 
 			try {
 				dmUser.send(messageArgs.slice(1).join(' '));
-				return message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+				const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+				return sentMessage.delete({ timeout: 5000 });
 			}
 			catch (error) {
 				console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
