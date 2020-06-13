@@ -13,12 +13,12 @@ module.exports = {
 
 		if (!args.length) {
 			const embed = new Discord.MessageEmbed()
-			.setColor('#6293f5')
-			.setAuthor(`${message.client.user.username} Help`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
-			.setTitle('Here\'s a list of all my commands:')
-			.setDescription(commands.map(command => command.name).join(', '))
-			.setTimestamp()
-			.setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`)
+				.setColor('#6293f5')
+				.setAuthor(`${message.client.user.username} Help`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
+				.setTitle('Here\'s a list of all my commands:')
+				.setDescription(commands.map(command => command.name).join(', '))
+				.setTimestamp()
+				.setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
 
 			return message.author.send(embed)
 				.then(() => {
@@ -50,10 +50,10 @@ module.exports = {
 			embed.addField('Description:', command.description);
 		}
 		if (command.ownerOnly) {
-			embed.addField('Permission level:', 'Bot Owner')
+			embed.addField('Permission level:', 'Bot Owner');
 		}
 		if (command.adminOnly) {
-			embed.addField('Permission level:', 'Bot Administrator')
+			embed.addField('Permission level:', 'Bot Administrator');
 		}
 		if (command.usage) {
 			embed.addField('Usage:', `${prefix}${command.name} ${command.usage}`);
