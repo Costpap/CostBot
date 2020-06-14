@@ -4,9 +4,9 @@ module.exports = {
 	aliases: ['shutdown', 'shdn', 'restart', 'rst', 'reboot', 'rbt'],
 	ownerOnly: true,
 	cooldown: 60,
-	execute(message) {
+	async execute(message) {
 		console.log(`Shutdown initiated by ${message.author.tag}.`),
-		message.channel.send(':white_check_mark: Shutting down...')
-			.then(() => process.exit());
+		await message.channel.send(':white_check_mark: Shutting down...');
+		process.exit();
 	},
 };

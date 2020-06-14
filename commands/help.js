@@ -8,7 +8,7 @@ module.exports = {
 	aliases: ['commands', 'cmds'],
 	usage: '[command name]',
 	cooldown: 5,
-	execute(message, args) {
+	async execute(message, args) {
 		const { commands } = message.client;
 
 		if (!args.length) {
@@ -20,15 +20,15 @@ module.exports = {
 				.setTimestamp()
 				.setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
 
-			return message.author.send(embed)
-				.then(() => {
-					if (message.channel.type === 'dm') return;
-					message.reply('I\'ve sent you a DM with all my commands!');
-				})
-				.catch(error => {
-					console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-					message.reply('I can\'t DM you. **Please make sure that you have DMs enabled.**');
-				});
+			try {
+				await message.author.send(embed);
+				if (message.channel.type === 'dm') return;
+				message.reply('I have sent you a DM with all my commands!');
+			}
+			catch (error) {
+				console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+				message.reply('I can\'t DM you. **Please make sure that you have DMs enabled.**');
+			}
 		}
 
 		const name = args[0].toLowerCase();
