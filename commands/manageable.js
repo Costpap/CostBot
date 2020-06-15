@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ['mod-able', 'modable'],
 	guildOnly: true,
 	cooldown: 5,
-	execute(message) {
+	do: (message) => {
 		const member = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)

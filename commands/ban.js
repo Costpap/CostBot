@@ -4,7 +4,7 @@ module.exports = {
 	guildOnly: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
-	execute(message, args) {
+	do: (message, args) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to ban them!');
 		}

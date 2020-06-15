@@ -7,7 +7,7 @@ module.exports = {
 	args: true,
 	usage: 'userID text',
 	cooldown: 5,
-	async execute(message, args) {
+	do: async (message, args) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to send them a DM!');
 		}

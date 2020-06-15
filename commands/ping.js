@@ -5,7 +5,7 @@ module.exports = {
 	name: 'ping',
 	description: 'Pings the bot!',
 	cooldown: 5,
-	async execute(message) {
+	do: async (message) => {
 		const sentMessage = await message.channel.send('Pinging...');
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')

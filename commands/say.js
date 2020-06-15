@@ -7,7 +7,7 @@ module.exports = {
 	args: true,
 	usage: '(#optional-channel) [text]',
 	cooldown: 5,
-	execute(message, args) {
+	do: (message, args) => {
 		message.delete();
 
 		const messageArgs = args.slice(0);

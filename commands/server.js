@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ['server-info', 'si', 'guild', 'guild-info', 'gi'],
 	guildOnly: true,
 	cooldown: 5,
-	execute(message) {
+	do: (message) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')
 			.setTitle(`${message.guild.name}`)

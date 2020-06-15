@@ -6,7 +6,7 @@ module.exports = {
 	ownerOnly: true,
 	usage: 'code',
 	args: true,
-	async execute(message, args) {
+	do: async (message, args) => {
 		const clean = text => {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}
