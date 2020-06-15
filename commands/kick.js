@@ -5,7 +5,7 @@ module.exports = {
 	args: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
-	do: (message, args) => {
+	do: async (message, args) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to kick them!');
 		}

@@ -5,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	usage: '@member (optional reason)',
 	cooldown: 10,
-	do: (message, args) => {
+	do: async (message, args) => {
 		if (!args.length) {
 			return message.reply('you need to provide the ID of a user to unban!');
 		}

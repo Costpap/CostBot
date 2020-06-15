@@ -5,7 +5,7 @@ module.exports = {
 	args: true,
 	guildOnly: true,
 	cooldown: 10,
-	do: (message) => {
+	do: async (message) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to mute them!');
 		}

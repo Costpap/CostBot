@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ['perms', 'roles', 'permlist', 'rolelist'],
 	guildOnly: true,
 	cooldown: 5,
-	do: (message) => {
+	do: async (message) => {
 		const member = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)

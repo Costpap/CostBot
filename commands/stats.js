@@ -7,7 +7,7 @@ module.exports = {
 	description: 'Shows statistics about this bot.',
 	aliases: ['statistics', 'uptime'],
 	cooldown: 5,
-	do: (message) => {
+	do: async (message) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setTitle(`${message.client.user.username} Statistics`)

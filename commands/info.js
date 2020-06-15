@@ -7,7 +7,7 @@ module.exports = {
 	description: 'Sends you information about the bot.',
 	aliases: ['information'],
 	cooldown: 5,
-	do: (message) => {
+	do: async (message) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setThumbnail(message.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
