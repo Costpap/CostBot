@@ -16,8 +16,8 @@ module.exports = {
 			return message.channel.send('How do you unban yourself? :thinking:');
 		}
 		try {
-			const messageArgs = args.slice(0);
-			message.guild.members.unban(args[0], [(messageArgs.slice(1).join(' '))]);
+			const reason = args.slice(0);
+			message.guild.members.unban(args[0], [(reason.slice(1).join(' '))]);
 			message.channel.send(`:white_check_mark: Unbanned \`${args[0]}\`.`);
 		}
 		catch (error) {

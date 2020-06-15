@@ -21,8 +21,8 @@ module.exports = {
 			return message.channel.send(':x: I cannot kick this user! \n**Please make sure that my highest role is above theirs.**');
 		}
 		try {
-			const messageArgs = args.slice(0);
-			member.kick([(messageArgs.slice(1).join(' '))]);
+			const reason = args.slice(0);
+			member.kick([(reason.slice(1).join(' '))]);
 			message.channel.send(`:hammer: Kicked \`${member.user.tag} (${member.id})\`.`);
 		}
 		catch (error) {
