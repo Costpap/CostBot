@@ -1,5 +1,5 @@
 module.exports = async (debug) => {
-	if (process.env.NODE_ENV === 'development') {
+	if (process.env.DEBUG === 'true') {
 		console.debug(debug);
 	}
 };
