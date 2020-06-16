@@ -30,7 +30,7 @@ module.exports = {
 						sentMessage.delete({ timeout: 5000 });
 					}
 					catch (error) {
-						console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+						// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
 						return message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
 					}
 				}
@@ -41,7 +41,7 @@ module.exports = {
 					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
-					console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+					// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
 					return message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
 				}
 			}
@@ -52,7 +52,7 @@ module.exports = {
 				return sentMessage.delete({ timeout: 5000 });
 			}
 			catch (error) {
-				console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+				// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
 				return message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
 			}
 		}

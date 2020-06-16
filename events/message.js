@@ -51,7 +51,7 @@ module.exports = async (Discord, client, message) => {
 		command.do(message, client, Discord, args);
 	}
 	catch (error) {
-		console.error(error);
+		// console.error(error);
 		message.reply(`I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``);
 	}
 

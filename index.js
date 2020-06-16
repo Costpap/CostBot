@@ -23,7 +23,7 @@ for (const file of eventFiles) {
 			event(Discord, client, ...args);
 		}
 		catch (error) {
-			console.error(error);
+			// console.error(error);
 		}
 	});
 	events.push(eventName);

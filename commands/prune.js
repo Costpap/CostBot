@@ -24,7 +24,7 @@ module.exports = {
 			sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
-			console.error(error);
+			// console.error(error);
 			message.reply(`:x: I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``);
 		}
 	},

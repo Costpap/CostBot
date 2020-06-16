@@ -21,7 +21,7 @@ module.exports = {
 			message.channel.send(`:white_check_mark: Unbanned \`${args[0]}\`.`);
 		}
 		catch (error) {
-			console.error(error);
+			// console.error(error);
 			message.reply(`:x: I encountered an error while trying to unban \`${args[0]}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 

@@ -26,7 +26,7 @@ module.exports = {
 			message.channel.send(`:hammer: Kicked \`${member.user.tag} (${member.id})\`.`);
 		}
 		catch (error) {
-			console.error(error);
+			// console.error(error);
 			message.reply(`:x: I encountered an error while trying to kick \`${member.user.tag}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 

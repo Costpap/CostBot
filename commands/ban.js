@@ -25,7 +25,7 @@ module.exports = {
 			message.channel.send(`:hammer: Banned \`${user.tag} (${user.id})\`.`);
 		}
 		catch (error) {
-			console.error(error);
+			// console.error(error);
 			message.reply(`:x: I encountered an error while trying to ban \`${user.tag}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 
