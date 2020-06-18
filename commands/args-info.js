@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 module.exports = {
 	name: 'args-info',
 	description: 'Information about the arguments provided.',
@@ -21,6 +23,14 @@ module.exports = {
 			return message.channel.send('God');
 		}
 
-		message.channel.send(`Arguments: ${args}\nArguments length: ${args.length}`);
+		const embed = new Discord.MessageEmbed()
+			.setColor('#6293f5')
+			.addFields(
+				{ name: 'Arguments:', value: args.join(' ') },
+				{ name: 'Total length:', value: args.length },
+			)
+			.setTimestamp()
+			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
+		message.channel.send(embed);
 	},
 };
