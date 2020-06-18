@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 module.exports = {
 	name: 'avatar',
-	description: 'Get the avatar URL of the mentioned user(s), or your own avatar.',
+	description: 'Get the avatar of the mentioned user or yourself.',
 	aliases: ['icon', 'pfp'],
 	cooldown: 5,
 	execute(message) {

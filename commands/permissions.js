@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 module.exports = {
 	name: 'permissions',
-	description: 'Displays the permissions and roles of the mentioned user.',
+	description: 'Displays the permissions and roles of the mentioned user or yourself.',
 	aliases: ['perms', 'roles', 'permlist', 'rolelist'],
 	guildOnly: true,
 	cooldown: 5,
