@@ -20,8 +20,8 @@ module.exports = {
 			return message.channel.send(':x: I cannot ban this user! \n**Please make sure that my highest role is above theirs.**');
 		}
 		try {
-			const messageArgs = args.slice(0);
-			message.guild.members.ban(user, { reason: messageArgs.slice(1).join(' ') });
+
+			message.guild.members.ban(user, { reason: args.slice(1).join(' ') });
 			message.channel.send(`:hammer: Banned \`${user.tag} (${user.id})\`.`);
 		}
 		catch (error) {

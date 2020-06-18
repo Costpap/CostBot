@@ -15,14 +15,14 @@ module.exports = {
 			if (dmUser.bot) return message.reply('You cannot send messages to this user!');
 			message.delete();
 
-			const messageArgs = args.slice(0);
+
 			if (args[0] === 'embed') {
 				const embed = new Discord.MessageEmbed()
 					.setColor('#6293f5')
-					.setDescription(messageArgs.slice(2).join(' '))
+					.setDescription(args.slice(2).join(' '))
 					.setTimestamp();
 				if (args[1] === 'name') {
-					embed.setDescription(messageArgs.slice(3).join(' '));
+					embed.setDescription(args.slice(3).join(' '));
 					embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 					try {
 						dmUser.send(embed);
@@ -47,7 +47,7 @@ module.exports = {
 			}
 
 			try {
-				dmUser.send(messageArgs.slice(1).join(' '));
+				dmUser.send(args.slice(1).join(' '));
 				const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
 				return sentMessage.delete({ timeout: 5000 });
 			}
