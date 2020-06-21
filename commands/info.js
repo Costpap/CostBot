@@ -5,8 +5,9 @@ const { version } = require('../package.json');
 
 module.exports = {
 	name: 'info',
-	description: 'Sends you information about the bot.',
+	description: 'Displays information about the bot.',
 	aliases: ['information'],
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	async execute(message) {
 		const developer = await message.client.users.cache.get(botOwner);

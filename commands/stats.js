@@ -4,8 +4,9 @@ const humanizeDuration = require('humanize-duration');
 
 module.exports = {
 	name: 'stats',
-	description: 'Shows statistics about this bot.',
+	description: 'Displays statistics about this bot.',
 	aliases: ['statistics', 'uptime'],
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message) {
 		const embed = new Discord.MessageEmbed()

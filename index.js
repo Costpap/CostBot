@@ -53,6 +53,11 @@ client.on('message', async message => {
 		return message.reply(':x: I can\'t execute this command inside DMs!');
 	}
 
+	if (command.permissions && message.channel.type === 'text'
+	&& !message.guild.me.hasPermission(command.permissions, { checkAdmin: true })) {
+		return message.channel.send(`:x: Sorry, I need the \`${command.permissions}\` permission(s) in order to execute this command.`);
+	}
+
 	if (command.args && !args.length) {
 		let reply = `:warning: You didn't provide any arguments, ${message.author}!`;
 

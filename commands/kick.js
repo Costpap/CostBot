@@ -4,14 +4,14 @@ module.exports = {
 	guildOnly: true,
 	args: true,
 	usage: '@member (optional reason)',
+	permissions: ['KICK_MEMBERS'],
 	cooldown: 10,
 	execute(message, args) {
-		if (!message.mentions.users.size) {
-			return message.reply('you need to tag a user in order to kick them!');
-		}
-
 		if (!message.member.hasPermission('KICK_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Kick Members` permission in order to use this command!');
+		}
+		if (!message.mentions.users.size) {
+			return message.reply('you need to tag a user in order to kick them!');
 		}
 		const member = message.mentions.members.first();
 		if (member === message.member) {

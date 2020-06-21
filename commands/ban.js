@@ -3,6 +3,7 @@ module.exports = {
 	description: 'Bans the @mentioned user from your server.',
 	guildOnly: true,
 	usage: '@member (optional reason)',
+	permissions: ['EMBED_LINKS'],
 	cooldown: 10,
 	execute(message, args) {
 		if (!message.mentions.users.size) {

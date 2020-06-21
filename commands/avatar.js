@@ -4,6 +4,7 @@ module.exports = {
 	name: 'avatar',
 	description: 'Get the avatar of the mentioned user or yourself.',
 	aliases: ['icon', 'pfp'],
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message) {
 		const user = message.mentions.users.first() || message.author;

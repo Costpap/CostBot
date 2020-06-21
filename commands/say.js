@@ -6,6 +6,7 @@ module.exports = {
 	adminOnly: true,
 	args: true,
 	usage: '(#optional-channel) [text]',
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message, args) {
 		message.delete();

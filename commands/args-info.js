@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Information about the arguments provided.',
 	args: true,
 	usage: 'argument(s)',
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message, args) {
 		if (args[0] === 'foo') {

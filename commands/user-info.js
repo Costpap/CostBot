@@ -4,6 +4,7 @@ module.exports = {
 	name: 'user-info',
 	description: 'Display info about the mentioned user or yourself.',
 	aliases: ['whois', 'info', 'ui'],
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message) {
 		const member = message.mentions.members.first() || message.member;

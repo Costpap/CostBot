@@ -4,6 +4,7 @@ const { version } = require('../package.json');
 module.exports = {
 	name: 'ping',
 	description: 'Pings the bot!',
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	async execute(message) {
 		const sentMessage = await message.channel.send('Pinging...');

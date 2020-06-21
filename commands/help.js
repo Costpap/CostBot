@@ -7,6 +7,7 @@ module.exports = {
 	description: 'List all of my commands or info about a specific command.',
 	aliases: ['commands', 'cmds'],
 	usage: '[command name]',
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	async execute(message, args) {
 		const { commands } = message.client;

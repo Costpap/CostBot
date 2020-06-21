@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Displays the permissions and roles of the mentioned user or yourself.',
 	aliases: ['perms', 'roles', 'permlist', 'rolelist'],
 	guildOnly: true,
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message) {
 		const member = message.mentions.members.first() || message.member;

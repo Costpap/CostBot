@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Shows if the bot can manage this user or not.',
 	aliases: ['mod-able', 'modable'],
 	guildOnly: true,
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message) {
 		const member = message.mentions.members.first() || message.member;

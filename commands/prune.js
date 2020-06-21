@@ -5,6 +5,7 @@ module.exports = {
 	usage: '[number of messages]',
 	args: true,
 	guildOnly: true,
+	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 10,
 	async execute(message, args) {
 		if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
