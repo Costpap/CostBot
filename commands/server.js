@@ -5,6 +5,7 @@ module.exports = {
 	description: 'Display info about this server.',
 	aliases: ['server-info', 'si', 'guild', 'guild-info', 'gi'],
 	guildOnly: true,
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	execute(message) {
 		const embed = new Discord.MessageEmbed()
