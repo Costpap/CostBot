@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'eval',
 	description: 'Runs JavaScript code.',
@@ -7,7 +5,7 @@ module.exports = {
 	usage: 'code',
 	args: true,
 	permissions: ['EMBED_LINKS'],
-	do: async (message, args) => {
+	do: async (message, args, Discord) => {
 		const clean = text => {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}

@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'manageable',
 	description: 'Shows if the bot can manage this user or not.',
@@ -7,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message) => {
+	do: async (message, Discord) => {
 		const member = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)

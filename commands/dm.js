@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'dm',
 	description: 'Sends a direct message through the bot',
@@ -7,7 +5,7 @@ module.exports = {
 	args: true,
 	usage: 'userID text',
 	cooldown: 5,
-	do: async (message, args) => {
+	do: async (message, args, Discord) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to send them a DM!');
 		}

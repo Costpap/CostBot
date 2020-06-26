@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'say',
 	description: 'Sends a message through the bot',
@@ -8,7 +6,7 @@ module.exports = {
 	usage: '(#optional-channel) [text]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args) => {
+	do: async (message, args, Discord) => {
 		message.delete();
 
 		if (!message.mentions.channels.size) {

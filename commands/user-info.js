@@ -1,12 +1,10 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'user-info',
 	description: 'Display info about the mentioned user or yourself.',
 	aliases: ['whois', 'user', 'ui'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message) => {
+	do: async (message, Discord) => {
 		const member = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)

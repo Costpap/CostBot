@@ -1,12 +1,10 @@
-const Discord = require("discord.js");
-
 module.exports = {
 	name: 'avatar',
 	description: 'Get the avatar of the mentioned user or yourself.',
 	aliases: ['icon', 'pfp'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message) => {
+	do: async (message, Discord) => {
 		const user = message.mentions.users.first() || message.author;
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')

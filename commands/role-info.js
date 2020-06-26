@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'role-info',
 	description: 'Displays information about a role.',
@@ -9,7 +7,7 @@ module.exports = {
 	usage: '[role ID]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 7,
-	do: async (message, args) => {
+	do: async (message, args, Discord) => {
 		const role = message.guild.roles.cache.get(args[0]);
 		const embed = new Discord.MessageEmbed()
 			.setColor(role.hexColor)

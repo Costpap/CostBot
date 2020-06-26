@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'server',
 	description: 'Display info about this server.',
@@ -7,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message) => {
+	do: async (message, Discord) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')
 			.setTitle(`${message.guild.name}`)

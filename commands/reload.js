@@ -5,10 +5,10 @@ module.exports = {
 	args: true,
 	aliases: ['cmdr'],
 	usage: '[command name]',
-	do: async (message, args) => {
+	do: async (message, client, args) => {
 		const commandName = args[0].toLowerCase();
-		const command = message.client.commands.get(commandName)
-			|| message.client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+		const command = client.commands.get(commandName)
+			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
 			return message.channel.send(`:x: There is no command with name or alias \`${commandName}\`!`);
@@ -18,7 +18,7 @@ module.exports = {
 
 		try {
 			const newCommand = require(`./${command.name}.js`);
-			message.client.commands.set(newCommand.name, newCommand);
+			client.commands.set(newCommand.name, newCommand);
 			message.channel.send(`:white_check_mark: Command \`${command.name}\` was reloaded!`);
 		}
 		catch (error) {

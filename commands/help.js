@@ -1,30 +1,28 @@
-const Discord = require('discord.js');
 const { version } = require('../package.json');
 const { prefix } = require('../config.json');
 
 module.exports = {
 	name: 'help',
-	description: 'List all of my commands or info about a specific command.',
+	description: 'Lists all of my commands or info about a specific command.',
 	aliases: ['commands', 'cmds'],
 	usage: '[command name]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args) => {
-		const { commands } = message.client;
+	do: async (message, client, Discord, args) => {
 
 		if (!args.length) {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#6293f5')
-				.setAuthor(`${message.client.user.username} Help`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }))
+				.setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png', dynamic: true }))
 				.setTitle('Here\'s a list of all my commands:')
-				.setDescription(commands.map(command => command.name).join(', '))
+				.setDescription(client.commands.map(command => command.name).join(', '))
 				.setTimestamp()
 				.setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
 
 			try {
 				await message.author.send(embed);
 				if (message.channel.type === 'dm') return;
-				message.reply('I have sent you a DM with all my commands!');
+				return message.reply('I have sent you a DM with all my commands!');
 			}
 			catch (error) {
 				// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
@@ -33,10 +31,10 @@ module.exports = {
 		}
 
 		const name = args[0].toLowerCase();
-		const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
+		const command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
 
 		if (!command) {
-			return message.reply('that\'s not a valid command!');
+			return message.reply(`That's not a valid command. Do \`${prefix}help\` to see a list of all commands.`);
 		}
 
 
@@ -61,7 +59,7 @@ module.exports = {
 		}
 		embed.addField('Cooldown', `${command.cooldown || 3} second(s)`);
 		embed.setTimestamp();
-		embed.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }));
+		embed.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 
 		message.channel.send(embed);
 	},

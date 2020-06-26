@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'args-info',
 	description: 'Information about the arguments provided.',
@@ -7,7 +5,7 @@ module.exports = {
 	usage: 'argument(s)',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args) => {
+	do: async (message, args, Discord) => {
 		if (args[0] === 'foo') {
 			return message.channel.send('bar');
 		}

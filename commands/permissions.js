@@ -1,5 +1,3 @@
-const Discord = require('discord.js');
-
 module.exports = {
 	name: 'permissions',
 	description: 'Displays the permissions and roles of the mentioned user or yourself.',
@@ -7,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args) => {
+	do: async (message, args, Discord) => {
 		if (args[0] === 'role') {
 			const role = message.guild.roles.cache.get(args[1]);
 			const embed = new Discord.MessageEmbed()
