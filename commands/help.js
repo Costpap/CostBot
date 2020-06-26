@@ -25,8 +25,8 @@ module.exports = {
 				return message.reply('I have sent you a DM with all my commands!');
 			}
 			catch (error) {
-				// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-				message.reply('I can\'t DM you. **Please make sure that you have DMs enabled.**');
+				console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+				return message.reply('I can\'t DM you. **Please make sure that you have DMs enabled.**');
 			}
 		}
 

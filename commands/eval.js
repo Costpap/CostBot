@@ -29,7 +29,7 @@ module.exports = {
 			message.channel.send(embed);
 		}
 		catch (error) {
-			// console.error('Eval:', error);
+			console.error('Eval:', error);
 			const embed = new Discord.MessageEmbed()
 				.setColor('RED')
 				.setTitle('Evaluation Error')
