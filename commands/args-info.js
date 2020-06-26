@@ -27,8 +27,8 @@ module.exports = {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.addFields(
-				{ name: 'Arguments:', value: args.join(' ') },
-				{ name: 'Total length:', value: args.length },
+				{ name: 'Arguments', value: args.join(' ') },
+				{ name: 'Total length', value: args.length },
 			)
 			.setTimestamp()
 			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));

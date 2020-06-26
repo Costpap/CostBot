@@ -14,12 +14,12 @@ module.exports = {
 			.setDescription(`User mention: ${member} \n User ID: \`${member.id}\``)
 			.setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true }))
 			.addFields(
-				{ name: 'Nickname:', value: member.displayName, inline: true },
-				{ name: 'User Status:', value: member.presence.status, inline: true },
-				{ name: 'Bot:', value: member.user.bot, inline: true },
-				{ name: 'Avatar URL:', value: `[Click here](${member.user.displayAvatarURL({ format: 'png', dynamic: true })})`, inline: true },
-				{ name: 'Joined Server:', value: member.joinedAt },
-				{ name: 'Joined Discord:', value: member.user.createdAt, inline: true },
+				{ name: 'Nickname', value: member.displayName, inline: true },
+				{ name: 'User Status', value: member.presence.status, inline: true },
+				{ name: 'Bot', value: member.user.bot, inline: true },
+				{ name: 'Avatar URL', value: `[Click here](${member.user.displayAvatarURL({ format: 'png', dynamic: true })})`, inline: true },
+				{ name: 'Joined Server', value: member.joinedAt },
+				{ name: 'Joined Discord', value: member.user.createdAt, inline: true },
 			)
 			.setTimestamp()
 			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));

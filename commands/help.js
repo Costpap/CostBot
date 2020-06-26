@@ -46,20 +46,20 @@ module.exports = {
 		if (command.disabled) {
 			embed.setDescription(':warning: This command is currently **disabled**.');
 		}
-		command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases:' : 'Alias:', command.aliases.join(', ')) : '';
+		command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases' : 'Alias', command.aliases.join(', ')) : '';
 		if (command.description) {
-			embed.addField('Description:', command.description);
+			embed.addField('Description', command.description);
 		}
 		if (command.ownerOnly) {
-			embed.addField('Permission level:', 'Bot Owner');
+			embed.addField('Permission level', 'Bot Owner');
 		}
 		if (command.adminOnly) {
-			embed.addField('Permission level:', 'Bot Administrator');
+			embed.addField('Permission level', 'Bot Administrator');
 		}
 		if (command.usage) {
-			embed.addField('Usage:', `${prefix}${command.name} ${command.usage}`);
+			embed.addField('Usage', `${prefix}${command.name} ${command.usage}`);
 		}
-		embed.addField('Cooldown:', `${command.cooldown || 3} second(s)`);
+		embed.addField('Cooldown', `${command.cooldown || 3} second(s)`);
 		embed.setTimestamp();
 		embed.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 

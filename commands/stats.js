@@ -13,9 +13,9 @@ module.exports = {
 			.setColor('#6293f5')
 			.setTitle(`${message.client.user.username} Statistics`)
 			.addFields(
-				{ name: 'Server Count:', value: message.client.guilds.cache.size, inline: true },
-				{ name: 'Total Members:', value: message.client.users.cache.size, inline: true },
-				{ name: 'Bot uptime:', value: humanizeDuration(message.client.uptime), inline: true },
+				{ name: 'Server Count', value: message.client.guilds.cache.size, inline: true },
+				{ name: 'Total Members', value: message.client.users.cache.size, inline: true },
+				{ name: 'Bot uptime', value: humanizeDuration(message.client.uptime), inline: true },
 			)
 			.setTimestamp()
 			.setFooter(`${message.client.user.username} v${version}`, message.client.user.displayAvatarURL({ format: 'png', dynamic: true }));

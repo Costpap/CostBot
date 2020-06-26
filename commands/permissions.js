@@ -27,8 +27,8 @@ module.exports = {
 			.setColor(member.displayHexColor)
 			.setTitle(`Roles & permissions list for ${member.user.tag} (${member.id})`)
 			.addFields(
-				{ name: 'User roles:', value: member.roles.cache.map(role => role).join(', ') },
-				{ name: 'User permissions:', value: member.permissions.toArray(permission => permission).join(', ') },
+				{ name: 'User roles', value: member.roles.cache.map(role => role).join(', ') },
+				{ name: 'User permissions', value: member.permissions.toArray(permission => permission).join(', ') },
 			)
 			.setTimestamp()
 			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
