@@ -3,6 +3,7 @@ module.exports = {
 	description: 'Bans the @mentioned user from your server.',
 	guildOnly: true,
 	usage: '@member (optional reason)',
+	permissions: ['BAN_MEMBERS'],
 	cooldown: 10,
 	do: async (message, args) => {
 		if (!message.mentions.users.size) {
@@ -20,8 +21,8 @@ module.exports = {
 			return message.channel.send(':x: I cannot ban this user! \n**Please make sure that my highest role is above theirs.**');
 		}
 		try {
-			const reason = args.slice(0);
-			message.guild.members.ban(user, { reason: reason.slice(1).join(' ') });
+
+			message.guild.members.ban(user, { reason: args.slice(1).join(' ') });
 			message.channel.send(`:hammer: Banned \`${user.tag} (${user.id})\`.`);
 		}
 		catch (error) {

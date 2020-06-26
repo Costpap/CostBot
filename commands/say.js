@@ -6,22 +6,22 @@ module.exports = {
 	adminOnly: true,
 	args: true,
 	usage: '(#optional-channel) [text]',
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	do: async (message, args) => {
 		message.delete();
 
-		const messageArgs = args.slice(0);
 		if (!message.mentions.channels.size) {
 			if (args[0] === 'embed') {
 				const embed = new Discord.MessageEmbed()
 					.setColor('#6293f5')
 					.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
-					.setDescription(messageArgs.slice(1).join(' '))
+					.setDescription(args.slice(1).join(' '))
 					.setTimestamp();
 
 				return message.channel.send(embed);
 			}
-			return message.channel.send(messageArgs.slice(0).join(' '));
+			return message.channel.send(args.slice(0).join(' '));
 		}
 
 		const sayChannel = message.mentions.channels.first(); {
@@ -29,12 +29,12 @@ module.exports = {
 				const embed = new Discord.MessageEmbed()
 					.setColor('#6293f5')
 					.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
-					.setDescription(messageArgs.slice(2).join(' '))
+					.setDescription(args.slice(2).join(' '))
 					.setTimestamp();
 
 				return sayChannel.send(embed);
 			}
-			sayChannel.send(messageArgs.slice(1).join(' '));
+			sayChannel.send(args.slice(1).join(' '));
 		}
 	},
 };

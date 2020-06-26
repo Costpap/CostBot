@@ -15,46 +15,44 @@ module.exports = {
 			if (dmUser.bot) return message.reply('You cannot send messages to this user!');
 			message.delete();
 
-			const messageArgs = args.slice(0);
-			if (args[0] === 'embed') {
-				const embed = new Discord.MessageEmbed()
-					.setColor('#6293f5')
-					.setDescription(messageArgs.slice(2).join(' '))
-					.setTimestamp();
-				if (args[1] === 'name') {
-					embed.setDescription(messageArgs.slice(3).join(' '));
-					embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
-					try {
-						dmUser.send(embed);
-						const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
-						sentMessage.delete({ timeout: 5000 });
-					}
-					catch (error) {
-						// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-						return message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
-					}
-				}
+			const embed = new Discord.MessageEmbed().setColor('#6293f5').setTimestamp();
 
+			if (args[0] === 'embed' && args[1] === 'name') {
+				embed.setDescription(args.slice(3).join(' '));
+				embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 				try {
 					dmUser.send(embed);
 					const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
 					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
-					// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-					return message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
+					console.error(`Could not send ${message.author.tag}'s (${message.author.id}) DM to ${dmUser.tag} (${dmUser.id}):\n`, error);
+					return message.channel.send(`:x: Could not send message to ${dmUser.tag}`);
+				}
+			}
+			else if (args[0] === 'embed') {
+				embed.setDescription(args.slice(2).join(' '));
+				try {
+					dmUser.send(embed);
+					const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+					return sentMessage.delete({ timeout: 5000 });
+				}
+				catch (error) {
+					console.error(`Could not send ${message.author.tag}'s (${message.author.id}) DM to ${dmUser.tag} (${dmUser.id}):\n`, error);
+					return message.channel.send(`:x: Could not send message to ${dmUser.tag}`);
 				}
 			}
 
-			try {
-				dmUser.send(messageArgs.slice(1).join(' '));
-				const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
-				return sentMessage.delete({ timeout: 5000 });
-			}
-			catch (error) {
-				// console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-				return message.channel.send(`:x: Could not send a message to ${dmUser.tag}`);
-			}
+		}
+
+		try {
+			dmUser.send(args.slice(1).join(' '));
+			const sentMessage = await message.channel.send(`:white_check_mark: Successfully sent DM to ${dmUser.tag}`);
+			return sentMessage.delete({ timeout: 5000 });
+		}
+		catch (error) {
+			console.error(`Could not send ${message.author.tag}'s (${message.author.id}) DM to ${dmUser.tag} (${dmUser.id}):\n`, error);
+			return message.channel.send(`:x: Could not send message to ${dmUser.tag}`);
 		}
 	},
 };

@@ -1,17 +1,21 @@
+const Discord = require("discord.js");
+
 module.exports = {
 	name: 'avatar',
-	description: 'Get the avatar URL of the mentioned user(s), or your own avatar.',
+	description: 'Get the avatar of the mentioned user or yourself.',
 	aliases: ['icon', 'pfp'],
+	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	do: async (message) => {
-		if (!message.mentions.users.size) {
-			return message.channel.send(`Your avatar: ${message.author.displayAvatarURL({ format: 'png', dynamic: true })}`);
-		}
+		const user = message.mentions.users.first() || message.author;
+		const embed = new Discord.MessageEmbed()
+			.setColor('RANDOM')
+			.setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
+			.setDescription(`[Click here for URL](${user.displayAvatarURL({ format: 'png', dynamic: true })})`)
+			.setImage(user.displayAvatarURL({ format: 'png', dynamic: true }))
+			.setTimestamp()
+			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 
-		const avatarList = message.mentions.users.map(user => {
-			return `${user.username}'s avatar: ${user.displayAvatarURL({ format: 'png', dynamic: true })}`;
-		});
-
-		message.channel.send(avatarList);
+		message.channel.send(embed);
 	},
 };

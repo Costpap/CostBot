@@ -5,18 +5,19 @@ module.exports = {
 	usage: '[number of messages]',
 	args: true,
 	guildOnly: true,
+	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 10,
 	do: async (message, args) => {
 		if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
-			return message.reply('You need the `Manage Messages` permission in order to use this command!');
+			return message.reply('you need the `Manage Messages` permission in order to use this command!');
 		}
 		const amount = parseInt(args[0]) + 1;
 
 		if (isNaN(amount)) {
-			return message.reply(':x: that doesn\'t seem to be a valid number.');
+			return message.reply('that doesn\'t seem to be a valid number.');
 		}
 		else if (amount <= 1 || amount > 100) {
-			return message.reply(':x: you need to input a number between 1 and 99.');
+			return message.reply('you need to input a number between 1 and 99.');
 		}
 		try {
 			message.channel.bulkDelete(amount, true);

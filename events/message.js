@@ -18,6 +18,16 @@ module.exports = async (Discord, client, message) => {
 	|| command.adminOnly && (botAdmin.includes(message.author.id) !== true))) {
 		return message.reply('You cannot use this command!');
 	}
+
+	if (command.guildOnly && message.channel.type !== 'text') {
+		return message.reply(':x: I can\'t execute this command inside DMs!');
+	}
+
+	if (command.permissions && message.channel.type === 'text'
+	&& !message.guild.me.hasPermission(command.permissions, { checkAdmin: true })) {
+		return message.channel.send(`:x: Sorry, I need the \`${command.permissions}\` permission(s) in order to execute this command.`);
+	}
+
 	if (command.args && !args.length) {
 		let reply = `:warning: You didn't provide any arguments, ${message.author}!`;
 
@@ -54,6 +64,4 @@ module.exports = async (Discord, client, message) => {
 		// console.error(error);
 		message.reply(`I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``);
 	}
-
-
 };

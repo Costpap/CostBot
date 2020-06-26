@@ -8,6 +8,8 @@ const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', '
 const client = new Discord.Client({
 	ws: { intents: intents },
 	presence: { activity: { name: 'Costpap shout', type: 'LISTENING' }, status: 'online' },
+	messageCacheLifetime: 300,
+	messageSweepInterval: 600,
 });
 
 

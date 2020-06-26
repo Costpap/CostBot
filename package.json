@@ -1,6 +1,6 @@
 {
   "name": "costbot",
-  "version": "1.2.3",
+  "version": "1.5.0",
   "description": "A thing I made",
   "repository": "https://github.com/Costpap/CostBot",
   "main": "index.js",
@@ -8,10 +8,10 @@
   "dependencies": {
     "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
-    "humanize-duration": "^3.23.0"
+    "humanize-duration": "^3.23.1"
   },
   "devDependencies": {
-    "eslint": "^7.2.0"
+    "eslint": "^7.3.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -24,6 +24,6 @@
     "cost",
     "bot"
   ],
-  "author": "Costpap#0006 (312629697567522817)",
+  "author": "Costpap",
   "license": "MIT"
 }
