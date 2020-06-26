@@ -12,9 +12,8 @@ const client = new Discord.Client({
 	messageSweepInterval: 600,
 });
 
-
+client.events = new Discord.Collection();
 const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
-const events = [];
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
@@ -28,9 +27,9 @@ for (const file of eventFiles) {
 			console.error(error);
 		}
 	});
-	events.push(eventName);
+	client.events.set(event, eventName);
 }
-console.log(`Successfully loaded all ${events.length} events!`);
+console.log(`Successfully loaded all ${client.events.size} events!`);
 
 
 client.commands = new Discord.Collection();
