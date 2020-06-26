@@ -1,6 +1,6 @@
 module.exports = {
-	name: 'reload',
-	description: 'Reloads a command',
+	name: 'command-reload',
+	description: 'Reloads a command.',
 	ownerOnly: true,
 	args: true,
 	aliases: ['cmdr'],
@@ -23,7 +23,7 @@ module.exports = {
 		}
 		catch (error) {
 			console.log(error);
-			message.channel.send(`:x: There was an error while reloading a command \`${command.name}\`:\n\`\`\`js \n ${error.message}\`\`\``);
+			message.channel.send(`:x: There was an error while reloading command \`${command.name}\`:\n\`\`\`js \n ${error.message}\`\`\``);
 		}
 	},
 };
