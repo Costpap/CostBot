@@ -4,7 +4,7 @@ module.exports = {
 	ownerOnly: true,
 	disabled: true,
 	args: true,
-	aliases: ['cmde'],
+	aliases: ['evtr'],
 	usage: '[event name]',
 	do: async (message, client, args) => {
 		const eventName = args[0].toLowerCase();
