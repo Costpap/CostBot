@@ -27,7 +27,7 @@ for (const file of eventFiles) {
 			console.error(error);
 		}
 	});
-	client.events.set(event, eventName);
+	client.events.set(eventName, event);
 }
 console.log(`Successfully loaded all ${client.events.size} events!`);
 
