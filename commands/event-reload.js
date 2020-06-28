@@ -17,7 +17,7 @@ module.exports = {
 
 		try {
 			const newEvent = require(`../events/${eventName}.js`);
-			client.commands.set(eventName, newEvent);
+			client.events.set(eventName, newEvent);
 			message.channel.send(`:white_check_mark: Event \`${eventName}\` was reloaded!`);
 		}
 		catch (error) {
