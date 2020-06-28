@@ -8,7 +8,7 @@ module.exports = {
 	usage: '[command name]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, Discord, args) => {
+	do: async (message, client, args, Discord) => {
 
 		if (!args.length) {
 			const embed = new Discord.MessageEmbed()

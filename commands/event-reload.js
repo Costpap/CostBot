@@ -2,7 +2,6 @@ module.exports = {
 	name: 'event-reload',
 	description: 'Reloads an event.',
 	ownerOnly: true,
-	disabled: true,
 	args: true,
 	aliases: ['evtr'],
 	usage: '[event name]',
@@ -19,7 +18,7 @@ module.exports = {
 		try {
 			const newEvent = require(`../events/${eventName}.js`);
 			client.commands.set(eventName, newEvent);
-			message.channel.send(`:white_check_mark: Command \`${eventName}\` was reloaded!`);
+			message.channel.send(`:white_check_mark: Event \`${eventName}\` was reloaded!`);
 		}
 		catch (error) {
 			console.log(error);
