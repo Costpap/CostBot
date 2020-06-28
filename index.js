@@ -41,6 +41,7 @@ for (const file of commandFiles) {
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`);
 
+client.cooldowns = new Discord.Collection();
 
 if (!process.env.TOKEN) return console.error('Missing client token. Shutting down...');
 if (!prefix || prefix.length > 5) return console.error('Prefix is either missing or too long. Shutting down...');
