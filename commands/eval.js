@@ -5,7 +5,7 @@ module.exports = {
 	usage: 'code',
 	args: true,
 	permissions: ['EMBED_LINKS'],
-	do: async (message, args, Discord) => {
+	do: async (message, client, args, Discord) => {
 		const clean = text => {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}
