@@ -7,9 +7,6 @@ module.exports = {
 	permissions: ['BAN_MEMBERS'],
 	cooldown: 10,
 	do: async (message, args) => {
-		if (!args.length) {
-			return message.reply('you need to provide the ID of a user to unban!');
-		}
 		if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Ban Members` permission in order to use this command!');
 		}
@@ -21,11 +18,11 @@ module.exports = {
 		}
 		try {
 			message.guild.members.unban(args[0], [(args.slice(1).join(' '))]);
-			message.channel.send(`:white_check_mark: Unbanned \`${args[0]}\`.`);
+			message.channel.send(`✅ Unbanned \`${args[0]}\`.`);
 		}
 		catch (error) {
 			console.error(error);
-			message.reply(`:x: I encountered an error while trying to unban \`${args[0]}\`: \n\`\`\`${error.message}\`\`\``);
+			message.reply(`❌ I encountered an error while trying to unban \`${args[0]}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 
 	},

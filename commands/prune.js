@@ -2,9 +2,9 @@ module.exports = {
 	name: 'prune',
 	description: 'Prune up to 99 messages.',
 	aliases: ['purge', 'delete', 'remove'],
-	usage: '[number of messages]',
 	args: true,
 	guildOnly: true,
+	usage: '[number of messages]',
 	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 10,
 	do: async (message, args) => {
@@ -21,12 +21,12 @@ module.exports = {
 		}
 		try {
 			message.channel.bulkDelete(amount, true);
-			const sentMessage = await message.channel.send(`:white_check_mark: Pruned \`${amount - 1}\` messages.`);
+			const sentMessage = await message.channel.send(`✅ Pruned \`${amount - 1}\` messages.`);
 			sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
 			console.error(error);
-			message.reply(`:x: I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``);
+			message.reply(`❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``);
 		}
 	},
 };

@@ -20,12 +20,12 @@ module.exports = async (Discord, client, message) => {
 	}
 
 	if (command.guildOnly && message.channel.type !== 'text') {
-		return message.reply(':x: I can\'t execute this command inside DMs!');
+		return message.channel.send('❌ I can\'t execute this command inside DMs!');
 	}
 
 	if (command.permissions && message.channel.type === 'text'
 	&& !message.guild.me.hasPermission(command.permissions, { checkAdmin: true })) {
-		return message.channel.send(`:x: Sorry, I need the \`${command.permissions}\` permission(s) in order to execute this command.`);
+		return message.channel.send(`❌ Sorry, I need the \`${command.permissions}\` permission(s) in order to execute this command.`);
 	}
 
 	if (command.args && !args.length) {

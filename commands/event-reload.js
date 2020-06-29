@@ -11,7 +11,7 @@ module.exports = {
 		const event = client.events.get(eventName);
 
 		if (!event) {
-			return message.channel.send(`:x: There is no event named \`${eventName}\`!`);
+			return message.channel.send(`❌ There is no event named \`${eventName}\`!`);
 		}
 
 		delete require.cache[require.resolve(`../events/${eventName}.js`)];
@@ -19,11 +19,11 @@ module.exports = {
 		try {
 			const newEvent = require(`../events/${eventName}.js`);
 			client.events.set(eventName, newEvent);
-			message.channel.send(`:white_check_mark: Event \`${eventName}\` was reloaded!`);
+			message.channel.send(`✅ Event \`${eventName}\` was reloaded!`);
 		}
 		catch (error) {
 			console.log(error);
-			message.channel.send(`:x: There was an error while reloading event \`${eventName}\`:\n\`\`\`js \n ${error.message}\`\`\``);
+			message.channel.send(`❌ There was an error while reloading event \`${eventName}\`:\n\`\`\`js \n ${error.message}\`\`\``);
 		}
 	},
 };

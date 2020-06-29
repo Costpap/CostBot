@@ -20,8 +20,8 @@ module.exports = {
 				.setColor('GREEN')
 				.setTitle('Evaluation Successful')
 				.addFields(
-					{ name: 'Input', value: `\`\`\`js\n${code}\`\`\`` },
-					{ name: 'Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
+					{ name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
+					{ name: '📤 Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
 				)
 				.setTimestamp()
 				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
@@ -34,8 +34,8 @@ module.exports = {
 				.setColor('RED')
 				.setTitle('Evaluation Error')
 				.addFields(
-					{ name: 'Input', value: `\`\`\`js\n${code}\`\`\`` },
-					{ name: 'Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
+					{ name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
+					{ name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
 				)
 				.setTimestamp()
 				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));

@@ -60,7 +60,12 @@ module.exports = {
 		embed.addField('Cooldown', `${command.cooldown || 3} second(s)`);
 		embed.setTimestamp();
 		embed.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
-
-		message.channel.send(embed);
+		try {
+			message.channel.send(embed);
+		}
+		catch (error) {
+			console.error(error);
+			message.reply(`I encountered an error trying to get information on this command. \`\`\`js\n${error.message}\`\`\``);
+		}
 	},
 };

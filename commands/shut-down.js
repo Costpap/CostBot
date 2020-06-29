@@ -6,7 +6,7 @@ module.exports = {
 	cooldown: 60,
 	do: async (message) => {
 		console.log(`Shutdown initiated by ${message.author.tag}.`),
-		await message.channel.send(':white_check_mark: Shutting down...');
+		await message.channel.send('✅ Shutting down...');
 		process.exit();
 	},
 };
