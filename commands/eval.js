@@ -10,6 +10,7 @@ module.exports = {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}
 		};
+		const before = Date.now();
 		const code = args.join(' ');
 		try {
 			let evaled = eval(code);
@@ -24,7 +25,7 @@ module.exports = {
 					{ name: '📤 Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
 				)
 				.setTimestamp()
-				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
+				.setFooter(`Execution time: ${Date.now() - before}ms`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 
 			message.channel.send(embed);
 		}
@@ -38,7 +39,7 @@ module.exports = {
 					{ name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
 				)
 				.setTimestamp()
-				.setFooter(`Code executed by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
+				.setFooter(`Execution time: ${Date.now() - before}ms`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 			message.channel.send(embed);
 		}
 	},
