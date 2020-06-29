@@ -1,5 +1,5 @@
 module.exports = {
-	name: 'command-reload',
+	name: 'reload',
 	description: 'Reloads a command.',
 	ownerOnly: true,
 	args: true,
@@ -11,7 +11,7 @@ module.exports = {
 			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
-			return message.channel.send(`:x: There is no command with name or alias \`${commandName}\`!`);
+			return message.channel.send(`❌ There is no command with name or alias \`${commandName}\`!`);
 		}
 
 		delete require.cache[require.resolve(`./${command.name}.js`)];
@@ -19,11 +19,11 @@ module.exports = {
 		try {
 			const newCommand = require(`./${command.name}.js`);
 			client.commands.set(newCommand.name, newCommand);
-			message.channel.send(`:white_check_mark: Command \`${command.name}\` was reloaded!`);
+			message.channel.send(`✅ Command \`${command.name}\` was reloaded!`);
 		}
 		catch (error) {
-			console.log(error);
-			message.channel.send(`:x: There was an error while reloading command \`${command.name}\`:\n\`\`\`js \n ${error.message}\`\`\``);
+			console.error(error);
+			message.channel.send(`❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${error.message}\`\`\``);
 		}
 	},
 };
