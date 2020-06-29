@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'event-reload',
 	description: 'Reloads an event.',
+	disabled: true,
 	ownerOnly: true,
 	args: true,
 	aliases: ['evtr'],
