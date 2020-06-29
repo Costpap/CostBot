@@ -3,7 +3,8 @@ module.exports = {
 	description: 'Sends a direct message through the bot',
 	adminOnly: true,
 	args: true,
-	usage: 'userID text',
+	usage: '@user text',
+	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 5,
 	do: async (message, args, Discord) => {
 		if (!message.mentions.users.size) {
@@ -20,7 +21,7 @@ module.exports = {
 				embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 				try {
 					dmUser.send(embed);
-					const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**.`);
+					const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
 					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
@@ -32,7 +33,7 @@ module.exports = {
 				embed.setDescription(args.slice(2).join(' '));
 				try {
 					dmUser.send(embed);
-					const sentMessage = await message.channel.send(`✅ Successfully sent DM to ${dmUser.tag}`);
+					const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
 					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
@@ -45,7 +46,7 @@ module.exports = {
 
 		try {
 			dmUser.send(args.slice(1).join(' '));
-			const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**.`);
+			const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
 			return sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
