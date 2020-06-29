@@ -6,7 +6,7 @@ module.exports = {
 	usage: '@user text',
 	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 5,
-	do: async (message, args, Discord) => {
+	do: async (message, client, args, Discord) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to send them a DM!');
 		}
