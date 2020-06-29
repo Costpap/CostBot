@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ['icon', 'pfp'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, Discord) => {
+	do: async (message, client, args, Discord) => {
 		const user = message.mentions.users.first() || message.author;
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')

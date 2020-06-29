@@ -5,7 +5,7 @@ module.exports = {
 	usage: 'argument(s)',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args, Discord) => {
+	do: async (message, client, args, Discord) => {
 		if (args[0] === 'foo') {
 			return message.channel.send('bar');
 		}

@@ -42,7 +42,7 @@ module.exports = {
 		embed.setColor('#6293f5');
 		embed.setTitle(`**Command Name:** ${command.name}`);
 		if (command.disabled) {
-			embed.setDescription(':warning: This command is currently **disabled**.');
+			embed.setDescription('⚠ This command is currently **disabled**.');
 		}
 		command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases' : 'Alias', command.aliases.join(', ')) : '';
 		if (command.description) {

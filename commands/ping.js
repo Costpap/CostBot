@@ -5,7 +5,7 @@ module.exports = {
 	description: 'Pings the bot!',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, Discord) => {
+	do: async (message, client, args, Discord) => {
 		const sentMessage = await message.channel.send('Pinging...');
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
