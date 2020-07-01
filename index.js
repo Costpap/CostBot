@@ -46,6 +46,11 @@ client.cooldowns = new Discord.Collection();
 if (!process.env.TOKEN) return console.error('Missing client token. Shutting down...');
 if (!prefix || prefix.length > 5) return console.error('Prefix is either missing or too long. Shutting down...');
 
+process.on('exit', () => {
+	console.log('Destroying discord.js Client...');
+	client.destroy();
+});
+
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error)),
 
 client.login(process.env.TOKEN);
