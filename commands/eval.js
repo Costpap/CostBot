@@ -25,7 +25,7 @@ module.exports = {
 					{ name: '📤 Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
 				)
 				.setTimestamp()
-				.setFooter(`Execution time: ${Date.now() - before}ms`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
+				.setFooter(`Execution time: ${Math.round(Date.now() - before)}ms`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 
 			message.channel.send(embed);
 		}
@@ -39,7 +39,7 @@ module.exports = {
 					{ name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
 				)
 				.setTimestamp()
-				.setFooter(`Execution time: ${Date.now() - before}ms`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
+				.setFooter(`Execution time: ${Math.round(Date.now() - before)}ms`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
 			message.channel.send(embed);
 		}
 	},
