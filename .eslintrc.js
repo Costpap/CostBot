@@ -44,6 +44,7 @@ module.exports = {
 		"space-infix-ops": "error",
 		"space-unary-ops": "error",
 		"spaced-comment": "error",
+		"linebreak-style": ["error", "unix"],
 		yoda: "error",
 	},
 };
