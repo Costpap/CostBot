@@ -4,7 +4,7 @@ module.exports = {
 	name: 'ping',
 	description: 'Pings the bot!',
 	permissions: ['EMBED_LINKS'],
-	cooldown: 5,
+	cooldown: 8,
 	do: async (message, client, args, Discord) => {
 		const sentMessage = await message.channel.send('Pinging...');
 		const embed = new Discord.MessageEmbed()

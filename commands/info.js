@@ -8,7 +8,7 @@ module.exports = {
 	aliases: ['information'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, Discord) => {
+	do: async (message, client, args, Discord) => {
 		const developer = await client.users.cache.get(botOwner);
 
 		const embed = new Discord.MessageEmbed()

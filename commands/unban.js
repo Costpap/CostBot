@@ -14,7 +14,7 @@ module.exports = {
 			return message.reply('you need to provide the ID of a user to unban!');
 		}
 		if (args[0] === message.author.id) {
-			return message.channel.send('How do you unban yourself? :thinking:');
+			return message.channel.send('How do you unban yourself? 🤔');
 		}
 		try {
 			message.guild.members.unban(args[0], [(args.slice(1).join(' '))]);

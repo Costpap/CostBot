@@ -5,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, Discord) => {
+	do: async (message, args, client, Discord) => {
 		const member = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)

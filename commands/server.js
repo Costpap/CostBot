@@ -5,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, Discord) => {
+	do: async (message, client, args, Discord) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')
 			.setTitle(`${message.guild.name}`)
