@@ -6,7 +6,7 @@ module.exports = {
 	usage: '@member (optional reason)',
 	permissions: ['BAN_MEMBERS'],
 	cooldown: 10,
-	do: async (message, args) => {
+	do: async (message, client, args) => {
 		if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Ban Members` permission in order to use this command!');
 		}

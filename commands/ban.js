@@ -5,7 +5,7 @@ module.exports = {
 	usage: '@member (optional reason)',
 	permissions: ['BAN_MEMBERS'],
 	cooldown: 10,
-	do: async (message, args) => {
+	do: async (message, client, args) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to ban them!');
 		}

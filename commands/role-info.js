@@ -7,7 +7,7 @@ module.exports = {
 	usage: '[role ID]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 7,
-	do: async (message, args, Discord) => {
+	do: async (message, client, args, Discord) => {
 		const role = message.guild.roles.cache.get(args[0]);
 		const embed = new Discord.MessageEmbed()
 			.setColor(role.hexColor)

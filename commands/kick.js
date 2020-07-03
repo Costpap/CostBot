@@ -6,7 +6,7 @@ module.exports = {
 	usage: '@member (optional reason)',
 	permissions: ['KICK_MEMBERS'],
 	cooldown: 10,
-	do: async (message, args) => {
+	do: async (message, client, args) => {
 		if (!message.member.hasPermission('KICK_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Kick Members` permission in order to use this command!');
 		}

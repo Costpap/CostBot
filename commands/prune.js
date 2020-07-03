@@ -7,7 +7,7 @@ module.exports = {
 	usage: '[number of messages]',
 	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 10,
-	do: async (message, args) => {
+	do: async (message, client, args) => {
 		if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Manage Messages` permission in order to use this command!');
 		}

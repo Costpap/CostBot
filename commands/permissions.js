@@ -5,7 +5,7 @@ module.exports = {
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args, Discord) => {
+	do: async (message, args, client, Discord) => {
 		if (args[0] === 'role') {
 			const role = message.guild.roles.cache.get(args[1]);
 			const embed = new Discord.MessageEmbed()
