@@ -13,12 +13,12 @@ module.exports = {
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
-			.setThumbnail(client.user.displayAvatarURL({ format: 'png', dynamic: true }))
+			.setThumbnail(client.user.displayAvatarURL({ format: 'png' }))
 			.setTitle(`${client.user.username} Information`)
 			.addFields(
 				{ name: 'Developer', value: `${developer.tag} (${developer.id})` },
 				{ name: 'Version', value: version, inline: true },
-				{ name: 'Library', value: 'discord.js', inline: true },
+				{ name: 'Library', value: `discord.js v${require('discord.js').version}`, inline: true },
 				{ name: 'Number of commands', value: client.commands.size, inline: true },
 				{ name: 'Server Count', value: client.guilds.cache.size, inline: true },
 				{ name: 'Total Members', value: client.users.cache.size, inline: true },

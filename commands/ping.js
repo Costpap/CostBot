@@ -15,7 +15,7 @@ module.exports = {
 				{ name: 'Websocket Heartbeat', value: `${client.ws.ping}ms`, inline: true },
 			)
 			.setTimestamp()
-			.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
+			.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
 		sentMessage.edit('', embed);
 	},
 };

@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'say',
 	description: 'Sends a message through the bot',
+	aliases: ['send'],
 	adminOnly: true,
 	args: true,
 	usage: '(#optional-channel) [text]',
@@ -31,7 +32,7 @@ module.exports = {
 					return sentMessage.delete({ timeout: 3000 });
 				}
 				catch (error) {
-					console.error(`Could not send a message to ${sayChannel}: \n`, error);
+					console.error(`Could not send message to #${sayChannel.name} (${sayChannel.id}) of guild ${sayChannel.guild.id}:\n`, error);
 					return message.channel.send(`❌ Could not send message to ${sayChannel}.`);
 				}
 			}
@@ -41,7 +42,7 @@ module.exports = {
 				return sentMessage.delete({ timeout: 3000 });
 			}
 			catch (error) {
-				console.error(`Could not send a message to ${sayChannel}: \n`, error);
+				console.error(`Could not send message to #${sayChannel.name} (${sayChannel.id}) of guild ${sayChannel.guild.id}:\n`, error);
 				return message.channel.send(`❌ Could not send message to ${sayChannel}.`);
 			}
 		}

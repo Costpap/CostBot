@@ -19,7 +19,9 @@ module.exports = {
 		try {
 			const newCommand = require(`./${command.name}.js`);
 			client.commands.set(newCommand.name, newCommand);
-			message.channel.send(`✅ Command \`${command.name}\` was reloaded!`);
+			const coreLog = await client.channels.cache.get(process.env.CORELOG_ID);
+			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\`.`);
+			message.channel.send(`✅ Command **${command.name}** was reloaded!`);
 		}
 		catch (error) {
 			console.error(error);

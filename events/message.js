@@ -11,11 +11,11 @@ module.exports = async (Discord, client, message) => {
 
 	if (!command) return;
 
-	if (command.disabled === true) {
+	if (command.disabled) {
 		return message.channel.send('⚠ This command has been temporarily disabled.');
 	}
-	if (command.ownerOnly && (botOwner.includes(message.author.id) !== true
-	|| command.adminOnly && (botAdmin.includes(message.author.id) !== true))) {
+	if (command.ownerOnly && (!botOwner.includes(message.author.id)
+	|| command.adminOnly && (!botAdmin.includes(message.author.id)))) {
 		return message.reply('You cannot use this command!');
 	}
 
@@ -29,10 +29,10 @@ module.exports = async (Discord, client, message) => {
 	}
 
 	if (command.args && !args.length) {
-		let reply = `⚠ You didn't provide any arguments, ${message.author}!`;
+		let reply = `⚠ You didn't provide any arguments!`;
 
 		if (command.usage) {
-			reply += `\nThe proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
+			reply += `\n\n🔧 The proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
 		}
 		return message.channel.send(reply);
 	}

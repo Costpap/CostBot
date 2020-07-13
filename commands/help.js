@@ -13,7 +13,7 @@ module.exports = {
 		if (!args.length) {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#6293f5')
-				.setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png', dynamic: true }))
+				.setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
 				.setTitle('Here\'s a list of all my commands:')
 				.setDescription(client.commands.map(command => command.name).join(', '))
 				.setTimestamp()
@@ -59,12 +59,12 @@ module.exports = {
 		}
 		embed.addField('Cooldown', `${command.cooldown || 3} second(s)`);
 		embed.setTimestamp();
-		embed.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png', dynamic: true }));
+		embed.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
 		try {
 			message.channel.send(embed);
 		}
 		catch (error) {
-			console.error(error);
+			console.error(`Error trying to get info on ${command.name}:\n`, error);
 			message.reply(`I encountered an error trying to get information on this command. \`\`\`js\n${error.message}\`\`\``);
 		}
 	},

@@ -1,6 +1,8 @@
+const exec = (require('util').promisify((require('child_process').exec)));
+
 module.exports = {
-	name: 'eval',
-	description: 'Runs JavaScript code.',
+	name: 'shell',
+	description: 'Runs Shell code.',
 	ownerOnly: true,
 	usage: 'code',
 	args: true,
@@ -13,27 +15,27 @@ module.exports = {
 		const before = Date.now();
 		const code = args.join(' ');
 		try {
-			let evaled = eval(code);
+			/* eslint-disable-next-line prefer-const */
+			let { stdout, executed } = await exec(code);
 
-			if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
+			if (typeof executed !== 'string') {executed = require('util').inspect(executed);}
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('GREEN')
-				.setTitle('Evaluation Successful')
-				.addFields(
-					{ name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
-					{ name: '📤 Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
-				)
+				.setTitle('Execution Successful')
+				.addField('📥 Input', `\`\`\`bash\n${code}\`\`\``)
 				.setTimestamp()
 				.setFooter(`Execution time: ${Math.round(Date.now() - before)}ms`, client.user.displayAvatarURL({ format: 'png' }));
-
+			if (stdout) {
+				embed.addField('🖥 stdout', `\`\`\`bash\n${clean(stdout)}\`\`\``);
+			}
 			message.channel.send(embed);
 		}
 		catch (error) {
-			console.error('Eval:', error);
+			console.error('Shell:', error);
 			const embed = new Discord.MessageEmbed()
 				.setColor('RED')
-				.setTitle('Evaluation Error')
+				.setTitle('Execution Error')
 				.addFields(
 					{ name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
 					{ name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },

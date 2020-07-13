@@ -5,7 +5,7 @@ module.exports = {
 		es6: true,
 	},
 	parserOptions: {
-		ecmaVersion: 2019,
+		ecmaVersion: 2020,
 	},
 	rules: {
 		"brace-style": ["error", "stroustrup", { allowSingleLine: true }],
