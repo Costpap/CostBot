@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const { version } = require('../package.json');
 const humanizeDuration = require('humanize-duration');
 
@@ -8,7 +7,7 @@ module.exports = {
 	aliases: ['statistics', 'uptime'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client) => {
+	do: async (message, client, args, Discord) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setTitle(`${client.user.username} Statistics`)
