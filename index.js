@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const fs = require('fs');
+const { readdirSync } = require('fs');
 const Discord = require('discord.js');
 const { prefix } = require('./config.json');
 
@@ -13,7 +13,7 @@ const client = new Discord.Client({
 });
 
 client.events = new Discord.Collection();
-const eventFiles = fs.readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
 	const event = require(`./events/${file}`);
@@ -33,7 +33,7 @@ console.log(`Successfully loaded all ${client.events.size} events!`);
 
 
 client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
