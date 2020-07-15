@@ -13,9 +13,15 @@ module.exports = {
 		const before = Date.now();
 		const code = args.join(' ');
 		try {
-			let evaled = eval(code);
+			let evaled = await eval(code);
 
 			if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
+
+			if (evaled.length > 1024) {
+				console.log('Eval Output:\n', clean(evaled));
+				evaled = '\'The output cannot be displayed as it is longer than 1024 characters. Please check the console.\'';
+			}
+
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('GREEN')

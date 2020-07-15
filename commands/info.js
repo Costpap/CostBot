@@ -1,6 +1,6 @@
 const humanizeDuration = require('humanize-duration');
 const { botOwner } = require('../config.json');
-const { version } = require('../package.json');
+const { version, repository } = require('../package.json');
 
 module.exports = {
 	name: 'info',
@@ -20,6 +20,8 @@ module.exports = {
 				{ name: 'Version', value: version, inline: true },
 				{ name: 'Library', value: `discord.js v${require('discord.js').version}`, inline: true },
 				{ name: 'Number of commands', value: client.commands.size, inline: true },
+				{ name: 'GitHub Repository', value: repository, inline: true },
+				{ name: '\u200B', value: '\u200B' },
 				{ name: 'Server Count', value: client.guilds.cache.size, inline: true },
 				{ name: 'Total Members', value: client.users.cache.size, inline: true },
 				{ name: 'Uptime', value: humanizeDuration(client.uptime) },

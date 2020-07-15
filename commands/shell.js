@@ -15,10 +15,14 @@ module.exports = {
 		const before = Date.now();
 		const code = args.join(' ');
 		try {
-			/* eslint-disable-next-line prefer-const */
-			let { stdout, executed } = await exec(code);
+			let { stdout } = await exec(code);
 
-			if (typeof executed !== 'string') {executed = require('util').inspect(executed);}
+			if (typeof stdout !== 'string') {stdout = require('util').inspect(stdout);}
+
+			if (stdout.length > 1024) {
+				console.log('Shell Output:\n', clean(stdout));
+				stdout = '\'The output cannot be displayed as it is longer than 1024 characters. Please check the console.\'';
+			}
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('GREEN')
