@@ -4,11 +4,11 @@ module.exports = {
 	aliases: ['roleinfo', 'role', 'ri'],
 	args: true,
 	guildOnly: true,
-	usage: '[role ID]',
+	usage: '[role ID or mention]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 7,
 	do: async (message, client, args, Discord) => {
-		const role = message.guild.roles.cache.get(args[0]);
+		const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
 		const embed = new Discord.MessageEmbed()
 			.setColor(role.hexColor)
 			.setTitle(`**Role name:** ${role.name}`)

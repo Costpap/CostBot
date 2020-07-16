@@ -1,6 +1,7 @@
 module.exports = {
 	name: 'args-info',
 	description: 'Information about the arguments provided.',
+	aliases: ['argsinfo'],
 	args: true,
 	usage: 'argument(s)',
 	permissions: ['EMBED_LINKS'],

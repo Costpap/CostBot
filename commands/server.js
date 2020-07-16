@@ -18,6 +18,9 @@ module.exports = {
 			)
 			.setTimestamp(message.guild.createdAt)
 			.setFooter(`Server ID: ${message.guild.id}`);
+		if (message.guild.iconURL) {
+			embed.setThumbnail(message.guild.iconURL({ format: 'png', dynamic: true }));
+		}
 
 		message.channel.send(embed);
 	},
