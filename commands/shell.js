@@ -19,9 +19,9 @@ module.exports = {
 
 			if (typeof stdout !== 'string') {stdout = require('util').inspect(stdout);}
 
-			if (stdout.length > 1024) {
+			if (stdout.length > 1016) {
 				console.log('Shell Output:\n', clean(stdout));
-				stdout = '\'The output cannot be displayed as it is longer than 1024 characters. Please check the console.\'';
+				stdout = '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
 			}
 
 			const embed = new Discord.MessageEmbed()

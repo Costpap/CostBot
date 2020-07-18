@@ -17,9 +17,9 @@ module.exports = {
 
 			if (typeof evaled !== 'string') {evaled = require('util').inspect(evaled);}
 
-			if (evaled.length > 1024) {
+			if (evaled.length > 1016) {
 				console.log('Eval Output:\n', clean(evaled));
-				evaled = '\'The output cannot be displayed as it is longer than 1024 characters. Please check the console.\'';
+				evaled = '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
 			}
 
 
