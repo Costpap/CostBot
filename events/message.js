@@ -3,7 +3,7 @@ const { prefix, botAdmin, botOwner } = require('../config.json');
 module.exports = async (Discord, client, message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-	const args = message.content.slice(prefix.length).split(/ +/);
+	const args = message.content.slice(prefix.length).trim().split(/ +/);
 	const commandName = args.shift().toLowerCase();
 
 	const command = client.commands.get(commandName)
