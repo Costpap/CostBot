@@ -18,7 +18,7 @@ module.exports = {
 			.addFields(
 				{ name: 'Developer', value: `${developer.tag} (${developer.id})` },
 				{ name: 'Version', value: version, inline: true },
-				{ name: 'Library', value: `discord.js v${require('discord.js').version}`, inline: true },
+				{ name: 'Library', value: `discord.js v${Discord.version}`, inline: true },
 				{ name: 'Number of commands', value: client.commands.size, inline: true },
 				{ name: 'GitHub Repository', value: repository, inline: true },
 				{ name: '\u200B', value: '\u200B' },
