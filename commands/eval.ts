@@ -10,8 +10,8 @@ module.exports = {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}
 		};
-		const before = Date.now();
-		const code = args.join(' ');
+		const before: number = Date.now();
+		const code: string = args.join(' ');
 		try {
 			let evaled = await eval(code);
 

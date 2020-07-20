@@ -9,6 +9,11 @@
         "baseUrl": ".",
         "resolveJsonModule": true
     },
+    "typeRoots": [
+        "./node_modules/@types",
+        "./node_modules/discord.js/typings",
+        "./typings"
+    ],
     "exclude": [
         "node_modules", "./botconfig-example.ts"
       ]

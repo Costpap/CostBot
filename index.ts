@@ -1,9 +1,10 @@
-import * as dotenv from 'dotenv';
-dotenv.config({ path: './.env' });
+import { config } from 'dotenv';
+config({ path: './.env' });
 
 import { readdirSync } from 'fs';
 import * as Discord from 'discord.js';
 import { prefix } from './botconfig.js';
+import { Command } from 'typings/index.js';
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
 const client = new Discord.Client({
@@ -18,7 +19,8 @@ const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
 	const event = import(`./events/${file}`);
-	const eventName = file.split(".")[0];
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const eventName: any = file.split(".")[0];
 
 	client.on(eventName, (...args) => {
 		try {
@@ -36,8 +38,12 @@ console.log(`Successfully loaded all ${client.events.size} events!`);
 client.commands = new Discord.Collection();
 const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
 
+const importCommand = async (command: unknown): Promise<Command> => {
+	return (await import(`./commands/${command}`) as Command);
+};
+
 for (const file of commandFiles) {
-	const command = import(`./commands/${file}`);
+	const command = importCommand(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`);

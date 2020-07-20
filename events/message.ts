@@ -3,8 +3,8 @@ import { prefix, botAdmin, botOwner } from '../botconfig.js';
 module.exports = async (Discord, client, message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-	const args = message.content.slice(prefix.length).trim().split(/ +/);
-	const commandName = args.shift().toLowerCase();
+	const args: string[] = message.content.slice(prefix.length).trim().split(/ +/);
+	const commandName: string = args.shift().toLowerCase();
 
 	const command = client.commands.get(commandName)
 	|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
@@ -41,15 +41,15 @@ module.exports = async (Discord, client, message) => {
 		client.cooldowns.set(command.name, new Discord.Collection());
 	}
 
-	const now = Date.now();
+	const now: number = Date.now();
 	const timestamps = client.cooldowns.get(command.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
+	const cooldownAmount: number = (command.cooldown || 3) * 1000;
 
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
 
 		if (now < expirationTime) {
-			const timeLeft = (expirationTime - now) / 1000;
+			const timeLeft: number = (expirationTime - now) / 1000;
 			const sentMessage = await message.reply(`please wait ${timeLeft.toFixed(1)} second(s) before using \`${command.name}\` again.`);
 			return sentMessage.delete({ timeout: 3000 });
 		}

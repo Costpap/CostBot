@@ -6,7 +6,7 @@ module.exports = {
 	aliases: ['cmdr'],
 	usage: '[command name]',
 	do: async (message, client, args) => {
-		const commandName = args[0].toLowerCase();
+		const commandName: string = args[0].toLowerCase();
 		const command = client.commands.get(commandName)
 			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
