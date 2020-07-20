@@ -47,6 +47,9 @@ web_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+# TypeScript build directory
+build/*
+
 # Optional npm cache directory
 .npm
 
@@ -128,7 +131,8 @@ dist
 .history/
 
 # Bot Config
-config.json
+botconfig.ts
+botconfig.js
 
 # PM2 (Use pm2 ecosystem in order to generate a file matching your needs)
 ecosystem.config.js

@@ -17,7 +17,7 @@ module.exports = {
 		delete require.cache[require.resolve(`./${command.name}.js`)];
 
 		try {
-			const newCommand = require(`./${command.name}.js`);
+			const newCommand = await import(`./${command.name}.js`);
 			client.commands.set(newCommand.name, newCommand);
 			const coreLog = await client.channels.cache.get(process.env.CORELOG_ID);
 			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\`.`);

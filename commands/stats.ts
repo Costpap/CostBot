@@ -1,5 +1,5 @@
-const { version } = require('../package.json');
-const humanizeDuration = require('humanize-duration');
+import { version } from '../package.json';
+import * as humanizeDuration from 'humanize-duration';
 
 module.exports = {
 	name: 'stats',

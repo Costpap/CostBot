@@ -1,4 +1,4 @@
-const { prefix, botAdmin, botOwner } = require('../config.json');
+import { prefix, botAdmin, botOwner } from '../botconfig.js';
 
 module.exports = async (Discord, client, message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;

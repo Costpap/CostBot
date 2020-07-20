@@ -1,4 +1,4 @@
-const { version } = require('../package.json');
+import { version } from '../package.json';
 
 module.exports = {
 	name: 'ping',

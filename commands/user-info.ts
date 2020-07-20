@@ -14,7 +14,7 @@ module.exports = {
 			.addFields(
 				{ name: 'Nickname', value: member.displayName, inline: true },
 				{ name: 'User Status', value: member.presence.status, inline: true },
-				{ name: 'Bot', value: member.user.bot, inline: true },
+				{ name: 'Bot', value: member.user.bot ? 'Definitely' : 'Most likely not', inline: true },
 				{ name: 'Avatar URL', value: `[Click here](${member.user.displayAvatarURL({ format: 'png', dynamic: true })})`, inline: true },
 				{ name: 'Joined Server', value: member.joinedAt },
 				{ name: 'Joined Discord', value: member.user.createdAt, inline: true },

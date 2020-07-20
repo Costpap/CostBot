@@ -1,5 +1,0 @@
-{
-	"prefix": "Your bot's prefix here",
-	"botOwner": "Your ID",
-	"botAdmin": ["A list of IDs of trusted people"]
-}

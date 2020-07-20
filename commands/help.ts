@@ -1,5 +1,5 @@
-const { version } = require('../package.json');
-const { prefix } = require('../config.json');
+import { prefix } from '../botconfig.js';
+import { version } from '../package.json';
 
 module.exports = {
 	name: 'help',

@@ -1,12 +1,15 @@
 module.exports = {
-	extends: ["eslint:recommended"],
+	plugins: ["@typescript-eslint"],
+	extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
 	env: {
 		node: true,
 		es6: true,
 	},
 	parserOptions: {
 		ecmaVersion: 2020,
+		sourceType: 'module',
 	},
+	ignorePatterns: ["build/*"],
 	rules: {
 		"brace-style": ["error", "stroustrup", { allowSingleLine: true }],
 		"comma-dangle": ["error", "always-multiline"],

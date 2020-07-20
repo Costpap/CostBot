@@ -1,6 +1,6 @@
-const humanizeDuration = require('humanize-duration');
-const { botOwner } = require('../config.json');
-const { version, repository } = require('../package.json');
+import * as humanizeDuration from 'humanize-duration';
+import { botOwner } from '../botconfig.js';
+import { version, repository } from '../package.json';
 
 module.exports = {
 	name: 'info',

@@ -1,8 +1,6 @@
-const exec = (require('util').promisify((require('child_process').exec)));
-
 module.exports = {
-	name: 'shell',
-	description: 'Runs Shell code.',
+	name: 'eval',
+	description: 'Runs JavaScript code.',
 	ownerOnly: true,
 	usage: 'code',
 	args: true,
@@ -15,31 +13,33 @@ module.exports = {
 		const before = Date.now();
 		const code = args.join(' ');
 		try {
-			let { stdout } = await exec(code);
+			let evaled = await eval(code);
 
-			if (typeof stdout !== 'string') {stdout = require('util').inspect(stdout);}
+			if (typeof evaled !== 'string') {evaled = (await import('util')).inspect(evaled);}
 
-			if (stdout.length > 1016) {
-				console.log('Shell Output:\n', clean(stdout));
-				stdout = '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
+			if (evaled.length > 1016) {
+				console.log('Eval Output:\n', clean(evaled));
+				evaled = '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
 			}
+
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('GREEN')
-				.setTitle('Execution Successful')
-				.addField('📥 Input', `\`\`\`bash\n${code}\`\`\``)
+				.setTitle('Evaluation Successful')
+				.addFields(
+					{ name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
+					{ name: '📤 Output', value: `\`\`\`js\n${clean(evaled)}\`\`\`` },
+				)
 				.setTimestamp()
 				.setFooter(`Execution time: ${Math.round(Date.now() - before)}ms`, client.user.displayAvatarURL({ format: 'png' }));
-			if (stdout) {
-				embed.addField('🖥 stdout', `\`\`\`bash\n${clean(stdout)}\`\`\``);
-			}
+
 			message.channel.send(embed);
 		}
 		catch (error) {
-			console.error('Shell:', error);
+			console.error('Eval:', error);
 			const embed = new Discord.MessageEmbed()
 				.setColor('RED')
-				.setTitle('Execution Error')
+				.setTitle('Evaluation Error')
 				.addFields(
 					{ name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
 					{ name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },

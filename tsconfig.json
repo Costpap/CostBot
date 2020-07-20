@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "esnext",
+        "lib": ["esnext"],
+        "outDir": "./build",
+        "newLine": "lf",
+        "sourceMap": false,
+        "baseUrl": ".",
+        "resolveJsonModule": true
+    },
+    "exclude": [
+        "node_modules", "./botconfig-example.ts"
+      ]
+}
