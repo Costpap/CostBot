@@ -1,5 +1,8 @@
 import * as Discord from 'discord.js';
 
+declare interface Event {
+  [key: string]: any
+}
 declare interface Command {
     name: string,
     description?: string,

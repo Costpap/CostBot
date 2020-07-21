@@ -4,7 +4,7 @@ config({ path: './.env' });
 import { readdirSync } from 'fs';
 import * as Discord from 'discord.js';
 import { prefix } from './botconfig.js';
-import { Command } from 'typings/index.js';
+import { Event, Command } from 'typings/index.js';
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
 const client = new Discord.Client({
@@ -18,7 +18,10 @@ client.events = new Discord.Collection();
 const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	const event = import(`./events/${file}`);
+	const importEvent = async (event: unknown): Promise<Event> => {
+		return (await import(`./event/${file}`) as Event);
+	};
+	const event = importEvent(`./events/${file}`);
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const eventName: any = file.split(".")[0];
 

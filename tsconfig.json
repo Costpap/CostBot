@@ -7,7 +7,8 @@
         "newLine": "lf",
         "sourceMap": false,
         "baseUrl": ".",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "removeComments": true
     },
     "typeRoots": [
         "./node_modules/@types",
