@@ -4,7 +4,7 @@ config({ path: './.env' });
 import { readdirSync } from 'fs';
 import * as Discord from 'discord.js';
 import { prefix } from './botconfig.js';
-import { Event, Command } from 'typings/index.js';
+import { Event, Command } from './typings/index.js';
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
 const client = new Discord.Client({
