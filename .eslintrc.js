@@ -5,6 +5,7 @@ module.exports = {
 		node: true,
 		es6: true,
 	},
+	parser: '@typescript-eslint/parser',
 	parserOptions: {
 		ecmaVersion: 2020,
 		sourceType: 'module',

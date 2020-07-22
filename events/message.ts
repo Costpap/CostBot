@@ -1,4 +1,5 @@
 import { prefix, botAdmin, botOwner } from '../botconfig.js';
+import { Command } from '../typings/index.js';
 
 module.exports = async (Discord, client, message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -6,7 +7,7 @@ module.exports = async (Discord, client, message) => {
 	const args: string[] = message.content.slice(prefix.length).trim().split(/ +/);
 	const commandName: string = args.shift().toLowerCase();
 
-	const command = client.commands.get(commandName)
+	const command: Command = client.commands.get(commandName)
 	|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 	if (!command) return;

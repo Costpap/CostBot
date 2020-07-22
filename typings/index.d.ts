@@ -1,7 +1,7 @@
 import * as Discord from 'discord.js';
 
 declare interface Event {
-  [key: string]: any
+  [key: string]: never
 }
 declare interface Command {
     name: string,
@@ -15,12 +15,12 @@ declare interface Command {
     usage?: string,
     permissions?: string[],
     cooldown?: number
-    do: (message: unknown, client: unknown, args: string[], Discord: typeof module) => Record<string, unknown>
+    do: (message: Discord.Message, client: Discord.Client, args: string[], Discord: typeof import ('discord.js')) => Promise<unknown>
 }
 
 declare module 'discord.js' {
   export interface Client {
-    events: Discord.Collection<string, unknown>
+    events: Discord.Collection<string, Event>
     commands: Discord.Collection<string, Command>
     cooldowns: Discord.Collection<string, unknown>
   }

@@ -1,3 +1,5 @@
+import { Command } from '../typings/index.js';
+
 module.exports = {
 	name: 'reload',
 	description: 'Reloads a command.',
@@ -7,7 +9,7 @@ module.exports = {
 	usage: '[command name]',
 	do: async (message, client, args) => {
 		const commandName: string = args[0].toLowerCase();
-		const command = client.commands.get(commandName)
+		const command: Command = client.commands.get(commandName)
 			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
 
 		if (!command) {
@@ -17,7 +19,7 @@ module.exports = {
 		delete require.cache[require.resolve(`./${command.name}.js`)];
 
 		try {
-			const newCommand = await import(`./${command.name}.js`);
+			const newCommand: Command = await import(`./${command.name}.js`);
 			client.commands.set(newCommand.name, newCommand);
 			const coreLog = await client.channels.cache.get(process.env.CORELOG_ID);
 			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\`.`);

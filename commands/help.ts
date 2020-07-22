@@ -1,5 +1,6 @@
 import { prefix } from '../botconfig.js';
 import { version } from '../package.json';
+import { Command } from '../typings/index.js';
 
 module.exports = {
 	name: 'help',
@@ -30,8 +31,8 @@ module.exports = {
 			}
 		}
 
-		const name = args[0].toLowerCase();
-		const command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
+		const name: string[] = args[0].toLowerCase();
+		const command: Command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
 
 		if (!command) {
 			return message.reply(`That's not a valid command. Do \`${prefix}help\` to see a list of all commands.`);
