@@ -1,14 +1,16 @@
+import { Message, Client } from 'discord.js';
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const exec = (require('util').promisify((require('child_process').exec)));
 
-module.exports = {
+export default {
 	name: 'shell',
 	description: 'Runs Shell code.',
 	ownerOnly: true,
 	usage: 'code',
 	args: true,
 	permissions: ['EMBED_LINKS'],
-	do: async (message, client, args, Discord) => {
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		const clean = text => {
 			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 			else {return text;}
@@ -51,5 +53,3 @@ module.exports = {
 		}
 	},
 };
-
-export { };

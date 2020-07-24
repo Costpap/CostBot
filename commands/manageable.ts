@@ -1,12 +1,14 @@
-module.exports = {
+import { Message, Client, GuildMember } from 'discord.js';
+
+export default {
 	name: 'manageable',
 	description: 'Shows if the bot can manage this user or not.',
 	aliases: ['mod-able', 'modable'],
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args, client, Discord) => {
-		const member = message.mentions.members.first() || message.member;
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		const member: GuildMember = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)
 			.setTitle(`Moderation Status for ${member.user.tag} (${member.id})`)

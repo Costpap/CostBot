@@ -1,4 +1,6 @@
-module.exports = {
+import { Message, Client, Role } from 'discord.js';
+
+export default {
 	name: 'role-info',
 	description: 'Displays information about a role.',
 	aliases: ['roleinfo', 'role', 'ri'],
@@ -7,8 +9,8 @@ module.exports = {
 	usage: '[role ID or mention]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 7,
-	do: async (message, client, args, Discord) => {
-		const role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		const role: Role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
 		if (!role) {
 			return message.channel.send('that doesn\'t seem to be a valid role.');
 		}

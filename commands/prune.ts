@@ -1,4 +1,6 @@
-module.exports = {
+import { Message, Client } from 'discord.js';
+
+export default {
 	name: 'prune',
 	description: 'Prune up to 99 messages.',
 	aliases: ['purge', 'delete', 'remove'],
@@ -7,7 +9,7 @@ module.exports = {
 	usage: '[number of messages]',
 	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 10,
-	do: async (message, client, args) => {
+	do: async (message: Message, client: Client, args: string[]) => {
 		if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Manage Messages` permission in order to use this command!');
 		}
@@ -21,7 +23,7 @@ module.exports = {
 		}
 		try {
 			message.channel.bulkDelete(amount, true);
-			const sentMessage = await message.channel.send(`✅ Pruned \`${amount - 1}\` messages.`);
+			const sentMessage: Message = await message.channel.send(`✅ Pruned \`${amount - 1}\` messages.`);
 			sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {

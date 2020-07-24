@@ -1,4 +1,6 @@
-module.exports = {
+import { Message, Client } from 'discord.js';
+
+export default {
 	name: 'args-info',
 	description: 'Information about the arguments provided.',
 	aliases: ['argsinfo'],
@@ -6,21 +8,40 @@ module.exports = {
 	usage: 'argument(s)',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
-		if (args[0] === 'foo') {
-			return message.channel.send('bar');
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		switch (args[0]) {
+		case 'foo': {
+			message.channel.send('bar');
+			break;
 		}
-		if (args[0] === 'eri') {
-			return message.channel.send('eri');
+		case 'eri': {
+			message.channel.send('eri');
+			break;
 		}
-		if (args[0] === 'Dom') {
-			return message.channel.send('dommy');
+		case 'Dom': {
+			message.channel.send('dommy');
 		}
-		if (args[0] === 'suspense') {
-			return message.channel.send('spense');
+			break;
+		case 'suspense': {
+			message.channel.send('spense');
 		}
-		if (args[0] === 'Costpap') {
-			return message.channel.send('God');
+			break;
+		case 'Costpap': {
+			message.channel.send('God');
+		}
+			break;
+		default: {
+			const embed = new Discord.MessageEmbed()
+				.setColor('#6293f5')
+				.addFields(
+					{ name: 'Arguments', value: args.join(' ') },
+					{ name: 'Total length', value: args.length },
+				)
+				.setTimestamp()
+				.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
+			message.channel.send(embed);
+			break;
+		}
 		}
 
 		const embed = new Discord.MessageEmbed()

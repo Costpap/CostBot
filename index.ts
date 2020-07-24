@@ -16,13 +16,11 @@ const client = new Discord.Client({
 
 client.events = new Discord.Collection();
 const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
-const importEvent = (event: any): Event => { // eslint-disable-line @typescript-eslint/no-explicit-any
-	return import(`./events/${event}`) as unknown as Event;
-};
 
 for (const file of eventFiles) {
+	console.log(file);
 	/* eslint-disable @typescript-eslint/no-explicit-any */
-	const event: any = importEvent(`./events/${file}`);
+	const event: any = import(`./events/${file}`) as unknown as Event;
 	const eventName: any = file.split(".")[0];
 	/* eslint-enable @typescript-eslint/no-explicit-any */
 
@@ -42,12 +40,10 @@ console.log(`Successfully loaded all ${client.events.size} events!`);
 client.commands = new Discord.Collection();
 const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-const importCommand = (command: unknown): Command => {
-	return import(`./commands/${command}`) as unknown as Command;
-};
 
 for (const file of commandFiles) {
-	const command = importCommand(`./commands/${file}`);
+	console.log(file);
+	const command = import(`./commands/${file}`) as unknown as Command;
 	client.commands.set(command.name, command);
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`);

@@ -1,7 +1,8 @@
 import { prefix, botAdmin, botOwner } from '../botconfig.js';
 import { Command } from '../typings/index.js';
+import { Client, Message } from 'discord.js';
 
-module.exports = async (Discord, client, message) => {
+export default async (Discord: typeof import('discord.js'), client: Client, message: Message) => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 
 	const args: string[] = message.content.slice(prefix.length).trim().split(/ +/);
@@ -44,7 +45,7 @@ module.exports = async (Discord, client, message) => {
 
 	const now: number = Date.now();
 	const timestamps = client.cooldowns.get(command.name);
-	const cooldownAmount: number = (command.cooldown || 3) * 1000;
+	const cooldownAmount: number = (command.cooldown ?? 3) * 1000;
 
 	if (timestamps.has(message.author.id)) {
 		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;

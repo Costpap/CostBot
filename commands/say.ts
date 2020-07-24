@@ -1,4 +1,6 @@
-module.exports = {
+import { Message, Client, TextChannel } from 'discord.js';
+
+export default {
 	name: 'say',
 	description: 'Sends a message through the bot',
 	aliases: ['send'],
@@ -7,7 +9,7 @@ module.exports = {
 	usage: '(#optional-channel) [text]',
 	permissions: ['MANAGE_MESSAGES', 'EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		message.delete();
 
 		const embed = new Discord.MessageEmbed()
@@ -23,12 +25,12 @@ module.exports = {
 			return message.channel.send(args.slice(0).join(' '));
 		}
 
-		const sayChannel = message.mentions.channels.first(); {
+		const sayChannel: TextChannel = message.mentions.channels.first(); {
 			if (args[0] === 'embed') {
 				embed.setDescription(args.slice(2).join(' '));
 				try {
 					sayChannel.send(embed);
-					const sentMessage = await message.channel.send(`✅ Sucessfully sent message to ${sayChannel}!`);
+					const sentMessage: Message = await message.channel.send(`✅ Sucessfully sent message to ${sayChannel}!`);
 					return sentMessage.delete({ timeout: 3000 });
 				}
 				catch (error) {

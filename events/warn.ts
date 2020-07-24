@@ -1,3 +1,3 @@
-module.exports = async (warning) => {
+export default async (warning: string) => {
 	console.warn(warning);
 };

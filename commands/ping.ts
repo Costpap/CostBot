@@ -1,12 +1,13 @@
 import { version } from '../package.json';
+import { Message, Client } from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'ping',
 	description: 'Pings the bot!',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 8,
-	do: async (message, client, args, Discord) => {
-		const sentMessage = await message.channel.send('Pinging...');
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		const sentMessage: Message = await message.channel.send('Pinging...');
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setTitle(`${client.user.username} Ping`)

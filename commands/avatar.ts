@@ -1,11 +1,13 @@
-module.exports = {
+import { Message, Client, User } from 'discord.js';
+
+export default {
 	name: 'avatar',
 	description: 'Get the avatar of the mentioned user or yourself.',
 	aliases: ['icon', 'pfp'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
-		const user = message.mentions.users.first() || message.author;
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		const user: User = message.mentions.users.first() || message.author;
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')
 			.setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))

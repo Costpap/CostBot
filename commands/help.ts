@@ -1,15 +1,16 @@
 import { prefix } from '../botconfig.js';
 import { version } from '../package.json';
 import { Command } from '../typings/index.js';
+import { Message, Client } from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'help',
 	description: 'Lists all of my commands or info about a specific command.',
 	aliases: ['commands', 'cmds'],
 	usage: '[command name]',
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 
 		if (!args.length) {
 			const embed = new Discord.MessageEmbed()
@@ -31,7 +32,7 @@ module.exports = {
 			}
 		}
 
-		const name: string[] = args[0].toLowerCase();
+		const name: string = args[0].toLowerCase();
 		const command: Command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(name));
 
 		if (!command) {
@@ -58,7 +59,7 @@ module.exports = {
 		if (command.usage) {
 			embed.addField('Usage', `${prefix}${command.name} ${command.usage}`);
 		}
-		embed.addField('Cooldown', `${command.cooldown || 3} second(s)`);
+		embed.addField('Cooldown', `${command.cooldown ?? 3} second(s)`);
 		embed.setTimestamp();
 		embed.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
 		try {

@@ -1,15 +1,16 @@
 import * as humanizeDuration from 'humanize-duration';
 import { botOwner } from '../botconfig.js';
 import { version, repository } from '../package.json';
+import { Message, Client, User } from 'discord.js';
 
-module.exports = {
+export default {
 	name: 'info',
 	description: 'Displays information about the bot.',
 	aliases: ['information'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
-		const developer = await client.users.cache.get(botOwner);
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		const developer: User = await client.users.cache.get(botOwner);
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')

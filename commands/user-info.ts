@@ -1,11 +1,13 @@
-module.exports = {
+import { Message, Client, GuildMember } from 'discord.js';
+
+export default {
 	name: 'user-info',
 	description: 'Display info about the mentioned user or yourself.',
 	aliases: ['whois', 'user', 'ui'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, args, client, Discord) => {
-		const member = message.mentions.members.first() || message.member;
+	do: async (message: Message, args: string[], client: Client, Discord: typeof import('discord.js')) => {
+		const member: GuildMember = message.mentions.members.first() || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)
 			.setAuthor(member.user.tag, member.user.displayAvatarURL({ format: 'png', dynamic: true }))

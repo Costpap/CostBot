@@ -1,11 +1,13 @@
-module.exports = {
+import { Message, Client } from 'discord.js';
+
+export default {
 	name: 'server',
 	description: 'Display info about this server.',
 	aliases: ['server-info', 'si', 'guild', 'guild-info', 'gi'],
 	guildOnly: true,
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		const embed = new Discord.MessageEmbed()
 			.setColor('RANDOM')
 			.setTitle(`${message.guild.name}`)

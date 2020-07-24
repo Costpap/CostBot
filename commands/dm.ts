@@ -1,4 +1,6 @@
-module.exports = {
+import { Message, Client, User } from 'discord.js';
+
+export default {
 	name: 'dm',
 	description: 'Sends a direct message through the bot',
 	adminOnly: true,
@@ -6,11 +8,11 @@ module.exports = {
 	usage: '@user text',
 	permissions: ['MANAGE_MESSAGES'],
 	cooldown: 5,
-	do: async (message, client, args, Discord) => {
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		if (!message.mentions.users.size) {
 			return message.reply('you need to tag a user in order to send them a DM!');
 		}
-		const dmUser = message.mentions.users.first(); {
+		const dmUser: User = message.mentions.users.first(); {
 			if (dmUser.bot) return message.reply('You cannot send messages to this user!');
 			message.delete();
 
