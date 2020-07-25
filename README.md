@@ -1,5 +1,5 @@
 # CostBot
-![Dependencies](https://david-dm.org/costpap/costbot.svg)
+[![Dependencies](https://david-dm.org/costpap/costbot.svg)](./package.json)
 
 This repository is home to all the code used by CostBot, a Discord Bot coded in [discord.js](https://github.com/discordjs/discord.js).
 
