@@ -19,10 +19,12 @@ export interface Command {
 }
 
 export interface CooldownOptions {
-has: Discord.Collection<unknown, unknown>
-get: Discord.Collection<unknown, unknown>
-set: Discord.Collection<unknown, unknown>
-delete: Discord.Collection<unknown, unknown>
+/* eslint-disable @typescript-eslint/no-explicit-any */
+has: any
+get: any
+set: any
+delete: any
+/* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
 declare module 'discord.js' {

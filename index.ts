@@ -15,16 +15,13 @@ const client = new Discord.Client({
 });
 
 client.events = new Discord.Collection();
-const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));
+const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	console.log(file);
-	/* eslint-disable @typescript-eslint/no-explicit-any */
-	const event: any = import(`./events/${file}`) as unknown as Event;
-	const eventName: any = file.split(".")[0];
-	/* eslint-enable @typescript-eslint/no-explicit-any */
+	const event: any = import (`./build/events/${file}`) as unknown as Event; 	// eslint-disable-line @typescript-eslint/no-explicit-any
+	const eventName: string = file.split(".")[0];
 
-	client.on(eventName, (...args) => {
+	client.on(eventName as any, (...args) => { // eslint-disable-line @typescript-eslint/no-explicit-any
 		try {
 			event(Discord, client, ...args);
 		}
@@ -38,12 +35,11 @@ console.log(`Successfully loaded all ${client.events.size} events!`);
 
 
 client.commands = new Discord.Collection();
-const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
 
 
 for (const file of commandFiles) {
-	console.log(file);
-	const command = import(`./commands/${file}`) as unknown as Command;
+	const command = import(`./build/commands/${file}`) as unknown as Command;
 	client.commands.set(command.name, command);
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`);

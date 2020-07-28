@@ -9,7 +9,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 	const commandName: string = args.shift().toLowerCase();
 
 	const command: Command = client.commands.get(commandName)
-	|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+	|| client.commands.find(cmd => cmd.aliases?.includes(commandName));
 
 	if (!command) return;
 

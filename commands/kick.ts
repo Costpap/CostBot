@@ -24,7 +24,7 @@ export default {
 		}
 		try {
 
-			member.kick([(args.slice(1).join(' '))]);
+			member.kick(args.slice(1).join(' '));
 			message.channel.send(`🔨 Kicked \`${member.user.tag} (${member.id})\`.`);
 		}
 		catch (error) {

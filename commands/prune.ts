@@ -27,7 +27,7 @@ export default {
 			sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
-			console.error(`Error pruning messages in #${message.channel.name} (${message.channel.id}) of ${message.guild.id}:\n`, error);
+			console.error(`Error pruning messages in #${message.channel?.name} (${message.channel.id}) of ${message.guild.id}:\n`, error);
 			message.reply(`❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``);
 		}
 	},

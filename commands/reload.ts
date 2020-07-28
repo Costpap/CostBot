@@ -11,7 +11,7 @@ export default {
 	do: async (message: Message, client: Client, args: string[]) => {
 		const commandName: string = args[0].toLowerCase();
 		const command: Command = client.commands.get(commandName)
-			|| client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+			|| client.commands.find(cmd => cmd.aliases?.includes(commandName));
 
 		if (!command) {
 			return message.channel.send(`❌ There is no command with name or alias \`${commandName}\`!`);

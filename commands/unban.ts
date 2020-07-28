@@ -19,7 +19,7 @@ export default {
 			return message.channel.send('How do you unban yourself? 🤔');
 		}
 		try {
-			message.guild.members.unban(args[0], [(args.slice(1).join(' '))]);
+			message.guild.members.unban(args[0], args.slice(1).join(' '));
 			message.channel.send(`✅ Unbanned \`${args[0]}\`.`);
 		}
 		catch (error) {
