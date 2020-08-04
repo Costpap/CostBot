@@ -1,6 +1,5 @@
-import { prefix } from '../botconfig.js';
-import { version } from '../package.json';
-import { Command } from '../typings/index.js';
+import { prefix, version } from '../botconfig';
+import { Command } from '../typings/index';
 import { Message, Client } from 'discord.js';
 
 export default {

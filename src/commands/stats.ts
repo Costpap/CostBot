@@ -1,4 +1,4 @@
-import { version } from '../package.json';
+import { version } from '../botconfig';
 import * as humanizeDuration from 'humanize-duration';
 import { Message, Client } from 'discord.js';
 

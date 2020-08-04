@@ -3,8 +3,7 @@ config({ path: './.env' });
 
 import { readdirSync } from 'fs';
 import * as Discord from 'discord.js';
-import { prefix } from './botconfig.js';
-import { Event, Command } from './typings/index.js';
+import { prefix } from './botconfig';
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
 const client = new Discord.Client({
@@ -18,30 +17,32 @@ client.events = new Discord.Collection();
 const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	console.log(eventFiles);
-	const event: any = require(`./build/events/${file}`) as Event; 	// eslint-disable-line @typescript-eslint/no-explicit-any
-	const eventName: string = file.split(".")[0];
+	import(`./build/events/${file}`)
+		.then(({ default: event }) => {
+			const eventName: string = file.split(".")[0];
 
-	client.on(eventName as any, (...args) => { // eslint-disable-line @typescript-eslint/no-explicit-any
-		try {
-			event(Discord, client, ...args);
-		}
-		catch (error) {
-			console.error(error);
-		}
-	});
-	client.events.set(eventName, event);
+			client.on(eventName as any, (...args) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+				try {
+					event(Discord, client, ...args);
+				}
+				catch (error) {
+					console.error(error);
+				}
+			});
+
+			client.events.set(eventName, event);
+		});
 }
 console.log(`Successfully loaded all ${client.events.size} events!`);
 
 
 client.commands = new Discord.Collection();
-const commandFiles = readdirSync('../build/commands').filter(file => file.endsWith('.js'));
+const commandFiles = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
 
 
 for (const file of commandFiles) {
-	const command = require(`./build/commands/${file}`) as Command;
-	client.commands.set(command.name, command);
+	import(`./build/commands/${file}`)
+		.then(({ default: command }) => client.commands.set(command.name, command));
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`);
 

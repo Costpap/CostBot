@@ -1,4 +1,4 @@
-import { Command } from '../typings/index.js';
+import { Command } from '../typings/index';
 import { Message, Client, TextChannel } from 'discord.js';
 
 export default {

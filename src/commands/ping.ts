@@ -1,4 +1,4 @@
-import { version } from '../package.json';
+import { version } from '../botconfig';
 import { Message, Client } from 'discord.js';
 
 export default {

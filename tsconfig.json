@@ -3,18 +3,18 @@
         "module": "commonjs",
         "target": "es2019",
         "lib": ["esnext"],
+        "rootDir": "./src",
         "outDir": "./build",
         "newLine": "lf",
         "sourceMap": false,
         "baseUrl": ".",
-        "resolveJsonModule": true,
         "removeComments": true
     },
     "typeRoots": [
         "./node_modules/@types",
-        "./typings"
+        "./src/typings"
     ],
     "exclude": [
-        "node_modules", "./botconfig-example.ts", "./build"
+        "node_modules", "./src/botconfig-example.ts", "./build"
       ]
 }

@@ -1,6 +1,5 @@
 import * as humanizeDuration from 'humanize-duration';
-import { botOwner } from '../botconfig.js';
-import { version, repository } from '../package.json';
+import { botOwner, version, repository } from '../botconfig';
 import { Message, Client, User } from 'discord.js';
 
 export default {
