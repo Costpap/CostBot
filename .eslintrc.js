@@ -50,5 +50,8 @@ module.exports = {
 		"spaced-comment": "error",
 		"linebreak-style": ["error", "unix"],
 		yoda: "error",
+		"no-unused-vars": "off",
+		"@typescript-eslint/no-unused-vars": "error",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
 	},
 };

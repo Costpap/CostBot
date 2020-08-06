@@ -3,6 +3,7 @@
         "module": "commonjs",
         "target": "es2019",
         "lib": ["esnext"],
+        "moduleResolution": "node",
         "rootDir": "./src",
         "outDir": "./build",
         "newLine": "lf",

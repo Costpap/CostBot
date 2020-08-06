@@ -5,7 +5,7 @@ import { Message, Client, User } from 'discord.js';
 export default {
 	name: 'info',
 	description: 'Displays information about the bot.',
-	aliases: ['information'],
+	aliases: ['information', 'about'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {

@@ -1,9 +1,9 @@
-import { config } from 'dotenv';
-config({ path: './.env' });
+import { config } from "dotenv";
+config({ path: "./.env" });
 
-import { readdirSync } from 'fs';
-import * as Discord from 'discord.js';
-import { prefix } from './botconfig';
+import { readdirSync } from "fs";
+import * as Discord from "discord.js";
+import { prefix } from "./botconfig";
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
 const client = new Discord.Client({
@@ -17,7 +17,7 @@ client.events = new Discord.Collection();
 const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
-	import(`./build/events/${file}`)
+	import(`./events/${file}`)
 		.then(({ default: event }) => {
 			const eventName: string = file.split(".")[0];
 
@@ -41,7 +41,7 @@ const commandFiles = readdirSync('./build/commands').filter(file => file.endsWit
 
 
 for (const file of commandFiles) {
-	import(`./build/commands/${file}`)
+	import(`./commands/${file}`)
 		.then(({ default: command }) => client.commands.set(command.name, command));
 }
 console.log(`Successfully loaded all ${client.commands.size} commands!`);
