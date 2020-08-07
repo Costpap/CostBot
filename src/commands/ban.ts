@@ -1,4 +1,4 @@
-import { Message, Client, User } from 'discord.js';
+import { Message, Client, User } from "discord.js";
 
 export default {
 	name: 'ban',
@@ -19,7 +19,10 @@ export default {
 		if (user === message.author) {
 			return message.reply('please don\'t ban yourself!');
 		}
-		if (user.bannable === false) {
+		/* This checks if the user to be banned
+		is in the guild, and if true,
+		it checks if they can be banned by the bot or not */
+		if (!message.guild.member(user)?.bannable) {
 			return message.channel.send('❌ I cannot ban this user! \n**Please make sure that my highest role is above theirs.**');
 		}
 		try {
