@@ -1,7 +1,12 @@
 import { Message, Client } from 'discord.js';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const exec = (require('util').promisify((require('child_process').exec)));
+import * as util from 'util';
+import * as child_process from 'child_process';
+/**
+* @param {string} - The code to execute
+*/
+const exec = util.promisify(child_process.exec);
+
 
 export default {
 	name: 'shell',
@@ -20,7 +25,7 @@ export default {
 		try {
 			let { stdout } = await exec(code);
 
-			if (typeof stdout !== 'string') {stdout = (await import('util')).inspect(stdout);}
+			if (typeof stdout !== 'string') {stdout = (await util.inspect(stdout));}
 
 			if (stdout.length > 1016) {
 				console.log('Shell Output:\n', clean(stdout));
