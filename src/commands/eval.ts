@@ -1,4 +1,5 @@
-import { Message, Client } from 'discord.js';
+import { clean } from "../utils/misc";
+import { Message, Client } from "discord.js";
 
 export default {
 	name: 'eval',
@@ -8,10 +9,6 @@ export default {
 	args: true,
 	permissions: ['EMBED_LINKS'],
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import ('discord.js')) => {
-		const clean = text => {
-			if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
-			else {return text;}
-		};
 		const before: number = Date.now();
 		const code: string = args.join(' ');
 		try {
