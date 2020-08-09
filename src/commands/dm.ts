@@ -13,7 +13,7 @@ export default {
 			return message.reply('you need to tag a user in order to send them a DM!');
 		}
 		const dmUser: User = message.mentions.users.first(); {
-			if (dmUser.bot) return message.reply('You cannot send messages to this user!');
+			if (dmUser.bot) return message.reply('you cannot send messages to this user!');
 			message.delete();
 
 			const embed = new Discord.MessageEmbed().setColor('#6293f5').setTimestamp();
@@ -23,7 +23,7 @@ export default {
 				embed.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
 				try {
 					dmUser.send(embed);
-					const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
+					const sentMessage: Message = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
 					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
@@ -35,7 +35,7 @@ export default {
 				embed.setDescription(args.slice(2).join(' '));
 				try {
 					dmUser.send(embed);
-					const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
+					const sentMessage: Message = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
 					return sentMessage.delete({ timeout: 5000 });
 				}
 				catch (error) {
@@ -48,7 +48,7 @@ export default {
 
 		try {
 			dmUser.send(args.slice(1).join(' '));
-			const sentMessage = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
+			const sentMessage: Message = await message.channel.send(`✅ Successfully sent DM to **${dmUser.tag}**!`);
 			return sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
