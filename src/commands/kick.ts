@@ -17,7 +17,7 @@ export default {
 		}
 		const member: GuildMember = message.mentions.members.first();
 		if (member === message.member) {
-			return message.reply('please don\'t kick yourself!');
+			return message.channel.send("Aww, please don't kick yourself! 💖");
 		}
 		if (member.kickable === false) {
 			return message.channel.send('❌ I cannot kick this user! \n**Please make sure that my highest role is above theirs.**');

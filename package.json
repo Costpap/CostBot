@@ -1,6 +1,6 @@
 {
   "name": "costbot",
-  "version": "1.9.2",
+  "version": "1.10.0",
   "description": "A thing I made",
   "repository": "https://github.com/Costpap/CostBot",
   "main": "build/index.js",

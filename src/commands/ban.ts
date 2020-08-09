@@ -17,7 +17,7 @@ export default {
 		}
 		const user: User = message.mentions.users.first();
 		if (user === message.author) {
-			return message.reply('please don\'t ban yourself!');
+			return message.channel.send("Aww, please don't ban yourself! 💖");
 		}
 		/* This checks if the user to be banned
 		is in the guild, and if true,
