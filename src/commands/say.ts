@@ -10,7 +10,7 @@ export default {
 	permissions: ['MANAGE_MESSAGES', 'EMBED_LINKS'],
 	cooldown: 5,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-		message.delete();
+		if (message.channel.type !== "dm") message.delete();
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')

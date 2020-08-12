@@ -14,7 +14,7 @@ export default {
 		}
 		const dmUser: User = message.mentions.users.first(); {
 			if (dmUser.bot) return message.reply('you cannot send messages to this user!');
-			message.delete();
+			if (message.channel.type !== "dm") message.delete();
 
 			const embed = new Discord.MessageEmbed().setColor('#6293f5').setTimestamp();
 
