@@ -31,12 +31,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 	}
 
 	if (command.args && !args.length) {
-		let reply = `⚠ You didn't provide any arguments!`;
-
-		if (command.usage) {
-			reply += `\n\n🔧 The proper usage would be: \`${prefix}${command.name} ${command.usage}\``;
-		}
-		return message.channel.send(reply);
+		return message.channel.send(`⚠ You didn't provide any arguments! ${command.usage.length > 0 ? `\n\n🔧 The proper usage would be: \`${prefix}${command.name} ${command.usage}\`` : ""}`);
 	}
 
 	if (!client.cooldowns.has(command.name)) {
