@@ -1,4 +1,4 @@
-import { Message, Client } from 'discord.js';
+import { Message, Client, TextChannel, NewsChannel } from "discord.js";
 
 export default {
 	name: 'prune',
@@ -21,14 +21,16 @@ export default {
 		else if (amount <= 1 || amount > 100) {
 			return message.reply('you need to input a number between 1 and 99.');
 		}
+
+		const textChannel = message.channel as TextChannel | NewsChannel;
 		try {
-			message.channel.bulkDelete(amount, true);
+			textChannel.bulkDelete(amount, true);
 			const sentMessage: Message = await message.channel.send(`✅ Pruned \`${amount - 1}\` messages.`);
 			sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
-			console.error(`Error pruning messages in #${message.channel?.name} (${message.channel.id}) of ${message.guild.id}:\n`, error);
-			message.reply(`❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``);
+			console.error(`Error pruning messages in #${textChannel.name} (${message.channel.id}) of ${message.guild.id}:\n`, error);
+			message.channel.send(`❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``);
 		}
 	},
 };

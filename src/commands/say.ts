@@ -1,4 +1,4 @@
-import { Message, Client, TextChannel } from 'discord.js';
+import { Message, Client, TextChannel, NewsChannel } from 'discord.js';
 
 export default {
 	name: 'say',
@@ -25,28 +25,27 @@ export default {
 			return message.channel.send(args.slice(0).join(' '));
 		}
 
-		const sayChannel: TextChannel = message.mentions.channels.first(); {
-			if (args[0] === 'embed') {
-				embed.setDescription(args.slice(2).join(' '));
-				try {
-					sayChannel.send(embed);
-					const sentMessage: Message = await message.channel.send(`✅ Sucessfully sent message to ${sayChannel}!`);
-					return sentMessage.delete({ timeout: 3000 });
-				}
-				catch (error) {
-					console.error(`Could not send message to #${sayChannel.name} (${sayChannel.id}) of guild ${sayChannel.guild.id}:\n`, error);
-					return message.channel.send(`❌ Could not send message to ${sayChannel}.`);
-				}
-			}
+		const sayChannel: TextChannel | NewsChannel = message.mentions.channels.first();
+		if (args[0] === 'embed') {
+			embed.setDescription(args.slice(2).join(' '));
 			try {
-				sayChannel.send(args.slice(1).join(' '));
-				const sentMessage = await message.channel.send(`✅ Sucessfully sent message to ${sayChannel}!`);
+				sayChannel.send(embed);
+				const sentMessage: Message = await message.channel.send(`✅ Sucessfully sent message to ${sayChannel}!`);
 				return sentMessage.delete({ timeout: 3000 });
 			}
 			catch (error) {
 				console.error(`Could not send message to #${sayChannel.name} (${sayChannel.id}) of guild ${sayChannel.guild.id}:\n`, error);
 				return message.channel.send(`❌ Could not send message to ${sayChannel}.`);
 			}
+		}
+		try {
+			sayChannel.send(args.slice(1).join(' '));
+			const sentMessage = await message.channel.send(`✅ Sucessfully sent message to ${sayChannel}!`);
+			return sentMessage.delete({ timeout: 3000 });
+		}
+		catch (error) {
+			console.error(`Could not send message to #${sayChannel.name} (${sayChannel.id}) of guild ${sayChannel.guild.id}:\n`, error);
+			return message.channel.send(`❌ Could not send message to ${sayChannel}.`);
 		}
 	},
 };
