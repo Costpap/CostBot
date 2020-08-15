@@ -1,5 +1,10 @@
-import { Command } from '../typings/index';
-import { Message, Client, TextChannel } from 'discord.js';
+import { Command } from "../typings/index";
+import { clean } from "../utils/misc";
+import { Message, Client, TextChannel } from "discord.js";
+
+import * as util from "util";
+import * as child_process from "child_process";
+const exec = util.promisify(child_process.exec);
 
 export default {
 	name: 'reload',
@@ -16,6 +21,15 @@ export default {
 		if (!command) {
 			return message.channel.send(`❌ There is no command with name or alias \`${commandName}\`!`);
 		}
+		const sentMessage: Message = await message.channel.send('📝 Compiling TypeScript code...');
+		try {
+			const { stderr } = await exec('npx tsc');
+			if (stderr) throw stderr;
+		}
+		catch (stderr) {
+			console.error('Error compiling TypeScript code: \n', stderr);
+			return sentMessage.edit(`❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``);
+		}
 
 		delete require.cache[require.resolve(`./${command.name}.js`)];
 
@@ -24,11 +38,12 @@ export default {
 			client.commands.set(newCommand.name, newCommand);
 			const coreLog = await client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
 			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\`.`);
-			message.channel.send(`✅ Command **${command.name}** was reloaded!`);
+			sentMessage.edit(`✅ Command **${command.name}** was reloaded!`);
 		}
 		catch (error) {
 			console.error(error);
-			message.channel.send(`❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${error.message}\`\`\``);
+			sentMessage.edit(`❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${error.message}\`\`\``);
 		}
+
 	},
 };

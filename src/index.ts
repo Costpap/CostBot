@@ -13,38 +13,41 @@ const client = new Discord.Client({
 	messageSweepInterval: 600,
 });
 
-client.events = new Discord.Collection();
-const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
+(async () => {
+	client.events = new Discord.Collection();
+	const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
 
-for (const file of eventFiles) {
-	import(`./events/${file}`)
-		.then(({ default: event }) => {
-			const eventName: string = file.split(".")[0];
+	for (const file of eventFiles) {
+		await import(`./events/${file}`)
+			.then(({ default: event }) => {
+				const eventName: string = file.split(".")[0];
 
-			client.on(eventName as any, (...args) => { // eslint-disable-line @typescript-eslint/no-explicit-any
-				try {
-					event(Discord, client, ...args);
-				}
-				catch (error) {
-					console.error(error);
-				}
-			});
+				client.on(eventName as any, (...args) => { // eslint-disable-line @typescript-eslint/no-explicit-any
+					try {
+						event(Discord, client, ...args);
+					}
+					catch (error) {
+						console.error(error);
+					}
+				});
 
-			client.events.set(eventName, event);
-		});
-}
-console.log(`Successfully loaded all ${client.events.size} events!`);
-
-
-client.commands = new Discord.Collection();
-const commandFiles = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
+				client.events.set(eventName, event);
+			},
+			);
+	}
+	console.log(`Successfully loaded all ${client.events.size} events!`);
 
 
-for (const file of commandFiles) {
-	import(`./commands/${file}`)
-		.then(({ default: command }) => client.commands.set(command.name, command));
-}
-console.log(`Successfully loaded all ${client.commands.size} commands!`);
+	client.commands = new Discord.Collection();
+	const commandFiles = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
+
+
+	for (const file of commandFiles) {
+		await import(`./commands/${file}`)
+			.then(({ default: command }) => client.commands.set(command.name, command));
+	}
+	console.log(`Successfully loaded all ${client.commands.size} commands!`);
+})();
 
 client.cooldowns = new Discord.Collection();
 

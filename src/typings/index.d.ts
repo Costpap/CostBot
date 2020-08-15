@@ -1,8 +1,5 @@
-import * as Discord from 'discord.js';
+import { Message, Client, Collection } from "discord.js";
 
-export interface Event {
-  [key: string]: never
-}
 export interface Command {
     name: string,
     description?: string,
@@ -15,7 +12,7 @@ export interface Command {
     usage?: string,
     permissions?: never,
     cooldown?: number
-    do: (message: Discord.Message, client?: Discord.Client, args?: string[], Discord?: typeof import ('discord.js')) => unknown | Promise<unknown>
+  do: (message: Message, client?: Client, args?: string[], Discord?: typeof import ("discord.js")) => unknown | Promise<unknown>
 }
 
 export interface CooldownOptions {
@@ -29,8 +26,8 @@ delete: any
 
 declare module 'discord.js' {
   export interface Client {
-    events: Discord.Collection<string, Event>
-    commands: Discord.Collection<string, Command>
-    cooldowns: Discord.Collection<string, CooldownOptions>
+    events: Collection<string, unknown>
+    commands: Collection<string, Command>
+    cooldowns: Collection<string, CooldownOptions>
   }
 }
