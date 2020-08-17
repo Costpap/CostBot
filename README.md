@@ -1,5 +1,11 @@
 # CostBot
-[![Dependencies](https://david-dm.org/costpap/costbot.svg)](https://david-dm.org/costpap/costbot)
+<div align="center">
+<br role="presentation" />
+<p>
+<a href="https://github.com/Costpap/CostBot/actions"><img src="https://github.com/Costpap/CostBot/workflows/CostBot%20Continuous%20Integration/badge.svg" alt="CostBot CI"/></a>
+<a href="https://david-dm.org/Costpap/CostBot"><img src="https://img.shields.io/david/Costpap/CostBot.svg" alt="Dependencies" /></a>
+</p>
+</div>
 
 This repository is home to all the code used by CostBot, a Discord Bot coded in [discord.js](https://github.com/discordjs/discord.js).
 
