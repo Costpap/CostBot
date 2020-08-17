@@ -1,4 +1,4 @@
-import { Message, Client, Collection } from "discord.js";
+import { Message, Client, PermissionResolvable } from "discord.js";
 
 export interface Command {
     name: string,
@@ -10,7 +10,7 @@ export interface Command {
     adminOnly?: boolean,
     ownerOnly?: boolean,
     usage?: string,
-    permissions?: never,
+    permissions?: Array<PermissionResolvable>,
     cooldown?: number
   do: (message: Message, client?: Client, args?: string[], Discord?: typeof import ("discord.js")) => unknown | Promise<unknown>
 }
