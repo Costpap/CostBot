@@ -1,6 +1,6 @@
-import { version } from '../botconfig';
-import * as humanizeDuration from 'humanize-duration';
-import { Message, Client } from 'discord.js';
+import { version } from "../botconfig";
+import { clientStats } from "../utils/misc";
+import { Message, Client } from "discord.js";
 
 export default {
 	name: 'stats',
@@ -12,13 +12,9 @@ export default {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setTitle(`${client.user.username} Statistics`)
-			.addFields(
-				{ name: 'Server Count', value: client.guilds.cache.size, inline: true },
-				{ name: 'Total Members', value: client.users.cache.size, inline: true },
-				{ name: 'Bot uptime', value: humanizeDuration(client.uptime), inline: true },
-			)
 			.setTimestamp()
 			.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
+		clientStats(embed, client);
 		message.channel.send(embed);
 	},
 };

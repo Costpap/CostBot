@@ -1,6 +1,6 @@
-import * as humanizeDuration from 'humanize-duration';
-import { botOwner, version, repository } from '../botconfig';
-import { Message, Client, User } from 'discord.js';
+import { botOwner, version, repository } from "../botconfig";
+import { clientStats, ClientStatOptions } from "../utils/misc";
+import { Message, Client, User } from "discord.js";
 
 export default {
 	name: 'info',
@@ -22,11 +22,12 @@ export default {
 				{ name: 'Number of commands', value: client.commands.size, inline: true },
 				{ name: 'GitHub Repository', value: repository, inline: true },
 				{ name: '\u200B', value: '\u200B' },
-				{ name: 'Server Count', value: client.guilds.cache.size, inline: true },
-				{ name: 'Total Members', value: client.users.cache.size, inline: true },
-				{ name: 'Uptime', value: humanizeDuration(client.uptime) },
 			)
 			.setTimestamp();
+		const options: ClientStatOptions = {
+			noUptimeInline: true,
+		};
+		clientStats(embed, client, options);
 		message.channel.send(embed);
 	},
 };
