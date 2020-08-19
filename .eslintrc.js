@@ -23,7 +23,6 @@ module.exports = {
 		"max-nested-callbacks": ["error", { max: 4 }],
 		"max-statements-per-line": ["error", { max: 2 }],
 		"no-console": "off",
-		"no-empty-function": "error",
 		"no-floating-decimal": "error",
 		"no-inline-comments": "error",
 		"no-lonely-if": "error",
@@ -52,6 +51,8 @@ module.exports = {
 		yoda: "error",
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": "error",
+		"no-empty-function": "off",
+		"@typescript-eslint/no-empty-function": "error",
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 	},
 };

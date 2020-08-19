@@ -1,5 +1,5 @@
-import { version } from '../botconfig';
-import { Message, Client } from 'discord.js';
+import { version } from "../utils/misc";
+import { Message, Client } from "discord.js";
 
 export default {
 	name: 'ping',
@@ -16,7 +16,7 @@ export default {
 				{ name: 'Websocket Heartbeat', value: `${client.ws.ping}ms`, inline: true },
 			)
 			.setTimestamp()
-			.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
+			.setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
 		sentMessage.edit('', embed);
 	},
 };

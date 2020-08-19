@@ -1,5 +1,4 @@
-import { version } from "../botconfig";
-import { clientStats } from "../utils/misc";
+import { clientStats, version } from "../utils/misc";
 import { Message, Client } from "discord.js";
 
 export default {
@@ -13,7 +12,7 @@ export default {
 			.setColor('#6293f5')
 			.setTitle(`${client.user.username} Statistics`)
 			.setTimestamp()
-			.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
+			.setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
 		clientStats(embed, client);
 		message.channel.send(embed);
 	},

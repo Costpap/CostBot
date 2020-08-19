@@ -1,12 +1,12 @@
 import { clean } from "../utils/misc";
-import * as util from 'util';
-import * as child_process from "child_process";
 import { Message, Client } from "discord.js";
 
+import { promisify, inspect } from "util";
+import * as child_process from "child_process";
 /**
 * @param {string} - The code to execute
 */
-const exec = util.promisify(child_process.exec);
+const exec = promisify(child_process.exec);
 
 
 export default {
@@ -22,7 +22,7 @@ export default {
 		try {
 			let { stdout } = await exec(code);
 
-			if (typeof stdout !== 'string') {stdout = (await util.inspect(stdout));}
+			if (typeof stdout !== 'string') {stdout = (await inspect(stdout));}
 
 			if (stdout.length > 1016) {
 				console.log('Shell Output:\n', clean(stdout));

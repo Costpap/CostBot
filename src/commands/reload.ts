@@ -2,9 +2,9 @@ import { Command } from "../typings/index";
 import { clean } from "../utils/misc";
 import { Message, Client, TextChannel } from "discord.js";
 
-import * as util from "util";
+import { promisify } from "util";
 import * as child_process from "child_process";
-const exec = util.promisify(child_process.exec);
+const exec = promisify(child_process.exec);
 
 export default {
 	name: 'reload',

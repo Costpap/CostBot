@@ -1,4 +1,5 @@
 import * as humanizeDuration from "humanize-duration";
+import fetch from "node-fetch";
 import { MessageEmbed, Client } from "discord.js";
 
 /**
@@ -16,6 +17,18 @@ export const clean = (text: string) => {
 	else {return text;}
 };
 
+/**
+ * Automatically gets the latest release from [GitHub](https://github.com/Costpap/CostBot).
+ * @param {string} tag_name The name of the tag of the latest release, for example: v0.0.0
+ * @example
+ * import { version } from "./utils/misc";
+ *
+ * console.log(version())
+ */
+export const version = async (): Promise<string> => {
+	const { tag_name } = await fetch("https://api.github.com/repos/Costpap/CostBot/releases/latest").then(response => response.json());
+	return tag_name as string;
+};
 /**
  *
  * @param embed discord.js messageEmbed
@@ -73,6 +86,7 @@ export async function clientStats(embed: MessageEmbed, client: Client, options?:
 		{ name: strings.uptime, value: values.uptime, inline: true },
 	);
 }
+
 
 export interface ClientStatOptions {
 	noInline?: boolean;

@@ -1,5 +1,5 @@
-import { botOwner, version, repository } from "../botconfig";
-import { clientStats, ClientStatOptions } from "../utils/misc";
+import { botOwner, repository } from "../botconfig";
+import { clientStats, ClientStatOptions, version } from "../utils/misc";
 import { Message, Client, User } from "discord.js";
 
 export default {
@@ -17,7 +17,7 @@ export default {
 			.setTitle(`${client.user.username} Information`)
 			.addFields(
 				{ name: 'Developer', value: `${developer.tag} (${developer.id})` },
-				{ name: 'Version', value: version, inline: true },
+				{ name: 'Version', value: await version(), inline: true },
 				{ name: 'Library', value: `discord.js v${Discord.version}`, inline: true },
 				{ name: 'Number of commands', value: client.commands.size, inline: true },
 				{ name: 'GitHub Repository', value: repository, inline: true },

@@ -1,6 +1,7 @@
-import { prefix, version } from '../botconfig';
-import { Command } from '../typings/index';
-import { Message, Client } from 'discord.js';
+import { prefix } from "../botconfig";
+import { version } from "../utils/misc";
+import { Command } from "../typings/index";
+import { Message, Client } from "discord.js";
 
 export default {
 	name: 'help',
@@ -60,7 +61,7 @@ export default {
 		}
 		embed.addField('Cooldown', `${command.cooldown ?? 3} second(s)`);
 		embed.setTimestamp();
-		embed.setFooter(`${client.user.username} v${version}`, client.user.displayAvatarURL({ format: 'png' }));
+		embed.setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
 		try {
 			message.channel.send(embed);
 		}
