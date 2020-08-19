@@ -63,8 +63,8 @@ export async function clientStats(embed: MessageEmbed, client: Client, options?:
 	if (options?.noInline) {
 		return embed.addFields(
 			{ name: strings.serverCount, value: values.serverCount, inline: false },
-			{ name: strings.members, value: values.members, inline: true },
-			{ name: strings.uptime, value: values.uptime, inline: true },
+			{ name: strings.members, value: values.members, inline: false },
+			{ name: strings.uptime, value: values.uptime, inline: false },
 		);
 	}
 	if (options?.noUptimeInline) {
