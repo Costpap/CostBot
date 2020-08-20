@@ -60,12 +60,16 @@ if (!prefix || prefix.length > 5) {
 	process.exit(1);
 }
 
+/* This catches when the process is about to exit
+and destroys the discord.js client in order to allow for a graceful shutdown. */
 process.on('exit', () => {
 	console.log('Destroying discord.js Client...');
 	client.destroy();
 });
 
+// This caches unhandled promise rejections.
 process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error)),
 
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN)
+	.catch(console.error);
