@@ -24,7 +24,7 @@ export default {
 		}
 		catch (error) {
 			console.error(error);
-			message.reply(`❌ I encountered an error while trying to unban \`${args[0]}\`: \n\`\`\`${error.message}\`\`\``);
+			message.channel.send(`❌ I encountered an error while trying to unban \`${args[0]}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 
 	},

@@ -16,6 +16,7 @@ export default {
 	usage: 'code',
 	args: true,
 	permissions: ['EMBED_LINKS'],
+	cooldown: 0,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		const before: number = Date.now();
 		const code: string = args.join(' ');

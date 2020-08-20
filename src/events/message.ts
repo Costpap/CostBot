@@ -21,11 +21,11 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 		return message.reply('You cannot use this command!');
 	}
 
-	if (command.guildOnly && message.channel.type !== 'text') {
+	if (command.guildOnly && (!["text", "news"].includes(message.channel.type))) {
 		return message.channel.send('❌ I can\'t execute this command inside DMs!');
 	}
 
-	if (command.permissions && message.channel.type === 'text'
+	if (command.permissions && (!["text", "news"].includes(message.channel.type))
 	&& !message.guild.me.hasPermission(command.permissions, { checkAdmin: true })) {
 		return message.channel.send(`❌ Sorry, I need the \`${command.permissions}\` permission(s) in order to execute this command.`);
 	}
@@ -43,7 +43,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 	const cooldownAmount: number = (command.cooldown ?? 3) * 1000;
 
 	if (timestamps.has(message.author.id)) {
-		const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+		const expirationTime: number = timestamps.get(message.author.id) + cooldownAmount;
 
 		if (now < expirationTime) {
 			const timeLeft: number = (expirationTime - now) / 1000;
@@ -57,6 +57,6 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 	}
 	catch (error) {
 		console.error(error);
-		message.reply(`I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``);
+		message.channel.send(`I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``);
 	}
 };

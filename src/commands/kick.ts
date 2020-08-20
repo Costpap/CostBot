@@ -29,7 +29,7 @@ export default {
 		}
 		catch (error) {
 			console.error(error);
-			message.reply(`❌ I encountered an error while trying to kick \`${member.user.tag}\`: \n\`\`\`${error.message}\`\`\``);
+			message.channel.send(`❌ I encountered an error while trying to kick \`${member.user.tag}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 
 	},

@@ -13,6 +13,7 @@ export default {
 	args: true,
 	aliases: ['cmdr'],
 	usage: '[command name]',
+	cooldown: 0,
 	do: async (message: Message, client: Client, args: string[]) => {
 		const commandName: string = args[0].toLowerCase();
 		const command: Command = client.commands.get(commandName)
@@ -36,7 +37,7 @@ export default {
 		try {
 			const newCommand: Command = await import(`./${command.name}.js`);
 			client.commands.set(newCommand.name, newCommand);
-			const coreLog = await client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
+			const coreLog = client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
 			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\`.`);
 			sentMessage.edit(`✅ Command **${command.name}** was reloaded!`);
 		}
