@@ -15,6 +15,7 @@ const client = new Discord.Client({
 
 (async () => {
 	client.events = new Discord.Collection();
+	const eventStarted: number = Date.now();
 	const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
 
 	for (const file of eventFiles) {
@@ -35,10 +36,11 @@ const client = new Discord.Client({
 			},
 			);
 	}
-	console.log(`Successfully loaded all ${client.events.size} events!`);
+	console.log(`Successfully loaded all ${client.events.size} events in ${Date.now() - eventStarted}ms!`);
 
 
 	client.commands = new Discord.Collection();
+	const commandStarted: number = Date.now();
 	const commandFiles = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
 
 
@@ -46,7 +48,7 @@ const client = new Discord.Client({
 		await import(`./commands/${file}`)
 			.then(({ default: command }) => client.commands.set(command.name, command));
 	}
-	console.log(`Successfully loaded all ${client.commands.size} commands!`);
+	console.log(`Successfully loaded all ${client.commands.size} commands in ${Date.now() - commandStarted}ms!`);
 })();
 
 client.cooldowns = new Discord.Collection();

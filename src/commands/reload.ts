@@ -23,6 +23,7 @@ export default {
 			return message.channel.send(`❌ There is no command with name or alias \`${commandName}\`!`);
 		}
 		const sentMessage: Message = await message.channel.send('📝 Compiling TypeScript code...');
+		const start: number = Date.now();
 		try {
 			const { stderr } = await exec('npx tsc');
 			if (stderr) throw stderr;
@@ -35,11 +36,13 @@ export default {
 		delete require.cache[require.resolve(`./${command.name}.js`)];
 
 		try {
-			const newCommand: Command = await import(`./${command.name}.js`);
-			client.commands.set(newCommand.name, newCommand);
+			await import(`./${command.name}.js`)
+				.then(({ default: newCommand }) => client.commands.set(newCommand.name, newCommand));
+			const end: number = Date.now();
+			const reloadTime: number = (end - start) / 1000;
 			const coreLog = client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
-			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\`.`);
-			sentMessage.edit(`✅ Command **${command.name}** was reloaded!`);
+			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\` in ${reloadTime.toFixed(1)} seconds.`);
+			sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} seconds!`);
 		}
 		catch (error) {
 			console.error(error);
