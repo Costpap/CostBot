@@ -16,7 +16,7 @@ const client = new Discord.Client({
 (async () => {
 	client.events = new Discord.Collection();
 	const eventStarted: number = Date.now();
-	const eventFiles = readdirSync('./build/events').filter(file => file.endsWith('.js'));
+	const eventFiles: string[] = readdirSync('./build/events').filter(file => file.endsWith('.js'));
 
 	for (const file of eventFiles) {
 		await import(`./events/${file}`)
@@ -41,7 +41,7 @@ const client = new Discord.Client({
 
 	client.commands = new Discord.Collection();
 	const commandStarted: number = Date.now();
-	const commandFiles = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
+	const commandFiles: string[] = readdirSync('./build/commands').filter(file => file.endsWith('.js'));
 
 
 	for (const file of commandFiles) {

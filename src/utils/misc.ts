@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { MessageEmbed, Client } from "discord.js";
 
 /**
+ * A simple text cleaner.
  * @param {string} text Text to clean
  * @example
  * import { clean } from "./utils/misc";
@@ -12,7 +13,7 @@ import { MessageEmbed, Client } from "discord.js";
  *
  * console.log(clean(evaled));
  */
-export const clean = (text: string) => {
+export const clean = (text: string): string => {
 	if (typeof (text) === 'string') {return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203));}
 	else {return text;}
 };
