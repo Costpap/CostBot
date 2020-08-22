@@ -28,8 +28,9 @@ export default {
 
 		const end: number = Date.now();
 		const complilationTime: number = (end - start) / 1000;
-		await logMessage.edit(`${logMessage.content}\n\n✅ Compiled in ${complilationTime.toFixed(1)} seconds.\n\n🔄 Shutting down.`);
-		await depMessage.edit(`✅ Compilation finished in ${complilationTime.toFixed(1)} seconds. Shutting down...`);
+		const sec: string = complilationTime === 1 ? 'second' : 'seconds';
+		await logMessage.edit(`${logMessage.content}\n\n✅ Compiled in ${complilationTime.toFixed(1)} ${sec}.\n\n🔄 Shutting down.`);
+		await depMessage.edit(`✅ Compilation finished in ${complilationTime.toFixed(1)} ${sec}. Shutting down...`);
 		process.exit();
 
 

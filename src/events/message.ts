@@ -47,7 +47,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 
 		if (now < expirationTime) {
 			const timeLeft: number = (expirationTime - now) / 1000;
-			const sentMessage: Message = await message.reply(`please wait ${timeLeft.toFixed(1)} second(s) before using \`${command.name}\` again.`);
+			const sentMessage: Message = await message.reply(`please wait ${timeLeft.toFixed(1)} ${timeLeft === 1 ? 'second' : 'seconds'} before using \`${command.name}\` again.`);
 			return sentMessage.delete({ timeout: 3000 });
 		}
 	} timestamps.set(message.author.id, now);

@@ -41,8 +41,9 @@ export default {
 			const end: number = Date.now();
 			const reloadTime: number = (end - start) / 1000;
 			const coreLog = client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
-			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\` in ${reloadTime.toFixed(1)} seconds.`);
-			sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} seconds!`);
+			const sec: string = reloadTime === 1 ? 'second' : 'seconds';
+			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\` in ${reloadTime.toFixed(1)} ${sec}.`);
+			sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`);
 		}
 		catch (error) {
 			console.error(error);

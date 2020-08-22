@@ -40,29 +40,29 @@ export default {
 		}
 
 
-		const embed = new Discord.MessageEmbed();
-		embed.setColor('#6293f5');
-		embed.setTitle(`**Command Name:** ${command.name}`);
-		if (command.disabled) {
-			embed.setDescription('⚠ This command is currently **disabled**.');
-		}
-		command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases' : 'Alias', command.aliases.join(', ')) : '';
-		if (command.description) {
-			embed.addField('Description', command.description);
-		}
-		if (command.ownerOnly) {
-			embed.addField('Permission level', 'Bot Owner');
-		}
-		if (command.adminOnly) {
-			embed.addField('Permission level', 'Bot Administrator');
-		}
-		if (command.usage) {
-			embed.addField('Usage', `${prefix}${command.name} ${command.usage}`);
-		}
-		embed.addField('Cooldown', `${command.cooldown ?? 3} second(s)`);
-		embed.setTimestamp();
-		embed.setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
 		try {
+			const embed = new Discord.MessageEmbed();
+			embed.setColor('#6293f5');
+			embed.setTitle(`**Command Name:** ${command.name}`);
+			if (command.disabled) {
+				embed.setDescription('⚠ This command is currently **disabled**.');
+			}
+			command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases' : 'Alias', command.aliases.join(', ')) : '';
+			if (command.description) {
+				embed.addField('Description', command.description);
+			}
+			if (command.ownerOnly) {
+				embed.addField('Permission level', 'Bot Owner');
+			}
+			if (command.adminOnly) {
+				embed.addField('Permission level', 'Bot Administrator');
+			}
+			if (command.usage) {
+				embed.addField('Usage', `${prefix}${command.name} ${command.usage}`);
+			}
+			embed.addField('Cooldown', `${command.cooldown ?? 3} ${command.cooldown === 1 ? 'second' : 'seconds'}`);
+			embed.setTimestamp();
+			embed.setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
 			message.channel.send(embed);
 		}
 		catch (error) {
