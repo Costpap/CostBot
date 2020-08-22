@@ -13,6 +13,9 @@ export default {
 		if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Manage Messages` permission in order to use this command!');
 		}
+		/**
+		 * The total number of messages to bulkDelete.
+		 */
 		const amount: number = parseInt(args[0]) + 1;
 
 		if (isNaN(amount)) {
@@ -24,8 +27,8 @@ export default {
 
 		const textChannel = message.channel as TextChannel | NewsChannel;
 		try {
-			textChannel.bulkDelete(amount, true);
-			const sentMessage: Message = await message.channel.send(`✅ Pruned \`${amount - 1}\` messages.`);
+			await textChannel.bulkDelete(amount, true);
+			const sentMessage: Message = await message.channel.send(`✅ Pruned **${amount - 1}** messages.`);
 			sentMessage.delete({ timeout: 5000 });
 		}
 		catch (error) {
