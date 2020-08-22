@@ -14,8 +14,8 @@ export default {
 				.setColor(role.hexColor)
 				.setTitle(`Members & permissions list for role **${role.name}**`)
 				.addFields(
-					{ name: 'Role members:', value: role.members.map(member => member).join(', ') },
-					{ name: 'Role permissions:', value: role.permissions.toArray().join(', ') },
+					{ name: 'Role members:', value: role.members.map(member => member).join(', ') || 'There are no members with this role.' },
+					{ name: 'Role permissions:', value: role.permissions.toArray().join(', ') || 'This role doesn\'t have any permissions.' },
 				)
 				.setTimestamp(role.createdAt)
 				.setFooter(`Role ID: ${role.id}`);
@@ -28,7 +28,7 @@ export default {
 			.setTitle(`Roles & permissions list for ${member.user.tag} (${member.id})`)
 			.addFields(
 				{ name: 'User roles', value: member.roles.cache.map(role => role).join(', ') },
-				{ name: 'User permissions', value: member.permissions.toArray().join(', ') },
+				{ name: 'User permissions', value: member.permissions.toArray().join(', ') || 'This user doesn\'t have any permissions.' },
 			)
 			.setTimestamp()
 			.setFooter(`Requested by ${message.author.tag}`, message.author.displayAvatarURL({ format: 'png', dynamic: true }));
