@@ -5,6 +5,7 @@ import { MessageEmbed, Client } from "discord.js";
 /**
  * A simple text cleaner.
  * @param {string} text Text to clean
+ * @returns {string} Cleaned text
  * @example
  * import { clean } from "./utils/misc";
  *
@@ -20,7 +21,8 @@ export const clean = (text: string): string => {
 
 /**
  * Automatically gets the latest release from [GitHub](https://github.com/Costpap/CostBot).
- * @param {string} tag_name The name of the tag of the latest release, for example: v0.0.0
+ * @param {string} tag_name The name of the tag of the latest release, for example: `v0.0.0`
+ * @returns {Promise<string>} The name of the tag of the latest release, for example: `v0.0.0`
  * @example
  * import { version } from "./utils/misc";
  *
@@ -50,11 +52,23 @@ export const version = async (): Promise<string> => {
  * message.channel.send(embed);
  */
 export async function clientStats(embed: MessageEmbed, client: Client, options?: ClientStatOptions): Promise<MessageEmbed> {
+	/**
+	 * Strings used in embed field names.
+	 * @param {string} serverCount - Server Count
+	 * @param {string} members - Total Members
+	 * @param {string} uptime - Bot Uptime
+	 */
 	const strings = {
 		serverCount: 'Server Count',
 		members: 'Total Members',
 		uptime: 'Bot Uptime',
 	};
+	/**
+	 * Values used in embed field values.
+	 * @param {number} serverCount - client.guilds.cache.size
+	 * @param {number} members - client.users.cache.size
+	 * @param {string} uptime - client.uptime in humanized form.
+	 */
 	const values = {
 		serverCount: client.guilds.cache.size,
 		members: client.users.cache.size,
