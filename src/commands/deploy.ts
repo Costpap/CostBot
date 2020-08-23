@@ -1,3 +1,4 @@
+import { corelogID } from "../botconfig";
 import { clean } from "../utils/misc";
 import { Message, Client, TextChannel } from "discord.js";
 
@@ -12,7 +13,7 @@ export default {
 	ownerOnly: true,
 	cooldown: 0,
 	do: async (message: Message, client: Client) => {
-		const coreLog = client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
+		const coreLog = client.channels.cache.get(corelogID) as TextChannel;
 		const logMessage: Message = await coreLog.send(`🔃 Deployment initiated by \`${message.author.tag} (${message.author.id})\`.`);
 		const depMessage: Message = await message.channel.send('📝 Compiling TypeScript code...');
 		const start: number = Date.now();

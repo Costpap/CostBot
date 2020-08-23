@@ -1,4 +1,5 @@
 import { Command } from "../typings/index";
+import { corelogID } from "../botconfig";
 import { clean } from "../utils/misc";
 import { Message, Client, TextChannel } from "discord.js";
 
@@ -40,7 +41,7 @@ export default {
 				.then(({ default: newCommand }) => client.commands.set(newCommand.name, newCommand));
 			const end: number = Date.now();
 			const reloadTime: number = (end - start) / 1000;
-			const coreLog = client.channels.cache.get(process.env.CORELOG_ID) as TextChannel;
+			const coreLog = client.channels.cache.get(corelogID) as TextChannel;
 			const sec: string = reloadTime === 1 ? 'second' : 'seconds';
 			coreLog.send(`🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${message.author.id})\` in ${reloadTime.toFixed(1)} ${sec}.`);
 			sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`);
