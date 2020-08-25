@@ -1,4 +1,5 @@
 import { clean } from "../utils/misc";
+import { inspect } from "util";
 import { Message, Client } from "discord.js";
 
 export default {
@@ -11,12 +12,18 @@ export default {
 	cooldown: 0,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import ('discord.js')) => {
 		const before: number = Date.now();
-		const code: string = args.join(' ');
+		let code: string = args.join(' ');
 		try {
 			let evaled = await eval(code);
 
-			if (typeof evaled !== 'string') {evaled = (await import('util')).inspect(evaled);}
+			if (typeof evaled !== 'string') {evaled = inspect(evaled);}
 
+			/* This checks if the input and output are over 1024 characters long
+			(1016 characters with codeblock), and if so, it replaces them,
+			in order to prevent the embed from raising an uncaught exception. */
+			if (code.length > 1016) {
+				code = '"The input cannot be displayed as it is longer than 1024 characters."';
+			}
 			if (evaled.length > 1016) {
 				console.log('Eval Output:\n', clean(evaled));
 				evaled = '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';

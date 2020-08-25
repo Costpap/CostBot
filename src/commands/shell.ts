@@ -19,13 +19,19 @@ export default {
 	cooldown: 0,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		const before: number = Date.now();
-		const code: string = args.join(' ');
+		let code: string = args.join(' ');
 		try {
 			let { stdout } = await exec(code);
 
 			if (typeof stdout !== 'string') {stdout = (await inspect(stdout));}
 
-			if (stdout.length > 1016) {
+			/* This checks if the input and output are over 1024 characters long
+			(1016 characters with codeblock), and if so, it replaces them,
+			in order to prevent the embed from raising an uncaught exception. */
+			if (code.length > 1014) {
+				code = '"The input cannot be displayed as it is longer than 1024 characters."';
+			}
+			if (stdout.length > 1014) {
 				console.log('Shell Output:\n', clean(stdout));
 				stdout = '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
 			}
