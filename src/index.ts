@@ -70,7 +70,7 @@ process.on('exit', () => {
 });
 
 // This caches unhandled promise rejections.
-process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error)),
+process.on('unhandledRejection', error => console.error('Uncaught Promise Rejection', error));
 
 
 client.login(process.env.TOKEN)
