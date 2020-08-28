@@ -1,4 +1,5 @@
 import { Message, Client, GuildMember } from 'discord.js';
+import { parseMemberMention } from '../utils/parse';
 
 export default {
 	name: 'manageable',
@@ -8,7 +9,7 @@ export default {
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-		const member: GuildMember = message.mentions.members.first() || message.member;
+		const member: GuildMember = parseMemberMention(args[0], message.guild) || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)
 			.setTitle(`Moderation Status for ${member.user.tag} (${member.id})`)

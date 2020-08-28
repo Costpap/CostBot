@@ -1,4 +1,5 @@
 import { Message, Client, Role, GuildMember } from 'discord.js';
+import { parseMemberMention, parseRoleMention } from '../utils/parse';
 
 export default {
 	name: 'permissions',
@@ -9,7 +10,7 @@ export default {
 	cooldown: 5,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
 		if (args[0] === 'role') {
-			const role: Role = message.guild.roles.cache.get(args[1]);
+			const role: Role = parseRoleMention(args[0], message.guild) || message.guild.roles.cache.get(args[0]);
 			const embed = new Discord.MessageEmbed()
 				.setColor(role.hexColor)
 				.setTitle(`Members & permissions list for role **${role.name}**`)
@@ -22,7 +23,7 @@ export default {
 
 			return message.channel.send(embed);
 		}
-		const member: GuildMember = message.mentions.members.first() || message.member;
+		const member: GuildMember = parseMemberMention(args[0], message.guild) || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)
 			.setTitle(`Roles & permissions list for ${member.user.tag} (${member.id})`)

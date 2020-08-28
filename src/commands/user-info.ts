@@ -1,4 +1,5 @@
-import { Message, Client, GuildMember } from 'discord.js';
+import { Message, Client, GuildMember } from "discord.js";
+import { parseMemberMention } from "../utils/parse";
 
 export default {
 	name: 'user-info',
@@ -6,8 +7,9 @@ export default {
 	aliases: ['whois', 'user', 'ui'],
 	permissions: ['EMBED_LINKS'],
 	cooldown: 5,
-	do: async (message: Message, args: string[], client: Client, Discord: typeof import('discord.js')) => {
-		const member: GuildMember = message.mentions.members.first() || message.member;
+	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+		const member: GuildMember = parseMemberMention(args[0], message.guild)
+		|| message.guild.members.cache.get(args[0]) || message.member;
 		const embed = new Discord.MessageEmbed()
 			.setColor(member.displayHexColor)
 			.setAuthor(member.user.tag, member.user.displayAvatarURL({ format: 'png', dynamic: true }))

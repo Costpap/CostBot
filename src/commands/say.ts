@@ -1,4 +1,5 @@
-import { Message, Client, TextChannel, NewsChannel } from 'discord.js';
+import { Message, Client, TextChannel, NewsChannel } from "discord.js";
+import { parseChannelMention } from "../utils/parse";
 
 export default {
 	name: 'say',
@@ -10,22 +11,22 @@ export default {
 	permissions: ['MANAGE_MESSAGES', 'EMBED_LINKS'],
 	cooldown: 5,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-		if (message.channel.type !== "dm") message.delete();
+		if (message.channel.type !== 'dm') message.delete();
+		const sayChannel: TextChannel | NewsChannel = parseChannelMention(args[0], client);
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#6293f5')
 			.setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
 			.setTimestamp();
 
-		if (!message.mentions.channels.size && (args[0] === 'embed')) {
+		if (!sayChannel && (args[0] === 'embed')) {
 			embed.setDescription(args.slice(1).join(' '));
 			return message.channel.send(embed);
 		}
-		else if (!message.mentions.channels.size) {
+		else if (!sayChannel) {
 			return message.channel.send(args.slice(0).join(' '));
 		}
 
-		const sayChannel: TextChannel | NewsChannel = message.mentions.channels.first();
 		if (args[0] === 'embed') {
 			embed.setDescription(args.slice(2).join(' '));
 			try {

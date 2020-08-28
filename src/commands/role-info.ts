@@ -1,4 +1,5 @@
-import { Message, Client, Role } from 'discord.js';
+import { Message, Client, Role } from "discord.js";
+import { parseRoleMention } from "../utils/parse";
 
 export default {
 	name: 'role-info',
@@ -10,7 +11,7 @@ export default {
 	permissions: ['EMBED_LINKS'],
 	cooldown: 7,
 	do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-		const role: Role = message.mentions.roles.first() || message.guild.roles.cache.get(args[0]);
+		const role: Role = parseRoleMention(args[0], message.guild) || message.guild.roles.cache.get(args[0]);
 		if (!role) {
 			return message.channel.send('❌ That doesn\'t seem to be a valid role.');
 		}

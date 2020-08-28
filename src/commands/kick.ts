@@ -1,4 +1,5 @@
-import { Message, Client, GuildMember } from 'discord.js';
+import { Message, Client, GuildMember } from "discord.js";
+import { parseMemberMention } from "../utils/parse";
 
 export default {
 	name: 'kick',
@@ -12,10 +13,11 @@ export default {
 		if (!message.member.hasPermission('KICK_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Kick Members` permission in order to use this command!');
 		}
-		if (!message.mentions.users.size) {
-			return message.reply('you need to tag a user in order to kick them!');
+		const member: GuildMember = parseMemberMention(args[0], message.guild)
+		|| message.guild.members.cache.get(args[0]);
+		if (!member) {
+			return message.channel.send('❌ You need to specify a user to kick!');
 		}
-		const member: GuildMember = message.mentions.members.first();
 		if (member === message.member) {
 			return message.channel.send("Aww, please don't kick yourself! 💖");
 		}

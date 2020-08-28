@@ -4,8 +4,8 @@ import { MessageEmbed, Client } from "discord.js";
 
 /**
  * A simple text cleaner.
- * @param {string} text Text to clean
- * @returns {string} Cleaned text
+ * @param {string} text - Text to clean
+ * @returns {string} - Cleaned text
  * @example
  * import { clean } from "./utils/misc";
  *
@@ -21,8 +21,8 @@ export const clean = (text: string): string => {
 
 /**
  * Automatically gets the latest release from [GitHub](https://github.com/Costpap/CostBot).
- * @param {string} tag_name The name of the tag of the latest release, for example: `v0.0.0`
- * @returns {Promise<string>} The name of the tag of the latest release, for example: `v0.0.0`
+ * @param {string} tag_name - The name of the tag of the latest release, for example: `v0.0.0`
+ * @returns {Promise<string>} - The name of the tag of the latest release, for example: `v0.0.0`
  * @example
  * import { version } from "./utils/misc";
  *
@@ -32,16 +32,17 @@ export const version = async (): Promise<string> => {
 	const { tag_name } = await fetch("https://api.github.com/repos/Costpap/CostBot/releases/latest").then(response => response.json());
 	return tag_name as string;
 };
+
 /**
  *
- * @param embed discord.js messageEmbed
- * @param client discord.js client object
- * @param strings Strings required for field names
- * @param values Values required for embeds
- * @param options Options
- * @param {boolean} options.noInline Whether or not to inline the embed fields
- * @param {boolean} options.noUptimeInline Whether or not to inline the uptime field
- * @param {boolean} options.noUptime Whether or not to add an uptime field
+ * @param embed - discord.js messageEmbed
+ * @param client - discord.js client
+ * @param strings - Strings required for field names
+ * @param values - Values required for embeds
+ * @param options - Options
+ * @param {boolean} options.noInline - Whether or not to inline the embed fields
+ * @param {boolean} options.noUptimeInline - Whether or not to inline the uptime field
+ * @param {boolean} options.noUptime - Whether or not to add an uptime field
  * @example
  * import * as Discord from "discord.js";
  * import { clientStats } from "./src/utils/misc";

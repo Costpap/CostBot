@@ -1,4 +1,5 @@
-import { Message, Client } from 'discord.js';
+import { Message, Client, User } from "discord.js";
+import { parseUserMention } from "../utils/parse";
 
 export default {
 	name: 'unban',
@@ -12,19 +13,20 @@ export default {
 		if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
 			return message.reply('you need the `Ban Members` permission in order to use this command!');
 		}
-		if (!args.length) {
-			return message.reply('you need to provide the ID of a user to unban!');
+		const user: User = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
+		if (!user) {
+			return message.channel.send('❌ You need to specify a user to unban!');
 		}
-		if (args[0] === message.author.id) {
+		if (user === message.author) {
 			return message.channel.send('How do you unban yourself? 🤔');
 		}
 		try {
-			message.guild.members.unban(args[0], args.slice(1).join(' '));
-			message.channel.send(`✅ Unbanned \`${args[0]}\`.`);
+			message.guild.members.unban(user, args.slice(1).join(' '));
+			message.channel.send(`✅ Unbanned \`${user.tag} (${user.id})\`.`);
 		}
 		catch (error) {
 			console.error(error);
-			message.channel.send(`❌ I encountered an error while trying to unban \`${args[0]}\`: \n\`\`\`${error.message}\`\`\``);
+			message.channel.send(`❌ I encountered an error while trying to unban \`${user.tag}\`: \n\`\`\`${error.message}\`\`\``);
 		}
 
 	},
