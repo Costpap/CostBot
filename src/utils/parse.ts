@@ -61,7 +61,7 @@ const channelRegEx = /^<#(\d+)>$/;
 /**
  * Parses an argument as a Channel mention.
  * @param mention - The mention to parse
- * @param guild - discord.js Guild
+ * @param client - discord.js Client
  * @returns - discord.js GuildChannel | TextChannel | NewsChannel
  * @example
  * import { parseChannelMention } from "./src/utils/parse";
