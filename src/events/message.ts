@@ -21,13 +21,18 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 		return message.reply('You cannot use this command!');
 	}
 
-	if (command.guildOnly && (!["text", "news"].includes(message.channel.type))) {
+	if (command.guildOnly && message.channel.type !== 'dm') {
 		return message.channel.send('❌ I can\'t execute this command inside DMs!');
 	}
 
-	if (command.permissions && (!["text", "news"].includes(message.channel.type))
+	if (command.permissions && message.channel.type !== 'dm'
 	&& !message.guild.me.hasPermission(command.permissions, { checkAdmin: true })) {
-		return message.channel.send(`❌ Sorry, I need the \`${command.permissions}\` permission(s) in order to execute this command.`);
+		const per: string = command.permissions.length > 1 ? 'permission' : 'permissions';
+		return message.channel.send(`❌ Sorry, I need the \`${command.permissions}\` ${per} in order to execute this command.`)
+			.catch((error => {
+				console.error(error);
+				message.author.send(`I couldn't send a message in the ${message.guild.name} server. Please give me the ${command.permissions} ${per} and try again.`);
+			}));
 	}
 
 	if (command.args && !args.length) {

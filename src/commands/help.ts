@@ -24,11 +24,11 @@ export default {
 			try {
 				await message.author.send(embed);
 				if (message.channel.type === 'dm') return;
-				return message.reply('I have sent you a DM with all my commands!');
+				return message.channel.send('✅ I have sent you a DM with all my commands!');
 			}
 			catch (error) {
 				console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-				return message.reply('I can\'t DM you. **Please make sure that you have DMs enabled.**');
+				return message.channel.send('❌ I can\'t DM you. **Please make sure that you have DMs enabled.**');
 			}
 		}
 
@@ -36,7 +36,7 @@ export default {
 		const command: Command = client.commands.get(name) || client.commands.find(cmd => cmd.aliases?.includes(name));
 
 		if (!command) {
-			return message.reply(`That's not a valid command. Do \`${prefix}help\` to see a list of all commands.`);
+			return message.channel.send(`❌ That's not a valid command. Do \`${prefix}help\` to see a list of all commands.`);
 		}
 
 
@@ -47,7 +47,9 @@ export default {
 			if (command.disabled) {
 				embed.setDescription('⚠ This command is currently **disabled**.');
 			}
-			command.aliases ? embed.addField(command.aliases.length > 1 ? 'Aliases' : 'Alias', command.aliases.join(', ')) : '';
+			if (command.aliases) {
+				embed.addField(command.aliases.length > 1 ? 'Aliases' : 'Alias', command.aliases.join(', '));
+			}
 			if (command.description) {
 				embed.addField('Description', command.description);
 			}
@@ -67,7 +69,7 @@ export default {
 		}
 		catch (error) {
 			console.error(`Error trying to get info on ${command.name}:\n`, error);
-			message.reply(`I encountered an error trying to get information on this command. \`\`\`js\n${error.message}\`\`\``);
+			message.channel.send(`❌ I encountered an error trying to get information on this command. \`\`\`js\n${error.message}\`\`\``);
 		}
 	},
 };

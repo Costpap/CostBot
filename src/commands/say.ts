@@ -50,6 +50,8 @@ export default {
  * @param messageChannel - The channel the `message` event was emitted in (should be `message.channel`)
  * @example
  * // This should work if you haven't modified any variable shown here.
+ * const str: string = "hello";
+ * await send(str, sayChannel, message.channel);
  */
 async function send(input: string | MessageEmbed, sChannel: TextChannel | NewsChannel, messageChannel: TextChannel | NewsChannel): Promise<Message> {
 	/**
@@ -65,6 +67,10 @@ async function send(input: string | MessageEmbed, sChannel: TextChannel | NewsCh
 			return messageChannel.send(`❌ Could not send message to ${sChannel}.`);
 		});
 	if (!sChannel) return;
+	/**
+	 * Message informing the user that their message has been sucessfully sent.
+	 * Deletes itself after 3 seconds.
+	 */
 	const sentMessage: Message = await messageChannel.send(`✅ Sucessfully sent message to ${sChannel}!`);
 	return sentMessage.delete({ timeout: 3000 });
 }
