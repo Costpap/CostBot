@@ -23,7 +23,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
         return message.reply('You cannot use this command!');
     }
 
-    if (command.guildOnly && message.channel.type !== 'dm') {
+    if (command.guildOnly && message.channel.type === 'dm') {
         return message.channel.send("❌ I can't execute this command inside DMs!");
     }
 
