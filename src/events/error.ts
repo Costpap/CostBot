@@ -1,3 +1,3 @@
 export default async (error: string) => {
-	console.error(error);
+    console.error(error);
 };

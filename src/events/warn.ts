@@ -1,3 +1,3 @@
 export default async (warning: string) => {
-	console.warn(warning);
+    console.warn(warning);
 };
