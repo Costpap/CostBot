@@ -24,7 +24,7 @@ export default {
             if (stderr) throw stderr;
         } catch (stderr) {
             console.error('Error compiling TypeScript code: \n', stderr);
-            logMessage.edit(`${logMessage.content} \n\n❌ Deployment resulted in error.`);
+            logMessage.edit(`${logMessage.content}\n\n❌ Deployment resulted in error.`);
             return depMessage.edit(
                 `❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``,
             );

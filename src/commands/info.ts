@@ -1,5 +1,5 @@
 import { botOwner, repository } from '../botconfig';
-import { clientStats, ClientStatOptions, version } from '../utils/misc';
+import { clientStats, version } from '../utils/misc';
 import { Message, Client, User } from 'discord.js';
 
 export default {
@@ -12,7 +12,6 @@ export default {
         /* This automatically gets the user IDs from the botconfig,
 		fetches the users and pushes their username, discriminator and ID to an array,
 		which is then shown on an embed field. */
-
         /**
          * Array containing: **developer name#0000 (`123456789012345678`)**
          */
@@ -42,10 +41,7 @@ export default {
                 { name: '\u200B', value: '\u200B' },
             )
             .setTimestamp();
-        const options: ClientStatOptions = {
-            noUptimeInline: true,
-        };
-        clientStats(embed, client, options);
+        clientStats(embed, client, { noUptimeInline: true });
         message.channel.send(embed);
     },
 };
