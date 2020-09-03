@@ -50,7 +50,7 @@ export default {
  * @param messageChannel - The channel the `message` event was emitted in (should be `message.channel`)
  * @example
  * // This should work if you haven't modified any variable shown here.
- * const str: string = 'hello';
+ * const str: string = 'Hello, world!';
  * await send(str, sayChannel, message.channel);
  */
 async function send(

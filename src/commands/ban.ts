@@ -17,7 +17,7 @@ export default {
         if (!user) {
             return message.channel.send('❌ You need to specify a user to ban!');
         }
-        if (user === message.author) {
+        if (user.id === message.author.id) {
             return message.channel.send("Aww, please don't ban yourself! 💖");
         }
         /* This checks if the user to be banned

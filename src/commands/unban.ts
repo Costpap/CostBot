@@ -17,7 +17,7 @@ export default {
         if (!user) {
             return message.channel.send('❌ You need to specify a user to unban!');
         }
-        if (user === message.author) {
+        if (user.id === message.author.id) {
             return message.channel.send('How do you unban yourself? 🤔');
         }
         try {

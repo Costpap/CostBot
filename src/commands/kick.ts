@@ -18,7 +18,7 @@ export default {
         if (!member) {
             return message.channel.send('❌ You need to specify a user to kick!');
         }
-        if (member === message.member) {
+        if (member.id === message.author.id) {
             return message.channel.send("Aww, please don't kick yourself! 💖");
         }
         if (member.kickable === false) {
