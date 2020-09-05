@@ -10,7 +10,7 @@ const userRegEx = /^<@!?(\d+)>$/;
  * Parses an argument as a User mention.
  * @param {string} mention - The mention to parse
  * @param client - discord.js Client
- * @returns - discord.js User
+ * @returns discord.js User
  * @example
  * import { parseUserMention } from './src/utils/parse';
  *
@@ -29,7 +29,7 @@ export function parseUserMention(mention: string, client: Client): User {
  * @param {string} mention - The mention to parse
  * @param message - discord.js Message
  * @param guild - discord.js Guild
- * @returns - discord.js GuildMember
+ * @returns discord.js GuildMember
  * @example
  * import { parseMemberMention } from './src/utils/parse';
  * import { GuildMember } from 'discord.js';
@@ -54,7 +54,7 @@ const channelRegEx = /^<#(\d+)>$/;
  * Parses an argument as a Channel mention.
  * @param mention - The mention to parse
  * @param client - discord.js Client
- * @returns - discord.js GuildChannel | TextChannel | NewsChannel
+ * @returns discord.js GuildChannel | TextChannel | NewsChannel
  * @example
  * import { parseChannelMention } from './src/utils/parse';
  * import { TextChannel, NewsChannel } from 'discord.js';
