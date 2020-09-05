@@ -1,12 +1,6 @@
-import { clean } from '../utils/misc';
+import { clean, exec } from '../utils/misc';
+import { inspect } from 'util';
 import { Message, Client } from 'discord.js';
-
-import { promisify, inspect } from 'util';
-import * as child_process from 'child_process';
-/**
- * @param {string} - The code to execute
- */
-const exec = promisify(child_process.exec);
 
 export default {
     name: 'shell',

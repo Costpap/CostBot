@@ -1,11 +1,7 @@
 import { Command } from '../typings/index';
 import { corelogID } from '../botconfig';
-import { clean } from '../utils/misc';
+import { clean, exec } from '../utils/misc';
 import { Message, Client, TextChannel } from 'discord.js';
-
-import { promisify } from 'util';
-import * as child_process from 'child_process';
-const exec = promisify(child_process.exec);
 
 export default {
     name: 'reload',

@@ -1,6 +1,17 @@
+import { promisify } from 'util';
+import * as child_process from 'child_process';
 import * as humanizeDuration from 'humanize-duration';
 import fetch from 'node-fetch';
 import { MessageEmbed, Client } from 'discord.js';
+
+/**
+ * Executes code in shell.
+ * @example
+ * import { exec } from './utils/misc';
+ *
+ * exec(echo 'Hello, world!');
+ */
+export const exec = promisify(child_process.exec);
 
 /**
  * A simple text cleaner.
