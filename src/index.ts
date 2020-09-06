@@ -15,15 +15,21 @@ const client = new Discord.Client({
 
 (async () => {
     client.events = new Discord.Collection();
+    /**
+     * Date representing when events started being loaded.
+     */
     const eventStarted: number = Date.now();
+    /**
+     * Array containing the names of the files ending with `.js` inside of the
+     * `./build/events` directory. Used as part of dynamically loading events.
+     */
     const eventFiles: string[] = readdirSync('./build/events').filter((file) => file.endsWith('.js'));
 
     for (const file of eventFiles) {
         await import(`./events/${file}`).then(({ default: event }) => {
             const eventName: string = file.split('.')[0];
 
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            client.on(eventName as any, (...args) => {
+            client.on(eventName as string | symbol, (...args) => {
                 try {
                     event(Discord, client, ...args);
                 } catch (error) {
@@ -37,7 +43,14 @@ const client = new Discord.Client({
     console.log(`Successfully loaded all ${client.events.size} events in ${Date.now() - eventStarted}ms!`);
 
     client.commands = new Discord.Collection();
+    /**
+     * Date representing when commands started being loaded.
+     */
     const commandStarted: number = Date.now();
+    /**
+     * Array containing the names of the files ending with `.js` inside of the
+     * `./build/commands` directory. Used as part of dynamically loading commands.
+     */
     const commandFiles: string[] = readdirSync('./build/commands').filter((file) => file.endsWith('.js'));
 
     for (const file of commandFiles) {

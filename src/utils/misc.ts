@@ -13,7 +13,7 @@ import { MessageEmbed, Client } from 'discord.js';
  *
  * exec('echo Hello, world!');
  * @see {@link https://nodejs.org/api/child_process.html#child_process_child_process_exec_command_options_callback| Node.js Documentation}
- * for more information on how to use child.process_exec
+ * for more information on how to use child_process.exec
  */
 export const exec = promisify(child_process.exec);
 
@@ -40,7 +40,7 @@ export const clean = (text: string): string => {
 /**
  * Automatically gets the latest release from [GitHub](https://github.com/Costpap/CostBot).
  * @param {string} tag_name - The name of the tag of the latest release, for example: `v0.0.0`
- * @returns {Promise<string>} - The name of the tag of the latest release, for example: `v0.0.0`
+ * @returns {Promise<string>} The name of the tag of the latest release, for example: `v0.0.0`
  * @example
  * import { version } from './utils/misc';
  *
