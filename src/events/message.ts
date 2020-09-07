@@ -1,5 +1,5 @@
+import type { Command } from '../typings/index';
 import { prefix, botAdmin, botOwner } from '../botconfig';
-import { Command } from '../typings/index';
 import { Client, Message } from 'discord.js';
 
 export default async (Discord: typeof import('discord.js'), client: Client, message: Message) => {

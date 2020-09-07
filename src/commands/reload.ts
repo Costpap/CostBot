@@ -1,4 +1,4 @@
-import { Command } from '../typings/index';
+import type { Command } from '../typings/index';
 import { corelogID } from '../botconfig';
 import { clean, exec } from '../utils/misc';
 import { Message, Client, TextChannel } from 'discord.js';

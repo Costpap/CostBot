@@ -1,6 +1,6 @@
 import { prefix } from '../botconfig';
 import { version } from '../utils/misc';
-import { Command } from '../typings/index';
+import type { Command } from '../typings/index';
 import { Message, Client } from 'discord.js';
 
 export default {
