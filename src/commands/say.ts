@@ -19,14 +19,14 @@ export default {
             /**
              * Determines what number should be used in order to slice arguments.
              */
-            let slicenumber: number;
-            if (!sayChannel) slicenumber = 1;
-            else slicenumber = 2;
+            let sliceNumber: number;
+            if (!sayChannel) sliceNumber = 1;
+            else sliceNumber = 2;
 
             const embed = new Discord.MessageEmbed()
                 .setColor('#6293f5')
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
-                .setDescription(args.slice(slicenumber).join(' '))
+                .setDescription(args.slice(sliceNumber).join(' '))
                 .setTimestamp();
 
             return send(embed, sayChannel, message.channel as TextChannel | NewsChannel);
@@ -35,16 +35,16 @@ export default {
         /**
          * Determines what number should be used in order to slice arguments.
          */
-        let slicenumber: number;
-        if (!sayChannel) slicenumber = 0;
-        else slicenumber = 1;
+        let sliceNumber: number;
+        if (!sayChannel) sliceNumber = 0;
+        else sliceNumber = 1;
 
-        await send(args.slice(slicenumber).join(' '), sayChannel, message.channel as TextChannel | NewsChannel);
+        await send(args.slice(sliceNumber).join(' '), sayChannel, message.channel as TextChannel | NewsChannel);
     },
 };
 
 /**
- * A function for sending say messages and handling errors as well as information regarding the messsage being sent.
+ * A function for sending say messages and handling errors as well as information regarding the message being sent.
  * @param input - What to send
  * @param sChannel - The channel where to send it (should be `sayChannel`)
  * @param messageChannel - The channel the `message` event was emitted in (should be `message.channel`)
@@ -74,9 +74,9 @@ async function send(
     });
     if (!sChannel) return;
     /**
-     * Message informing the user that their message has been sucessfully sent.
+     * Message informing the user that their message has been successfully sent.
      * Deletes itself after 3 seconds.
      */
-    const sentMessage: Message = await messageChannel.send(`✅ Sucessfully sent message to ${sChannel}!`);
+    const sentMessage: Message = await messageChannel.send(`✅ Successfully sent message to ${sChannel}!`);
     return sentMessage.delete({ timeout: 3000 });
 }
