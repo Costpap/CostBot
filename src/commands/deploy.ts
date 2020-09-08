@@ -27,12 +27,12 @@ export default {
         }
 
         const end: number = Date.now();
-        const complilationTime: number = (end - start) / 1000;
-        const sec: string = complilationTime === 1 ? 'second' : 'seconds';
+        const compilationTime: number = (end - start) / 1000;
+        const sec: string = compilationTime === 1 ? 'second' : 'seconds';
         await logMessage.edit(
-            `${logMessage.content}\n\n✅ Compiled in ${complilationTime.toFixed(1)} ${sec}.\n\n🔄 Shutting down.`,
+            `${logMessage.content}\n\n✅ Compiled in ${compilationTime.toFixed(1)} ${sec}.\n\n🔄 Shutting down.`,
         );
-        await depMessage.edit(`✅ Compilation finished in ${complilationTime.toFixed(1)} ${sec}. Shutting down...`);
+        await depMessage.edit(`✅ Compilation finished in ${compilationTime.toFixed(1)} ${sec}. Shutting down...`);
         process.exit();
     },
 };
