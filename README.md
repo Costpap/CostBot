@@ -7,7 +7,7 @@
 </p>
 </div>
 
-This repository is home to all the code used by CostBot, a Discord Bot coded in [discord.js](https://github.com/discordjs/discord.js).
+This repository is home to all the code used by CostBot, a Discord Bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
 
 ## Detailed instructions on how to run the bot
 
@@ -28,7 +28,7 @@ However, if you want to use a version earlier than 12, that is entirely possible
 
 5. When all dependencies have been installed (if you get any warnings from npm regarding peer or optional dependencies, you can simply ignore them), you will then need to set up the configuration files. Rename `.env.example` to `.env` and replace all the fields with their appropriate values. After that, you can go to the `src` directory and rename `botconfig-example.ts` to `botconfig.ts` and replace all of the values as well.
 
-6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can *optionally* delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` category.
+6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can *optionally* delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` directory.
 
 7. Finally, you can run `node .` or `node ./build/index.js`, and your bot should now be online. Congratulations!
 
@@ -36,5 +36,5 @@ However, if you want to use a version earlier than 12, that is entirely possible
 
 Please make sure to read all of the documents below, especially if you are planning on making contributions such as opening a Pull Request or Issue.
 
-- [Code of Conduct (CoC)](https://github.com/Costpap/CostBot/blob/master/.github/CODE_OF_CONDUCT.md)
-- [Contributing Guidelines](https://github.com/Costpap/CostBot/blob/master/.github/CONTRIBUTING.md)
+- [Code of Conduct (CoC)](.github/CODE_OF_CONDUCT.md)
+- [Contributing Guidelines](.github/CONTRIBUTING.md)

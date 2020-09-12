@@ -2,7 +2,7 @@
 
 ## Setup
 
-You can follow the [instructions in the README](https://github.com/Costpap/CostBot/blob/master/README.md#detailed-instructions-on-how-to-run-the-bot) in order to get your development environment ready. However, please do note that you should make a fork of the repository first, and then clone that instead of this repository.
+You can follow the [instructions in the README](../README.md#detailed-instructions-on-how-to-run-the-bot) in order to get your development environment ready. However, please do note that you should make a fork of the repository first, and then clone that instead of this repository.
 
 ## What to remember when contributing
 
@@ -14,7 +14,7 @@ Code style is automatically enforced by [ESLint](https://eslint.org/) and [Prett
 
 ### Typings
 
-Please try your best to statically type everything and avoid using `any`. If you're unsure on how to cast a type, you can use `unknown` or `never`, with the former usually being the preferred choice. If you need to declare a type, interface, enum or such, please add it to the [index.d.ts](https://github.com/Costpap/CostBot/blob/master/src/typings/index.d.ts) file and `export` it. However, for things in the `utils` folder, it's fine to have the type definitions in the same file.
+Please try your best to statically type everything and avoid using `any`. If you're unsure on how to cast a type, you can use `unknown` or `never`, with the former usually being the preferred choice. If you need to declare a type, interface, enum or such, please add it to the [index.d.ts](../src/typings/index.d.ts) file and `export` it. However, for things in the `utils` folder, it's fine to have the type definitions in the same file.
 
 ### Commenting
 
