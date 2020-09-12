@@ -31,3 +31,10 @@ However, if you want to use a version earlier than 12, that is entirely possible
 6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can *optionally* delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` category.
 
 7. Finally, you can run `node .` or `node ./build/index.js`, and your bot should now be online. Congratulations!
+
+## Important Documents
+
+Please make sure to read all of the documents below, especially if you are planning on making contributions such as opening a Pull Request or Issue.
+
+- [Code of Conduct (CoC)](https://github.com/Costpap/CostBot/blob/master/.github/CODE_OF_CONDUCT.md)
+- [Contributing Guidelines](https://github.com/Costpap/CostBot/blob/master/.github/CONTRIBUTING.md)
