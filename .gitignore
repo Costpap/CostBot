@@ -129,7 +129,7 @@ dist
 
 # Stores Visual Studio Code extension-related files
 .vscode-test
-.VSCodeCounter
+.VSCodeCounter/
 
 # Bot Config
 botconfig.ts
