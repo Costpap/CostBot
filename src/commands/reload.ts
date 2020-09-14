@@ -1,7 +1,7 @@
 import type { Command } from '../typings/index';
-import { corelogID } from '../botconfig';
+import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec } from '../utils/misc';
-import { Message, Client, TextChannel } from 'discord.js';
+import { Message, Client } from 'discord.js';
 
 export default {
     name: 'reload',
@@ -39,16 +39,18 @@ export default {
             );
             const end: number = Date.now();
             const reloadTime: number = (end - start) / 1000;
-            const coreLog = client.channels.cache.get(corelogID) as TextChannel;
             const sec: string = reloadTime === 1 ? 'second' : 'seconds';
-            coreLog.send(
+            coreLog(
                 `🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${
                     message.author.id
                 })\` in ${reloadTime.toFixed(1)} ${sec}.`,
+                client,
+                { noWebhook: true },
             );
             sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`);
         } catch (error) {
             console.error(error);
+            errorLog(error, client);
             sentMessage.edit(
                 `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${error.message}\`\`\``,
             );

@@ -62,7 +62,7 @@ const loggingInfo = {
         id: "Channel ID of bot's core log",
         webhookID: "Webhook ID of bot's core log",
         token: "Webhook Token of bot's core log",
-    },
+    } as LogChannel,
 
     /**
      * Information about the guild log.
@@ -76,7 +76,7 @@ const loggingInfo = {
         id: "Channel ID of bot's guild log",
         webhookID: "Webhook ID of bot's guild log",
         token: "Webhook Token of bot's guild log",
-    },
+    } as LogChannel,
 
     /**
      * Information about the errorlog.
@@ -90,7 +90,7 @@ const loggingInfo = {
         id: "Channel ID of bot's error log",
         webhookID: "Webhook ID of bot's error log",
         token: "Webhook Token of bot's error log",
-    },
+    } as LogChannel,
 };
 // Destructing, allows for easier access to properties.
 export const { corelog, guildlog, errorlog } = loggingInfo;

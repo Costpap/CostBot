@@ -1,6 +1,6 @@
-import { corelogID } from '../botconfig';
+import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec } from '../utils/misc';
-import { Message, Client, TextChannel } from 'discord.js';
+import { Message, Client } from 'discord.js';
 
 export default {
     name: 'deploy',
@@ -9,9 +9,10 @@ export default {
     ownerOnly: true,
     cooldown: 0,
     do: async (message: Message, client: Client) => {
-        const coreLog = client.channels.cache.get(corelogID) as TextChannel;
-        const logMessage: Message = await coreLog.send(
+        const logMessage: Message = await coreLog(
             `🔃 Deployment initiated by \`${message.author.tag} (${message.author.id})\`.`,
+            client,
+            { noWebhook: true },
         );
         const depMessage: Message = await message.channel.send('📝 Compiling TypeScript code...');
         const start: number = Date.now();
@@ -20,6 +21,7 @@ export default {
             if (stderr) throw stderr;
         } catch (stderr) {
             console.error('Error compiling TypeScript code: \n', stderr);
+            errorLog(stderr, client);
             logMessage.edit(`${logMessage.content}\n\n❌ Deployment resulted in error.`);
             return depMessage.edit(
                 `❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``,

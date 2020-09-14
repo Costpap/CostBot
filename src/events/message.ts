@@ -1,5 +1,6 @@
 import type { Command } from '../typings/index';
 import { prefix, botAdmin, botOwner } from '../botconfig';
+import { errorLog } from '../utils/logs';
 import { Client, Message } from 'discord.js';
 
 export default async (Discord: typeof import('discord.js'), client: Client, message: Message) => {
@@ -80,6 +81,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
         command.do(message, client, args, Discord);
     } catch (error) {
         console.error(error);
+        errorLog(error, client);
         message.channel.send(
             `I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``,
         );
