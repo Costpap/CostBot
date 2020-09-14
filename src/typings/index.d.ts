@@ -71,6 +71,12 @@ export interface CooldownOptions {
     /* eslint-enable @typescript-eslint/no-explicit-any */
 }
 
+export interface LogChannel {
+    id: string;
+    webhookID: string;
+    token: string;
+}
+
 declare module 'discord.js' {
     export interface Client {
         events: Collection<string, unknown>;

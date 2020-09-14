@@ -1,3 +1,5 @@
+import { LogChannel } from './typings';
+
 /**
  * A prefix used before commands. Should be short, easy to remember, and mainly consist of symbols,
  * such as `!`, `?`, `>`, `=`, `-`, `%`, `^`, `&`, `*`, `$`, `.`, `,` and `/`.
@@ -28,33 +30,67 @@ export const repository = 'https://github.com/Costpap/CostBot' as string;
 
 /**
  * Information such as channel IDs and webhook tokens for logging channels.
- * @param {Object} corelog Information about the corelog.
- * @param {string} corelog.id The channel ID for the corelog. Should be a snowflake.
- * @param {string} corelog.token A token for a webhook. Can be any webhook that is on the same channel as the ID provided.
- * @param {Object} guidlog Information about the guidlog.
- * @param {string} guildlog.id The channel ID for the guildlog. Should be a snowflake.
- * @param {string} guildlog.token A token for a webhook. Can be any webhook that is on the same channel as the ID provided.
- * @param {Object} errorlog Information about the errorlog.
- * @param {string} errorlog.id A channel ID for the errorlog. Should be a snowflake.
- * @param {string} errorlog.token A token for a webhook. Can be any webhook that is on the same channel as the ID provided.
+ * @param {Object} corelog - Information about the corelog.
+ * @param {string} corelog.id - The channel ID for the core log. Should be a snowflake.
+ * @param {String} corelog.webhookID - An ID for a webhook. Should be a snowflake.
+ * Can be any ID that is on the same channel as the token provided.
+ * @param {string} corelog.token - A token for a webhook.
+ * Can be any webhook that is on the same channel as the webhook ID provided.
+ * @param {Object} guidlog - Information about the guild log.
+ * @param {string} guildlog.id - The channel ID for the guild log. Should be a snowflake.
+ * @param {string} guildlog.webhookID - An ID for a webhook. Should be a snowflake.
+ * Can be any ID that is on the same channel as the token provided.
+ * @param {string} guildlog.token - A token for a webhook.
+ * Can be any webhook that is on the same channel as the webhook ID provided.
+ * @param {Object} errorlog - Information about the errorlog.
+ * @param {string} errorlog.id - A channel ID for the error log. Should be a snowflake.
+ * @param {string} errorlog.webhookID - An ID for a webhook. Should be a snowflake.
+ * Can be any ID that is on the same channel as the token provided.
+ * @param {string} errorlog.token - A token for a webhook.
+ * Can be any webhook that is on the same channel as the webhook ID provided.
  */
 const loggingInfo = {
+    /**
+     * Information about the corelog.
+     * @param {string} id - The channel ID for the core log. Should be a snowflake.
+     * @param {string} webhookID - An ID for a webhook. Should be a snowflake.
+     * Can be any ID that is on the same channel as the token provided.
+     * @param {string} token - A token for a webhook.
+     * Can be any webhook that is on the same channel as the webhook ID provided.
+     */
     corelog: {
-        id: "Channel ID of Bot's Corelog",
-        token: "Webhook Token of Bot's Corelog",
+        id: "Channel ID of bot's core log",
+        webhookID: "Webhook ID of bot's core log",
+        token: "Webhook Token of bot's core log",
     },
+
+    /**
+     * Information about the guild log.
+     * @param {string} id - The channel ID for the guild log. Should be a snowflake.
+     * @param {string} webhookID - An ID for a webhook. Should be a snowflake.
+     * Can be any ID that is on the same channel as the token provided.
+     * @param {string} token - A token for a webhook.
+     * Can be any webhook that is on the same channel as the webhook ID provided.
+     */
     guildlog: {
-        id: "Channel ID of Bot's GuildLog",
-        token: "Webhook Token of Bot's GuildLog",
+        id: "Channel ID of bot's guild log",
+        webhookID: "Webhook ID of bot's guild log",
+        token: "Webhook Token of bot's guild log",
     },
+
+    /**
+     * Information about the errorlog.
+     * @param {string} id - A channel ID for the error log. Should be a snowflake.
+     * @param {string} webhookID - An ID for a webhook. Should be a snowflake.
+     * Can be any ID that is on the same channel as the token provided.
+     * @param {string} token - A token for a webhook.
+     * Can be any webhook that is on the same channel as the webhook ID provided.
+     */
     errorlog: {
-        id: "Channel ID of Bot's Errorlog",
-        token: "Webhook Token of Bot's GuildLog",
+        id: "Channel ID of bot's error log",
+        webhookID: "Webhook ID of bot's error log",
+        token: "Webhook Token of bot's error log",
     },
 };
 // Destructing, allows for easier access to properties.
-export const {
-    corelog: { id: corelogID, token: corelogToken },
-    guildlog: { id: guildlogID, token: guildlogToken },
-    errorlog: { id: errorlogID, token: errorlogToken },
-} = loggingInfo;
+export const { corelog, guildlog, errorlog } = loggingInfo;
