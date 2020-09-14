@@ -108,9 +108,6 @@ dist
 # TernJS port file
 .tern-port
 
-# Stores VSCode versions used for testing VSCode extensions
-.vscode-test
-
 # yarn v2
 .yarn/cache
 .yarn/unplugged
@@ -129,6 +126,10 @@ dist
 
 # Local History for Visual Studio Code
 .history/
+
+# Stores Visual Studio Code extension-related files
+.vscode-test
+.VSCodeCounter
 
 # Bot Config
 botconfig.ts
