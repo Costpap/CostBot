@@ -24,7 +24,7 @@ export default {
             else sliceNumber = 2;
 
             const embed = new Discord.MessageEmbed()
-                .setColor('#6293f5')
+                .setColor(0x6293f5)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
                 .setDescription(args.slice(sliceNumber).join(' '))
                 .setTimestamp();

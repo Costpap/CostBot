@@ -19,7 +19,7 @@ export default {
         }
         if (message.channel.type !== 'dm') message.delete();
 
-        const embed = new Discord.MessageEmbed().setColor('#6293f5').setTimestamp();
+        const embed = new Discord.MessageEmbed().setColor(0x6293f5).setTimestamp();
 
         if (args[1] === 'embed' && args[2] === 'name') {
             embed.setDescription(args.slice(3).join(' '));

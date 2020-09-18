@@ -13,7 +13,7 @@ export default {
     do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
         if (!args.length) {
             const embed = new Discord.MessageEmbed()
-                .setColor('#6293f5')
+                .setColor(0x6293f5)
                 .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
                 .setTitle("Here's a list of all my commands:")
                 .setDescription(client.commands.map((command) => command.name).join(', '))
@@ -42,7 +42,7 @@ export default {
 
         try {
             const embed = new Discord.MessageEmbed();
-            embed.setColor('#6293f5');
+            embed.setColor(0x6293f5);
             embed.setTitle(`**Command Name:** ${command.name}`);
             if (command.disabled) {
                 embed.setDescription('⚠ This command is currently **disabled**.');

@@ -9,7 +9,7 @@ export default {
     do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
         const sentMessage: Message = await message.channel.send('Pinging...');
         const embed = new Discord.MessageEmbed()
-            .setColor('#6293f5')
+            .setColor(0x6293f5)
             .setTitle(`${client.user.username} Ping`)
             .addFields(
                 {

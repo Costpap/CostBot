@@ -29,7 +29,7 @@ export default {
         }
 
         const embed = new Discord.MessageEmbed()
-            .setColor('#6293f5')
+            .setColor(0x6293f5)
             .setThumbnail(client.user.displayAvatarURL({ format: 'png' }))
             .setTitle(`${client.user.username} Information`)
             .addFields(

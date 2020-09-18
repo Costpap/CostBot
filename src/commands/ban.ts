@@ -17,12 +17,16 @@ export default {
         if (!user) {
             return message.channel.send('❌ You need to specify a user to ban!');
         }
+        /* This checks if the user to be banned
+        is the person who sent the message,
+        and if true, it prevents them
+        from banning themselves. */
         if (user.id === message.author.id) {
             return message.channel.send("Aww, please don't ban yourself! 💖");
         }
         /* This checks if the user to be banned
 		is in the guild, and if true,
-		it checks if they can be banned by the bot or not */
+		it checks if they can be banned by the bot or not. */
         if (!message.guild.member(user)?.bannable) {
             return message.channel.send(
                 '❌ I cannot ban this user! \n**Please make sure that my highest role is above theirs.**',
