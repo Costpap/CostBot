@@ -18,7 +18,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Run TypeScript Compiler
-        run: tsc
+        uses: icrawl/action-tsc@v1
   lint:
     name: ESLint
     runs-on: ubuntu-latest
