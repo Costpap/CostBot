@@ -28,7 +28,7 @@ However, if you want to use a version earlier than 12, that is entirely possible
 
 5. When all dependencies have been installed (if you get any warnings from npm regarding peer or optional dependencies, you can simply ignore them), you will then need to set up the configuration files. Rename `.env.example` to `.env` and replace all the fields with their appropriate values. After that, you can go to the `src` directory and rename `botconfig-example.ts` to `botconfig.ts` and replace all of the values as well.
 
-6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can *optionally* delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` directory.
+6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can *optionally* delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` directory. If that still hasn't fixed your issue, please open an [issue](https://github.com/Costpap/CostBot/issues/new/choose).
 
 7. Finally, you can run `node .` or `node ./build/index.js`, and your bot should now be online. Congratulations!
 
