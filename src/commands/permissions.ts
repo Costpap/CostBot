@@ -8,7 +8,7 @@ export default {
     guildOnly: true,
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, _client: Client, args: string[], Discord: typeof import('discord.js')) => {
         if (args[0] === 'role') {
             const role: Role = parseRoleMention(args[0], message.guild) || message.guild.roles.cache.get(args[0]);
             const embed = new Discord.MessageEmbed()

@@ -9,7 +9,7 @@ export default {
     usage: '@member (optional reason)',
     permissions: ['KICK_MEMBERS'],
     cooldown: 10,
-    do: async (message: Message, client: Client, args: string[]) => {
+    do: async (message: Message, _client: Client, args: string[]) => {
         if (!message.member.hasPermission('KICK_MEMBERS', { checkAdmin: true, checkOwner: true })) {
             return message.reply('you need the `Kick Members` permission in order to use this command!');
         }

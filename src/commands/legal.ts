@@ -69,7 +69,7 @@ export default {
         }
 
         try {
-            message.author.send(strings.permNote, embed);
+            await message.author.send(strings.permNote, embed);
             if (message.channel.type === 'dm') return;
             return message.channel.send('✅ The information you requested has been sent.');
         } catch (error) {

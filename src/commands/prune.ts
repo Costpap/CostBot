@@ -9,7 +9,7 @@ export default {
     usage: '[number of messages]',
     permissions: ['MANAGE_MESSAGES'],
     cooldown: 10,
-    do: async (message: Message, client: Client, args: string[]) => {
+    do: async (message: Message, _client: Client, args: string[]) => {
         if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
             return message.reply('you need the `Manage Messages` permission in order to use this command!');
         }

@@ -7,13 +7,14 @@ export default {
     aliases: ['whois', 'user', 'ui'],
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, _client: Client, args: string[], Discord: typeof import('discord.js')) => {
         const member: GuildMember =
             parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]) || message.member;
+
         const embed = new Discord.MessageEmbed()
             .setColor(member.displayHexColor)
             .setAuthor(member.user.tag, member.user.displayAvatarURL({ format: 'png', dynamic: true }))
-            .setDescription(`User mention: ${member} \n User ID: \`${member.id}\``)
+            .setDescription(`User mention: ${member}\nUser ID: \`${member.id}\``)
             .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true }))
             .addFields(
                 { name: 'Nickname', value: member.displayName, inline: true },

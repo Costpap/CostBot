@@ -7,7 +7,7 @@ export default {
     aliases: ['statistics', 'uptime'],
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
         const embed = new Discord.MessageEmbed()
             .setColor(0x6293f5)
             .setTitle(`${client.user.username} Statistics`)

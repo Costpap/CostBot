@@ -9,6 +9,7 @@ export default {
     cooldown: 5,
     do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
         const user: User = parseUserMention(args[0], client) || client.users.cache.get(args[0]) || message.author;
+
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))

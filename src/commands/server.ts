@@ -7,7 +7,7 @@ export default {
     guildOnly: true,
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, _client: Client, _args: string[], Discord: typeof import('discord.js')) => {
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setTitle(`${message.guild.name}`)
@@ -23,6 +23,8 @@ export default {
             )
             .setTimestamp(message.guild.createdAt)
             .setFooter(`Server ID: ${message.guild.id}`);
+        /* This checks whether or not the guild has a server icon or not
+        and if true sets it as the embed thumbnail. */
         if (message.guild.iconURL) {
             embed.setThumbnail(message.guild.iconURL({ format: 'png', dynamic: true }));
         }

@@ -8,7 +8,7 @@ export default {
     aliases: ['information', 'about'],
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
         /* This automatically gets the user IDs from the botconfig,
 		fetches the users and pushes their username, discriminator and ID to an array,
 		which is then shown on an embed field. */

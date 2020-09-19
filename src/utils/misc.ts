@@ -128,7 +128,10 @@ export async function clientStats(
 }
 
 export interface ClientStatOptions {
+    /** Whether or not to inline the embed fields */
     noInline?: boolean;
+    /** Whether or not to inline the uptime field */
     noUptimeInline?: boolean;
+    /** Whether or not to add an uptime field */
     noUptime?: boolean;
 }
