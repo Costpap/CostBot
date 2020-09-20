@@ -38,6 +38,20 @@ export const clean = (text: string): string => {
 };
 
 /**
+ * Parses a Markdown codeblock and returns the text inside of it.
+ * @param {string} script - The code to parse
+ * @returns {string} Code without codeblock
+ */
+export const parseCodeblock = (script: string): string => {
+    const cbr = /^(([ \t]*`{3,4})([^\n]*)([\s\S]+?)(^[ \t]*\2))/gm;
+    const result: RegExpExecArray = cbr.exec(script);
+    if (result) {
+        return result[4];
+    }
+    return script;
+};
+
+/**
  * Automatically gets the latest release from {@link https://github.com/Costpap/CostBot GitHub}.
  * @param {string} tag_name - The name of the tag of the latest release, for example: `v0.0.0`
  * @returns {Promise<string>} The name of the tag of the latest release, for example: `v0.0.0`
