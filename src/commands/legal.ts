@@ -9,8 +9,8 @@ export default {
     cooldown: 10,
     do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
         /* This automatically gets the user IDs from the botconfig,
-		fetches the users and pushes their username, discriminator and ID to an array,
-		which is then shown on the Privacy Policy of the bot. */
+        fetches the users and pushes their username, discriminator and ID to an array,
+        which is then shown on the Privacy Policy of the bot. */
         /**
          * Array containing: **owner name#0000 (`123456789012345678`)**
          */

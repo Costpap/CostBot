@@ -10,8 +10,8 @@ export default {
     cooldown: 5,
     do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
         /* This automatically gets the user IDs from the botconfig,
-		fetches the users and pushes their username, discriminator and ID to an array,
-		which is then shown on an embed field. */
+        fetches the users and pushes their username, discriminator and ID to an array,
+        which is then shown on an embed field. */
         /**
          * Array containing: **developer name#0000 (`123456789012345678`)**
          */
