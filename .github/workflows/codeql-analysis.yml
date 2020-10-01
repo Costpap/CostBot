@@ -48,6 +48,9 @@ jobs:
         # Prefix the list here with "+" to use these queries and those in the config file.
         # queries: ./path/to/local/query, your-org/your-repo/queries@main
 
+    - name: Configure files
+      run: mv src/botconfig-example.ts src/botconfig.ts | mv .env.example .env
+
     - name: Install dependencies
       run: npm ci
 
