@@ -1,4 +1,5 @@
 # CostBot
+
 <div align="center">
 <br role="presentation" />
 <p>
@@ -18,7 +19,7 @@ First and foremost, you will need a [Discord Developer Application](https://disc
 ### The rest of the set-up
 
 1. First of all, you should have at least version 12 of [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. You can download them from [here](https://nodejs.org/en/download/). We recommend using the latest Long Term Support (LTS) release.
-However, if you want to use a version earlier than 12, that is entirely possible. Before following *step 6* later on, you can edit `tsconfig.json` and change the `target` to the ECMAScript version corresponding to the Node one you want to use.
+   However, if you want to use a version earlier than 12, that is entirely possible. Before following _step 6_ later on, you can edit `tsconfig.json` and change the `target` to the ECMAScript version corresponding to the Node one you want to use.
 
 2. Once Node and npm has finished installing, you should also install [Git](https://git-scm.com/), as it is needed in order to clone the repository. You can download it from [here](https://git-scm.com/downloads).
 
@@ -28,7 +29,7 @@ However, if you want to use a version earlier than 12, that is entirely possible
 
 5. When all dependencies have been installed (if you get any warnings from npm regarding peer or optional dependencies, you can simply ignore them), you will then need to set up the configuration files. Rename `.env.example` to `.env` and replace all the fields with their appropriate values. After that, you can go to the `src` directory and rename `botconfig-example.ts` to `botconfig.ts` and replace all of the values as well.
 
-6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can *optionally* delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` directory. If that still hasn't fixed your issue, please open an [issue](https://github.com/Costpap/CostBot/issues/new/choose).
+6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can _optionally_ delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` directory. If that still hasn't fixed your issue, please open an [issue](https://github.com/Costpap/CostBot/issues/new/choose).
 
 7. Finally, you can run `node .` or `node ./build/index.js`, and your bot should now be online. Congratulations!
 
@@ -36,5 +37,5 @@ However, if you want to use a version earlier than 12, that is entirely possible
 
 Please make sure to read all of the documents below, especially if you are planning on making contributions such as opening a Pull Request or Issue.
 
-- [Code of Conduct (CoC)](.github/CODE_OF_CONDUCT.md)
-- [Contributing Guidelines](.github/CONTRIBUTING.md)
+-   [Code of Conduct (CoC)](.github/CODE_OF_CONDUCT.md)
+-   [Contributing Guidelines](.github/CONTRIBUTING.md)

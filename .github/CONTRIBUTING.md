@@ -25,7 +25,7 @@ Please try to use [JSDoc](https://jsdoc.app/index.html) comments for readability
 At last, once you have finished making your changes and ensured that they are properly working, you can:
 
 1. Run `git add <files you have changed>`
-2. Afterwards, run `git commit --allow-empty-message -m "commit message"`, with the commit message preferably following 
-[the Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/)
+2. Afterwards, run `git commit --allow-empty-message -m "commit message"`, with the commit message preferably following
+   [the Conventional Commits Specification](https://www.conventionalcommits.org/en/v1.0.0/)
 3. Once you have made a commit, run `git push origin`
 4. Open a Pull Request on GitHub. Tada!
