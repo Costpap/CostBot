@@ -1,7 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea for this project
-title: 'FR - '
+about: Suggest an idea for CostBot
 labels: enhancement
 assignees: ''
 ---
