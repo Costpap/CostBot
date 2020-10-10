@@ -11,7 +11,7 @@ export default {
     cooldown: 10,
     do: async (message: Message, _client: Client, args: string[]) => {
         if (!message.member.hasPermission('KICK_MEMBERS', { checkAdmin: true, checkOwner: true })) {
-            return message.reply('you need the `Kick Members` permission in order to use this command!');
+            return message.channel.send('⛔ You need the `Kick Members` permission in order to use this command!');
         }
         const member: GuildMember =
             parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]);

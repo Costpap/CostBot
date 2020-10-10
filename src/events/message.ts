@@ -21,7 +21,7 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
         command.ownerOnly &&
         (!botOwner.includes(message.author.id) || (command.adminOnly && !botAdmin.includes(message.author.id)))
     ) {
-        return message.reply('You cannot use this command!');
+        return message.channel.send('🚫 You cannot use this command!');
     }
 
     if (command.guildOnly && message.channel.type === 'dm') {
@@ -67,8 +67,8 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
 
         if (now < expirationTime) {
             const timeLeft: number = (expirationTime - now) / 1000;
-            const sentMessage: Message = await message.reply(
-                `please wait ${timeLeft.toFixed(1)} ${timeLeft === 1 ? 'second' : 'seconds'} before using \`${
+            const sentMessage: Message = await message.channel.send(
+                `Please wait ${timeLeft.toFixed(1)} ${timeLeft === 1 ? 'second' : 'seconds'} before using \`${
                     command.name
                 }\` again.`,
             );

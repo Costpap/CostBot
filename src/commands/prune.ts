@@ -11,7 +11,7 @@ export default {
     cooldown: 10,
     do: async (message: Message, _client: Client, args: string[]) => {
         if (!message.member.hasPermission('MANAGE_MESSAGES', { checkAdmin: true, checkOwner: true })) {
-            return message.reply('you need the `Manage Messages` permission in order to use this command!');
+            return message.channel.send('⛔ You need the `Manage Messages` permission in order to use this command!');
         }
         /**
          * The total number of messages to bulkDelete.
@@ -19,9 +19,9 @@ export default {
         const amount: number = parseInt(args[0]) + 1;
 
         if (isNaN(amount)) {
-            return message.reply("that doesn't seem to be a valid number.");
+            return message.channel.send("❌ That doesn't seem to be a valid number.");
         } else if (amount <= 1 || amount > 100) {
-            return message.reply('you need to input a number between 1 and 99.');
+            return message.channel.send('❌ You need to input a number between 1 and 99.');
         }
 
         const textChannel = message.channel as TextChannel | NewsChannel;

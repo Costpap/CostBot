@@ -11,7 +11,7 @@ export default {
     cooldown: 10,
     do: async (message: Message, client: Client, args: string[]) => {
         if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
-            return message.reply('you need the `Ban Members` permission in order to use this command!');
+            return message.channel.send('⛔ You need the `Ban Members` permission in order to use this command!');
         }
         const user: User = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
         if (!user) {

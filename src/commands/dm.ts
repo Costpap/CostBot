@@ -15,7 +15,7 @@ export default {
             return message.channel.send('❌ You need to specify a user to DM.');
         }
         if (dmUser.bot) {
-            return message.reply('you cannot send messages to this user!');
+            return message.channel.send('❌ You cannot send messages to bots.');
         }
         if (message.channel.type !== 'dm') message.delete();
 
