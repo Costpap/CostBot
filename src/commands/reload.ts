@@ -5,6 +5,7 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'reload',
+    level: 'owner',
     description: 'Reloads a command.',
     ownerOnly: true,
     args: true,

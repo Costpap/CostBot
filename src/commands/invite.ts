@@ -2,6 +2,7 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'invite',
+    level: 'user',
     description: 'Sends you a link to invite the bot.',
     aliases: ['inv'],
     cooldown: 5,

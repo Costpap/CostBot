@@ -3,6 +3,7 @@ import { parseMemberMention, parseRoleMention } from '../utils/parse';
 
 export default {
     name: 'permissions',
+    level: 'admin',
     description: 'Displays the permissions and roles of the mentioned user or yourself.',
     aliases: ['perms', 'roles', 'permlist', 'rolelist'],
     guildOnly: true,

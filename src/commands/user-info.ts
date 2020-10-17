@@ -3,6 +3,7 @@ import { parseMemberMention } from '../utils/parse';
 
 export default {
     name: 'user-info',
+    level: 'user',
     description: 'Display info about the mentioned user or yourself.',
     aliases: ['whois', 'user', 'ui'],
     permissions: ['EMBED_LINKS'],

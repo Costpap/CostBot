@@ -4,6 +4,7 @@ import { Message, Client, User } from 'discord.js';
 
 export default {
     name: 'info',
+    level: 'user',
     description: 'Displays information about the bot.',
     aliases: ['information', 'about'],
     permissions: ['EMBED_LINKS'],

@@ -3,6 +3,7 @@ import { parseRoleMention } from '../utils/parse';
 
 export default {
     name: 'role-info',
+    level: 'admin',
     description: 'Displays information about a role.',
     aliases: ['roleinfo', 'role', 'ri'],
     args: true,

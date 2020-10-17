@@ -3,6 +3,7 @@ import { parseChannelMention } from '../utils/parse';
 
 export default {
     name: 'say',
+    level: 'admin',
     description: 'Sends a message through the bot',
     aliases: ['send'],
     adminOnly: true,

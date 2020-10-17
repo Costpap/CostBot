@@ -5,7 +5,8 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'help',
-    description: 'Lists all of my commands or info about a specific command.',
+    level: 'user',
+    description: 'Lists all of my commands or info about a specific command in a category (user, admin, or owner).',
     aliases: ['commands', 'cmds'],
     usage: '[command name]',
     permissions: ['EMBED_LINKS'],
@@ -16,9 +17,14 @@ export default {
                 .setColor(0x6293f5)
                 .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
                 .setTitle("Here's a list of all my commands:")
-                .setDescription(client.commands.map((command) => command.name).join(', '))
                 .setTimestamp()
                 .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
+
+            client.commands.forEach((command) => {
+                if (command.level === 'user') {
+                    embed.addField(`${prefix}${command.name}`, command.description || 'No description');
+                }
+            });
 
             try {
                 await message.author.send(embed);
@@ -34,6 +40,52 @@ export default {
         const command: Command =
             client.commands.get(name) || client.commands.find((cmd) => cmd.aliases?.includes(name));
 
+        if (name === 'admin') {
+            const embed = new Discord.MessageEmbed()
+                .setColor(0x6293f5)
+                .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
+                .setTitle("Here's a list of all my commands:")
+                .setTimestamp()
+                .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
+
+            client.commands.forEach((command) => {
+                if (command.level === 'admin') {
+                    embed.addField(`${prefix}${command.name}`, command.description || 'No description');
+                }
+            });
+
+            try {
+                await message.author.send(embed);
+                if (message.channel.type === 'dm') return;
+                return message.channel.send('✅ I have sent you a DM with all my commands!');
+            } catch (error) {
+                console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+                return message.channel.send("❌ I can't DM you. **Please make sure that you have DMs enabled.**");
+            }
+        }
+        if (name === 'owner') {
+            const embed = new Discord.MessageEmbed()
+                .setColor(0x6293f5)
+                .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
+                .setTitle("Here's a list of all my owner exclusive commands:")
+                .setTimestamp()
+                .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
+
+            client.commands.forEach((command) => {
+                if (command.level === 'owner') {
+                    embed.addField(`${prefix}${command.name}`, command.description || 'No description');
+                }
+            });
+
+            try {
+                await message.author.send(embed);
+                if (message.channel.type === 'dm') return;
+                return message.channel.send('✅ I have sent you a DM with all my commands!');
+            } catch (error) {
+                console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+                return message.channel.send("❌ I can't DM you. **Please make sure that you have DMs enabled.**");
+            }
+        }
         if (!command) {
             return message.channel.send(
                 `❌ That's not a valid command. Do \`${prefix}help\` to see a list of all commands.`,

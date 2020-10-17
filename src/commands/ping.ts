@@ -3,6 +3,7 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'ping',
+    level: 'user',
     description: 'Pings the bot!',
     permissions: ['EMBED_LINKS'],
     cooldown: 8,

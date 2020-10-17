@@ -4,6 +4,7 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'eval',
+    level: 'owner',
     description: 'Runs JavaScript code.',
     ownerOnly: true,
     usage: 'code',

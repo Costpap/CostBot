@@ -3,6 +3,7 @@ import { parseMemberMention } from '../utils/parse';
 
 export default {
     name: 'manageable',
+    level: 'admin',
     description: 'Shows if the bot can manage this user or not.',
     aliases: ['mod-able', 'modable'],
     guildOnly: true,

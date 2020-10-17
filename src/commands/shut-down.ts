@@ -3,6 +3,7 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'shut-down',
+    level: 'owner',
     description: 'Shuts down the bot.',
     aliases: ['shutdown', 'shdn', 'restart', 'rst', 'reboot', 'rbt'],
     ownerOnly: true,

@@ -2,6 +2,7 @@ import { Message, Client, TextChannel, NewsChannel } from 'discord.js';
 
 export default {
     name: 'prune',
+    level: 'admin',
     description: 'Prune up to 99 messages.',
     aliases: ['purge', 'delete', 'remove'],
     args: true,

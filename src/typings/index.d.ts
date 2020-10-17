@@ -3,6 +3,8 @@ import { Message, Client, PermissionResolvable } from 'discord.js';
 export interface Command {
     /** The name of the command, should be identical to the file name. */
     name: string;
+    /** The Permission levels of this command */
+    level: string;
     /** The description of the command. Shown in `help` command (by default). */
     description?: string;
     /**
