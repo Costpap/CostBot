@@ -3,7 +3,6 @@ import { parseMemberMention } from '../utils/parse';
 
 export default {
     name: 'fight',
-    level: 'user',
     description: 'Have a little online fight with someone.',
     args: true,
     guildOnly: true,

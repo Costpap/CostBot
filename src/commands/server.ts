@@ -2,7 +2,6 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'server',
-    level: 'user',
     description: 'Display info about this server.',
     aliases: ['server-info', 'si', 'guild', 'guild-info', 'gi'],
     guildOnly: true,

@@ -3,7 +3,6 @@ import { Message, Client, User } from 'discord.js';
 
 export default {
     name: 'legal',
-    level: 'user',
     description: 'Shows legal info related to privacy and licensing.',
     aliases: ['priv', 'privacy', 'license'],
     permissions: ['EMBED_LINKS'],

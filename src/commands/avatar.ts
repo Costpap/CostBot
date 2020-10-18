@@ -3,7 +3,6 @@ import { parseUserMention } from '../utils/parse';
 
 export default {
     name: 'avatar',
-    level: 'user',
     description: 'Get the avatar of the mentioned user or yourself.',
     aliases: ['icon', 'pfp'],
     permissions: ['EMBED_LINKS'],

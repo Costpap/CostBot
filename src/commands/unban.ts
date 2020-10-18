@@ -3,7 +3,6 @@ import { parseUserMention } from '../utils/parse';
 
 export default {
     name: 'unban',
-    level: 'admin',
     description: 'Unbans a previously banned user from your server.',
     aliases: ['un-ban'],
     guildOnly: true,

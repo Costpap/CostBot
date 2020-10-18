@@ -21,7 +21,7 @@ export default {
                 .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
 
             client.commands.forEach((command) => {
-                if (command.level === 'user') {
+                if (!command.adminOnly && !command.ownerOnly) {
                     embed.addField(`${prefix}${command.name}`, command.description || 'No description');
                 }
             });
@@ -49,7 +49,7 @@ export default {
                 .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
 
             client.commands.forEach((command) => {
-                if (command.level === 'admin') {
+                if (command.adminOnly) {
                     embed.addField(`${prefix}${command.name}`, command.description || 'No description');
                 }
             });
@@ -72,7 +72,7 @@ export default {
                 .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
 
             client.commands.forEach((command) => {
-                if (command.level === 'owner') {
+                if (command.ownerOnly) {
                     embed.addField(`${prefix}${command.name}`, command.description || 'No description');
                 }
             });

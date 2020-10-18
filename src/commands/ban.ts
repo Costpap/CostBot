@@ -3,7 +3,6 @@ import { parseUserMention } from '../utils/parse';
 
 export default {
     name: 'ban',
-    level: 'admin',
     description: 'Bans the @mentioned user from your server.',
     guildOnly: true,
     usage: '@member (optional reason)',

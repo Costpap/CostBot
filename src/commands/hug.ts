@@ -3,7 +3,6 @@ import { parseMemberMention } from '../utils/parse';
 
 export default {
     name: 'hug',
-    level: 'user',
     description: 'Give a sweet little hug to someone!',
     args: true,
     guildOnly: true,

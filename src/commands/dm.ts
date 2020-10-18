@@ -3,7 +3,6 @@ import { parseUserMention } from '../utils/parse';
 
 export default {
     name: 'dm',
-    level: 'admin',
     description: 'Sends a direct message through the bot',
     adminOnly: true,
     args: true,

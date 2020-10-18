@@ -4,7 +4,6 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'deploy',
-    level: 'owner',
     description: 'Compiles TypeScript code and then restarts the bot.',
     aliases: ['deployment', 'dep', 'update', 'upd'],
     ownerOnly: true,

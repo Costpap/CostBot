@@ -4,7 +4,6 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'shell',
-    level: 'owner',
     description: 'Runs Shell code.',
     ownerOnly: true,
     usage: 'code',

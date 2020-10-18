@@ -3,7 +3,6 @@ import { parseMemberMention } from '../utils/parse';
 
 export default {
     name: 'kick',
-    level: 'admin',
     description: 'Kicks the @mentioned user from your server.',
     guildOnly: true,
     args: true,

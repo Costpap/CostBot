@@ -3,7 +3,6 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'stats',
-    level: 'user',
     description: 'Displays statistics about this bot.',
     aliases: ['statistics', 'uptime'],
     permissions: ['EMBED_LINKS'],
