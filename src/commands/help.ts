@@ -5,7 +5,6 @@ import { Message, Client } from 'discord.js';
 
 export default {
     name: 'help',
-    level: 'user',
     description: 'Lists all of my commands or info about a specific command in a category (user, admin, or owner).',
     aliases: ['commands', 'cmds'],
     usage: '[command name]',
