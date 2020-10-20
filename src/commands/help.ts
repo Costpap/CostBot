@@ -1,7 +1,7 @@
 import { prefix } from '../botconfig';
 import { version } from '../utils/misc';
-import type { Command } from '../typings/index';
-import { Message, Client } from 'discord.js';
+import type { Command } from '../typings';
+import { Client, Message, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'help',
@@ -11,13 +11,14 @@ export default {
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
     do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+        const embed = new Discord.MessageEmbed()
+            .setColor(0x6293f5)
+            .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
+            .setTimestamp()
+            .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
+
         if (!args.length) {
-            const embed = new Discord.MessageEmbed()
-                .setColor(0x6293f5)
-                .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
-                .setTitle("Here's a list of all my commands:")
-                .setTimestamp()
-                .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
+            embed.setTitle("Here's a list of all my commands:");
 
             client.commands.forEach((command) => {
                 if (!command.adminOnly && !command.ownerOnly) {
@@ -25,14 +26,7 @@ export default {
                 }
             });
 
-            try {
-                await message.author.send(embed);
-                if (message.channel.type === 'dm') return;
-                return message.channel.send('✅ I have sent you a DM with all my commands!');
-            } catch (error) {
-                console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-                return message.channel.send("❌ I can't DM you. **Please make sure that you have DMs enabled.**");
-            }
+            dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my commands!');
         }
 
         const name: string = args[0].toLowerCase();
@@ -40,35 +34,17 @@ export default {
             client.commands.get(name) || client.commands.find((cmd) => cmd.aliases?.includes(name));
 
         if (name === 'admin') {
-            const embed = new Discord.MessageEmbed()
-                .setColor(0x6293f5)
-                .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
-                .setTitle("Here's a list of all my commands:")
-                .setTimestamp()
-                .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
-
+            embed.setTitle("Here's a list of all my admin-only commands:");
             client.commands.forEach((command) => {
                 if (command.adminOnly) {
                     embed.addField(`${prefix}${command.name}`, command.description || 'No description');
                 }
             });
 
-            try {
-                await message.author.send(embed);
-                if (message.channel.type === 'dm') return;
-                return message.channel.send('✅ I have sent you a DM with all my commands!');
-            } catch (error) {
-                console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-                return message.channel.send("❌ I can't DM you. **Please make sure that you have DMs enabled.**");
-            }
+            dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my admin-only commands!');
         }
         if (name === 'owner') {
-            const embed = new Discord.MessageEmbed()
-                .setColor(0x6293f5)
-                .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
-                .setTitle("Here's a list of all my owner exclusive commands:")
-                .setTimestamp()
-                .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
+            embed.setTitle("Here's a list of all my owner-only commands:");
 
             client.commands.forEach((command) => {
                 if (command.ownerOnly) {
@@ -76,14 +52,7 @@ export default {
                 }
             });
 
-            try {
-                await message.author.send(embed);
-                if (message.channel.type === 'dm') return;
-                return message.channel.send('✅ I have sent you a DM with all my commands!');
-            } catch (error) {
-                console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
-                return message.channel.send("❌ I can't DM you. **Please make sure that you have DMs enabled.**");
-            }
+            dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my owner-only commands!');
         }
         if (!command) {
             return message.channel.send(
@@ -92,8 +61,6 @@ export default {
         }
 
         try {
-            const embed = new Discord.MessageEmbed();
-            embed.setColor(0x6293f5);
             embed.setTitle(`**Command Name:** ${command.name}`);
             if (command.disabled) {
                 embed.setDescription('⚠ This command is currently **disabled**.');
@@ -114,7 +81,6 @@ export default {
                 embed.addField('Usage', `${prefix}${command.name} ${command.usage}`);
             }
             embed.addField('Cooldown', `${command.cooldown ?? 3} ${command.cooldown === 1 ? 'second' : 'seconds'}`);
-            embed.setTimestamp();
             embed.setFooter(
                 `${client.user.username} ${await version()}`,
                 client.user.displayAvatarURL({ format: 'png' }),
@@ -128,3 +94,20 @@ export default {
         }
     },
 };
+
+/**
+ * A function for DMing help embeds to users.
+ * @param message - discord.js Message
+ * @param embed - discord.js MessageEmbed
+ * @param text - What to say in the channel after DMing the user.
+ */
+async function dmHelpEmbed(message: Message, embed: MessageEmbed, text: string) {
+    try {
+        await message.author.send(embed);
+        if (message.channel.type === 'dm') return;
+        return message.channel.send(text);
+    } catch (error) {
+        console.error(`Could not send help DM to ${message.author.tag} (${message.author.id}):\n`, error);
+        return message.channel.send("❌ I can't DM you. **Please make sure that you have DMs enabled.**");
+    }
+}
