@@ -100,6 +100,7 @@ export async function clientStats(
     const strings = {
         serverCount: 'Server Count',
         members: 'Total Members',
+        membersExcludingBots: 'Total Members (excluding bots)',
         uptime: 'Bot Uptime',
     };
     /**
@@ -111,6 +112,7 @@ export async function clientStats(
     const values = {
         serverCount: client.guilds.cache.size,
         members: client.users.cache.size,
+        membersExcludingBots: client.users.cache.filter((u) => !u.bot).size,
         uptime: humanizeDuration(client.uptime),
     };
 
@@ -134,6 +136,14 @@ export async function clientStats(
             { name: strings.members, value: values.members, inline: true },
         );
     }
+    if (options?.membersExcludingBots) {
+        return embed.addFields(
+            { name: strings.serverCount, value: values.serverCount, inline: true },
+            { name: strings.members, value: values.members, inline: true },
+            { name: strings.membersExcludingBots, value: values.membersExcludingBots, inline: false },
+            { name: strings.uptime, value: values.uptime, inline: true },
+        );
+    }
     return embed.addFields(
         { name: strings.serverCount, value: values.serverCount, inline: true },
         { name: strings.members, value: values.members, inline: true },
@@ -148,4 +158,9 @@ export interface ClientStatOptions {
     noUptimeInline?: boolean;
     /** Whether or not to add an uptime field */
     noUptime?: boolean;
+    /**
+     * Whether or not to add a field displaying the total amount of users accessible by CostBot,
+     * excluding bots.
+     */
+    membersExcludingBots?: boolean;
 }

@@ -13,7 +13,7 @@ export default {
             .setTitle(`${client.user.username} Statistics`)
             .setTimestamp()
             .setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
-        clientStats(embed, client);
+        clientStats(embed, client, { membersExcludingBots: true });
         message.channel.send(embed);
     },
 };
