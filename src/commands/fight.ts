@@ -29,6 +29,10 @@ export default {
          * One of them is randomly selected by `fightString` on execution.
          * Feel free to add your strings in the array
          * if you'd like to see them used in the command.
+         *
+         * Notes about constants:
+         * `${member}` is used for the member getting fought,
+         * and `${message.member}` is used for the person who is fighting them.
          */
         const fightStrings: string[] = [
             `${member}, you are being fought by ${message.member}!`,
@@ -39,6 +43,7 @@ export default {
             `${message.member} is trying to fight ${member} but it didn't turn out that well.`,
             `${message.member} tried to fight ${member}, but it didn't end well at all.`,
             `${message.member} tried to tackle down ${member} but accidentally fell instead!`,
+            `${message.member} got jealous over ${member} and decided to have a fight with them.`,
             `${message.member} tried to hug ${member}, but fought them in confusion.`,
         ];
         /**

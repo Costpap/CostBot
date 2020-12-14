@@ -29,6 +29,10 @@ export default {
          * One of them is randomly selected by `hugString` on execution.
          * Feel free to add your strings in the array
          * if you'd like to see them used in the command.
+         *
+         * Notes about constants:
+         * `${member}` is used for the member getting hugged,
+         * and `${message.member}` is used for the person who is hugging them.
          */
         const hugStrings: string[] = [
             `${member} just received a big hug from ${message.member}!`,
@@ -39,6 +43,7 @@ export default {
             `${message.member} has given ${member} a small hug.`,
             `${message.member} just gave ${member} a small hug.`,
             `${message.member} gave a hug to ${member}, but where is mine?`,
+            `${message.member} wants to strengthen their friendship with ${member}, so they gave them a cute little hug!`,
             `${message.member} wanted to fight ${member}, but gave them a hug in confusion.`,
         ];
         /**
