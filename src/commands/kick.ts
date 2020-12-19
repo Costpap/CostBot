@@ -4,6 +4,7 @@ import { parseMemberMention } from '../utils/parse';
 export default {
     name: 'kick',
     description: 'Kicks the @mentioned user from your server.',
+    aliases: ['yeet'],
     guildOnly: true,
     args: true,
     usage: '@member (optional reason)',

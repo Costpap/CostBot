@@ -33,6 +33,14 @@ export default {
         const command: Command =
             client.commands.get(name) || client.commands.find((cmd) => cmd.aliases?.includes(name));
 
+        if (name === 'here') {
+            client.commands.forEach((command) => {
+                if (!command.adminOnly && !command.ownerOnly) {
+                    embed.addField(`${prefix}${command.name}`, command.description || 'No description');
+                }
+            });
+            return message.channel.send(embed);
+        }
         if (name === 'admin') {
             embed.setTitle("Here's a list of all my admin-only commands:");
             client.commands.forEach((command) => {

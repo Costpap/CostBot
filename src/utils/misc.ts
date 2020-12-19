@@ -108,11 +108,16 @@ export async function clientStats(
      * @param {number} serverCount - client.guilds.cache.size
      * @param {number} members - client.users.cache.size
      * @param {string} uptime - client.uptime in humanized form.
+     * @param {string} membersExcludingBots - client.users.cache excluding bots.
+     * @param {string} membersExcludingBots2 - client.users.cache both with and without bots/
      */
     const values = {
         serverCount: client.guilds.cache.size,
         members: client.users.cache.size,
         membersExcludingBots: client.users.cache.filter((u) => !u.bot).size,
+        membersExcludingBots2: `${client.users.cache.size} (${
+            client.users.cache.filter((u) => !u.bot).size
+        } excluding bots)`,
         uptime: humanizeDuration(client.uptime),
     };
 
@@ -144,6 +149,13 @@ export async function clientStats(
             { name: strings.uptime, value: values.uptime, inline: true },
         );
     }
+    if (options?.membersExcludingBots2) {
+        return embed.addFields(
+            { name: strings.serverCount, value: values.serverCount, inline: true },
+            { name: strings.members, value: values.membersExcludingBots2, inline: true },
+            { name: strings.uptime, value: values.uptime, inline: false },
+        );
+    }
     return embed.addFields(
         { name: strings.serverCount, value: values.serverCount, inline: true },
         { name: strings.members, value: values.members, inline: true },
@@ -163,4 +175,6 @@ export interface ClientStatOptions {
      * excluding bots.
      */
     membersExcludingBots?: boolean;
+    /** A more compact way to display both total members and total members excluding bots. */
+    membersExcludingBots2?: boolean;
 }
