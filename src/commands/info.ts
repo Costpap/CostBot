@@ -41,7 +41,7 @@ export default {
                 { name: '\u200B', value: '\u200B' },
             )
             .setTimestamp();
-        clientStats(embed, client, { noUptimeInline: true });
+        clientStats(embed, client, { membersExcludingBots2: true });
         message.channel.send(embed);
     },
 };
