@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 config({ path: './.env' });
 
 import { readdirSync } from 'fs';
-import * as Discord from 'discord.js';
+import Discord from 'discord.js';
 import { prefix } from './botconfig';
 
 const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
