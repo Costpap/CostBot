@@ -176,8 +176,9 @@ async function generateEmbed(
                 '```',
         );
 
-    if ((!stdout && !output && stderr) || (!embed.fields.length && !embed.description))
-        embed.setTitle('Nothing was returned from execution');
+    if ((stdout && !isError(outs?.callbackOutput)) || (stdout && !output) || (!stdout && !output && !stderr))
+        embed.setTitle('Evaluation Successful');
+    else if (!stdout && !output && stderr) embed.setTitle('Nothing was returned from execution');
     else embed.setTitle(isError(output) ? 'Evaluation Error' : 'Evaluation Successful');
 
     if ((stdout && !isError(outs?.callbackOutput)) || (stdout && !output) || (!stdout && !output && !stderr))
