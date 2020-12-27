@@ -11,13 +11,13 @@ export default {
     permissions: ['EMBED_LINKS'],
     cooldown: 0,
     do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-        const before: number = Date.now();
         let code: string = parseCodeblock(args.join(' '));
+        const before: number = Date.now();
         try {
             let { stdout } = await exec(code);
 
             if (typeof stdout !== 'string') {
-                stdout = await inspect(stdout);
+                stdout = inspect(stdout);
             }
 
             /* This checks if the input and output are over 1024 characters long
