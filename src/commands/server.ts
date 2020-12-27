@@ -18,7 +18,10 @@ export default {
                 { name: 'Server Members', value: message.guild.memberCount, inline: true },
                 {
                     name: `Server Roles (${message.guild.roles.cache.size})`,
-                    value: message.guild.roles.cache.map((role) => role).join(', '),
+                    value: message.guild.roles.cache
+                        .map((role) => role)
+                        .join(', ')
+                        .substring(0, 1017),
                 },
             )
             .setTimestamp(message.guild.createdAt)
