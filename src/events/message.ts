@@ -18,8 +18,8 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
         return message.channel.send('⚠ This command has been temporarily disabled.');
     }
     if (
-        command.ownerOnly &&
-        (!botOwner.includes(message.author.id) || (command.adminOnly && !botAdmin.includes(message.author.id)))
+        (command.ownerOnly && !botOwner.includes(message.author.id)) ||
+        (command.adminOnly && !botAdmin.includes(message.author.id))
     ) {
         return message.channel.send('🚫 You cannot use this command!');
     }

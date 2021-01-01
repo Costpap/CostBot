@@ -9,7 +9,8 @@
         "newLine": "lf",
         "sourceMap": false,
         "baseUrl": ".",
-        "removeComments": true
+        "removeComments": true,
+        "esModuleInterop": true
     },
     "typeRoots": ["./node_modules/@types", "./src/typings"],
     "exclude": ["node_modules", "./src/botconfig-example.ts", "./build"]

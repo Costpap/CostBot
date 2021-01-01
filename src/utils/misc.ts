@@ -1,6 +1,6 @@
 import { promisify } from 'util';
-import * as child_process from 'child_process';
-import * as humanizeDuration from 'humanize-duration';
+import child_process from 'child_process';
+import humanizeDuration from 'humanize-duration';
 import fetch from 'node-fetch';
 import { MessageEmbed, Client } from 'discord.js';
 
@@ -78,7 +78,7 @@ export const version = async (): Promise<string> => {
  * @param {boolean} options.noUptimeInline - Whether or not to inline the uptime field
  * @param {boolean} options.noUptime - Whether or not to add an uptime field
  * @example
- * import * as Discord from 'discord.js';
+ * import  Discord from 'discord.js';
  * import { clientStats } from './src/utils/misc';
  *
  * const embed = new Discord.MessageEmbed();

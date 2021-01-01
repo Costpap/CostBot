@@ -7,6 +7,7 @@ export default {
     permissions: ['EMBED_LINKS'],
     cooldown: 8,
     do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
+        const createdTimestamp: number = Date.now();
         const sentMessage: Message = await message.channel.send('Pinging...');
         const embed = new Discord.MessageEmbed()
             .setColor(0x6293f5)
@@ -14,7 +15,7 @@ export default {
             .addFields(
                 {
                     name: 'Message Edit Time',
-                    value: `${sentMessage.createdTimestamp - message.createdTimestamp}ms`,
+                    value: `${Date.now() - createdTimestamp}ms`,
                     inline: true,
                 },
                 { name: 'Websocket Heartbeat', value: `${client.ws.ping}ms`, inline: true },
