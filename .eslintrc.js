@@ -8,7 +8,7 @@ module.exports = {
         node: true,
         es6: true,
     },
-    extends: ['plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', 'plugin:prettier/recommended'],
+    extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
     ignorePatterns: ['build/*'],
     rules: {
         'no-console': 'off',
