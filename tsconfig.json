@@ -10,7 +10,8 @@
         "sourceMap": false,
         "baseUrl": ".",
         "removeComments": true,
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true
     },
     "typeRoots": ["./node_modules/@types", "./src/typings"],
     "exclude": ["node_modules", "./src/botconfig-example.ts", "./build"]

@@ -1,5 +1,5 @@
 import { Message, Client, Role } from 'discord.js';
-import { parseRoleMention } from '../utils/parse';
+import { parseDate, parseRoleMention } from '../utils/parse';
 
 export default {
     name: 'role-info',
@@ -18,7 +18,7 @@ export default {
         const embed = new Discord.MessageEmbed()
             .setColor(role.hexColor)
             .setTitle(`**Role name:** ${role.name}`)
-            .setDescription(`**Role mention:** ${role}`)
+            .setDescription(`**Role mention:** ${role}\n**Role ID:** \`${role.id}\``)
             .addFields(
                 { name: 'Role position', value: role.position, inline: true },
                 { name: 'Hoisted', value: role.hoist ? 'Yes' : 'No', inline: true },
@@ -27,14 +27,22 @@ export default {
                     value: role.mentionable ? 'Mentionable by everyone' : 'Only with permission',
                     inline: true,
                 },
-                { name: 'Hex Color', value: role.hexColor, inline: true },
+                { name: 'Hex color', value: role.hexColor, inline: true },
+                {
+                    name: 'Role created',
+                    value: parseDate(role.createdAt),
+                    inline: true,
+                },
                 {
                     name: 'Role members',
                     value: role.members.map((member) => member).join(', ') || 'There are no members with this role.',
                 },
             )
-            .setTimestamp(role.createdAt)
-            .setFooter(`Role ID: ${role.id}`);
+            .setTimestamp()
+            .setFooter(
+                `Requested by ${message.author.tag}`,
+                message.author.displayAvatarURL({ format: 'png', dynamic: true }),
+            );
 
         message.channel.send(embed);
     },

@@ -1,4 +1,27 @@
 import { Client, User, Guild, GuildMember, TextChannel, NewsChannel, Role } from 'discord.js';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
+
+/**
+ * Parses and formats a date object appropriately.
+ * @param date - The date object to parse/format
+ * @returns String
+ * @example
+ * import { parseDate } from './src/utils/parse';
+ *
+ * const d = parseDate(new Date());
+ * console.log(d);
+ */
+export function parseDate(date: Date): string {
+    const actualDate: string = dayjs(date).utc().format('ddd[,] D MMM YYYY HH:mm:ss');
+    const agoTime: string = dayjs().to(dayjs(actualDate));
+    const completeDate = `${actualDate} UTC (Roughly ${agoTime})`;
+    return completeDate;
+}
 
 /**
  * The Regular Expression against which to match User and GuildMember mentions.

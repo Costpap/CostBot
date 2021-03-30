@@ -1,5 +1,5 @@
 import { Message, Client, GuildMember } from 'discord.js';
-import { parseMemberMention } from '../utils/parse';
+import { parseDate, parseMemberMention } from '../utils/parse';
 
 export default {
     name: 'user-info',
@@ -14,7 +14,7 @@ export default {
         const embed = new Discord.MessageEmbed()
             .setColor(member.displayHexColor)
             .setAuthor(member.user.tag, member.user.displayAvatarURL({ format: 'png', dynamic: true }))
-            .setDescription(`User mention: ${member}\nUser ID: \`${member.id}\``)
+            .setDescription(`**User mention:** ${member}\n**User ID:** \`${member.id}\``)
             .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true }))
             .addFields(
                 { name: 'Nickname', value: member.displayName, inline: true },
@@ -25,8 +25,8 @@ export default {
                     value: `[Click here](${member.user.displayAvatarURL({ format: 'png', dynamic: true })})`,
                     inline: true,
                 },
-                { name: 'Joined Server', value: member.joinedAt },
-                { name: 'Joined Discord', value: member.user.createdAt, inline: true },
+                { name: 'Joined Server', value: parseDate(member.joinedAt) },
+                { name: 'Joined Discord', value: parseDate(member.user.createdAt), inline: true },
             )
             .setTimestamp()
             .setFooter(

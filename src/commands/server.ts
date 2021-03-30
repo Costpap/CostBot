@@ -1,4 +1,5 @@
 import { Message, Client } from 'discord.js';
+import { parseDate } from '../utils/parse';
 
 export default {
     name: 'server',
@@ -13,9 +14,15 @@ export default {
             .setTitle(`${message.guild.name}`)
             .addFields(
                 { name: 'Server Owner', value: `${message.guild.owner} (${message.guild.ownerID})` },
+                { name: 'Server ID', value: message.guild.id, inline: true },
                 { name: 'Server Region', value: message.guild.region, inline: true },
                 { name: 'Total Channels', value: message.guild.channels.cache.size, inline: true },
                 { name: 'Server Members', value: message.guild.memberCount, inline: true },
+                {
+                    name: 'Server created',
+                    value: parseDate(message.guild.createdAt),
+                    inline: true,
+                },
                 {
                     name: `Server Roles (${message.guild.roles.cache.size})`,
                     value: message.guild.roles.cache
@@ -24,8 +31,11 @@ export default {
                         .substring(0, 1017),
                 },
             )
-            .setTimestamp(message.guild.createdAt)
-            .setFooter(`Server ID: ${message.guild.id}`);
+            .setTimestamp()
+            .setFooter(
+                `Requested by ${message.author.tag}`,
+                message.author.displayAvatarURL({ format: 'png', dynamic: true }),
+            );
         /* This checks whether or not the guild has a server icon or not
         and if true sets it as the embed thumbnail. */
         if (message.guild.iconURL) {
