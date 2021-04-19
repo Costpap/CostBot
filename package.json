@@ -10,7 +10,7 @@
         "dayjs": "^1.10.4",
         "discord.js": "^12.5.3",
         "dotenv": "^8.2.0",
-        "humanize-duration": "^3.25.1",
+        "humanize-duration": "^3.25.2",
         "node-fetch": "^2.6.1"
     },
     "devDependencies": {
