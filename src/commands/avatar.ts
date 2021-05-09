@@ -11,7 +11,6 @@ export default {
         let user: User;
         if (!args[0]) user = message.author;
         else user = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
-           
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
