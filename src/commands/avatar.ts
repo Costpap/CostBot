@@ -11,11 +11,12 @@ export default {
         let user: User;
         if (!args[0]) user = message.author;
         else user = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
-
+           
+        const avatarURLFull: string = user.displayAvatarURL({format: 'png', dynamic: true}) + "?size=4096";
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
-            .setDescription(`[Click here for URL](${user.displayAvatarURL({ format: 'png', dynamic: true })} + ${'?size=4096'})`)
+            .setDescription(`[Click here for URL](${avatarURLFull})`)
             .setImage(user.displayAvatarURL({ format: 'png', dynamic: true }) + '?size=1024')
             .setTimestamp()
             .setFooter(
