@@ -8,8 +8,8 @@ dayjs.extend(relativeTime);
 
 /**
  * Parses and formats a date object appropriately.
- * @param date - The date object to parse/format
- * @returns String
+ * @param {Date} date - The date object to parse/format
+ * @returns {string} `ddd, D MMM YYYY HH:mm:ss UTC (Roughly [time] ago)`
  * @example
  * import { parseDate } from './src/utils/parse';
  *
