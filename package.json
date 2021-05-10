@@ -9,7 +9,7 @@
     "dependencies": {
         "dayjs": "^1.10.4",
         "discord.js": "^12.5.3",
-        "dotenv": "^9.0.0",
+        "dotenv": "^9.0.1",
         "humanize-duration": "^3.26.0",
         "node-fetch": "^2.6.1"
     },
