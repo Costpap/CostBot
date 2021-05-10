@@ -30,7 +30,9 @@ export default {
 
             return message.channel.send(embed);
         }
-        const member: GuildMember = parseMemberMention(args[0], message.guild) || message.member;
+        let member: GuildMember;
+        if (!args[0]) member = message.member;
+        else member = parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]);
         const embed = new Discord.MessageEmbed()
             .setColor(member.displayHexColor)
             .setTitle(`Roles & permissions list for ${member.user.tag} (${member.id})`)

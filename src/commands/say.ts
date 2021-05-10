@@ -46,7 +46,7 @@ export default {
 /**
  * A function for sending say messages and handling errors as well as information regarding the message being sent.
  * @param input - What to send
- * @param sChannel - The channel where to send it (should be `sayChannel`)
+ * @param sChannel - The channel it should be sent in (should be `sayChannel`)
  * @param messageChannel - The channel the `message` event was emitted in (should be `message.channel`)
  * @example
  * // This should work if you haven't modified any variable shown here.

@@ -8,8 +8,9 @@ export default {
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
     do: async (message: Message, _client: Client, args: string[], Discord: typeof import('discord.js')) => {
-        const member: GuildMember =
-            parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]) || message.member;
+        let member: GuildMember;
+        if (!args[0]) member = message.member;
+        else member = parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]);
 
         const embed = new Discord.MessageEmbed()
             .setColor(member.displayHexColor)
