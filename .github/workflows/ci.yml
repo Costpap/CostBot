@@ -34,4 +34,4 @@ jobs:
             - name: Install dependencies
               run: npm ci
             - name: Run ESLint
-              uses: icrawl/action-eslint@v1
+              uses: icrawl/action-eslint@v1.9.1
