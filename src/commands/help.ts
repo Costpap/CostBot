@@ -26,10 +26,10 @@ export default {
                 }
             });
 
-            dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my commands!');
+            await dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my commands!');
         }
 
-        const name: string = args[0].toLowerCase();
+        const name: string = args[0]?.toLowerCase();
         const command: Command =
             client.commands.get(name) || client.commands.find((cmd) => cmd.aliases?.includes(name));
 
