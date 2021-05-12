@@ -26,17 +26,21 @@ export default {
             return message.channel.send("Aww, please don't ban yourself! 💖");
         }
 
-        /* Attempts to ban the user
-        If the bot gets its permissions revoked the last minute, it will send an error saying they cannot ban the user that
-        This also applies to users who have a higher role than the bot
+        /* Attempts to ban the user, if the ban is successful,
+        the bot will send a message indicating it was successful, otherwise an error message will be sent
          */
         try {
-            await message.guild.members.ban(user, { reason: args.slice(1).join(' ') }).catch(() => {
-                return message.channel.send(
-                    '❌ I cannot ban this user! \\n**Please make sure that my highest role is above theirs.**',
-                );
-            });
-            await message.channel.send(`🔨 Banned \`${user.tag} (${user.id})\`.`);
+            await message.guild.members
+                .ban(user, { reason: args.slice(1).join(' ') })
+                .then(async () => {
+                    return await message.channel.send(`🔨 Banned \`${user.tag} (${user.id})\`.`);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    return message.channel.send(
+                        '❌ I cannot ban this user! \n**Please make sure that my highest role is above theirs.**',
+                    );
+                });
         } catch (error) {
             console.error(error);
             await message.channel.send(
