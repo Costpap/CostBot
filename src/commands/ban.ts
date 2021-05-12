@@ -27,8 +27,8 @@ export default {
         }
 
         /* Attempts to ban the user, if the ban is successful,
-        the bot will send a message indicating it was successful, otherwise an error message will be sent
-         */
+        the bot will send a message indicating it was successful,
+        otherwise an error message will be sent */
         try {
             await message.guild.members
                 .ban(user, { reason: args.slice(1).join(' ') })
