@@ -16,7 +16,7 @@ export default {
             .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
             .setTimestamp()
             .setFooter(`You can send "${prefix}help [command name]" to get info on a specific command!`);
-
+        console.log(args.length);
         if (!args.length) {
             embed.setTitle("Here's a list of all my commands:");
 
@@ -29,7 +29,7 @@ export default {
             await dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my commands!');
         }
 
-        const name: string = args[0]?.toLowerCase();
+        const name: string = args[0]?.toLowerCase() ?? 'help';
         const command: Command =
             client.commands.get(name) || client.commands.find((cmd) => cmd.aliases?.includes(name));
 
