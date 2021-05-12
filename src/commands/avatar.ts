@@ -14,7 +14,6 @@ export default {
         const embed = new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
-
             .setDescription(
                 `[Click here for URL](${user.displayAvatarURL({ format: 'png', dynamic: true }) + '?size=4096'})`,
             )
