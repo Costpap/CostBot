@@ -25,7 +25,9 @@ export default {
         if (user.id === message.author.id) {
             return message.channel.send("Aww, please don't ban yourself! 💖");
         }
-
+/* Attempts to ban the user. If the bot gets its permissions revoked at the last minute,
+it will send an error saying that they cannot ban the user.
+This also applies to users who have a higher role than the bot. */
         /* Attempts to ban the user
         If the bot gets its permissions revoked the last minute, it will send an error saying they cannot ban the user that
         This also applies to users who have a higher role than the bot
