@@ -13,7 +13,8 @@ export default {
             return message.channel.send('⛔ You need the `Ban Members` permission in order to use this command!');
         }
 
-        const user: User = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
+        const user: User =
+            parseUserMention(args[0], client) || (await client.users.fetch(args[0].match(/\d+/g).join('')));
         if (!user) {
             return message.channel.send('❌ You need to specify a user to ban!');
         }
@@ -24,20 +25,25 @@ export default {
         if (user.id === message.author.id) {
             return message.channel.send("Aww, please don't ban yourself! 💖");
         }
-        /* This checks if the user to be banned
-        is in the guild, and if true,
-        it checks if they can be banned by the bot or not. */
-        if (!message.guild.member(user)?.bannable) {
-            return message.channel.send(
-                '❌ I cannot ban this user! \n**Please make sure that my highest role is above theirs.**',
-            );
-        }
+
+        /* Attempts to ban the user, if the ban is successful,
+        the bot will send a message indicating it was successful,
+        otherwise an error message will be sent */
         try {
-            message.guild.members.ban(user, { reason: args.slice(1).join(' ') });
-            message.channel.send(`🔨 Banned \`${user.tag} (${user.id})\`.`);
+            await message.guild.members
+                .ban(user, { reason: args.slice(1).join(' ') })
+                .then(async () => {
+                    return await message.channel.send(`🔨 Banned \`${user.tag} (${user.id})\`.`);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    return message.channel.send(
+                        '❌ I cannot ban this user! \n**Please make sure that my highest role is above theirs.**',
+                    );
+                });
         } catch (error) {
             console.error(error);
-            message.channel.send(
+            await message.channel.send(
                 `❌ I encountered an error while trying to ban \`${user.tag}\`: \n\`\`\`${error.message}\`\`\``,
             );
         }
