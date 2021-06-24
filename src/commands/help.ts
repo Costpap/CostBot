@@ -49,7 +49,7 @@ export default {
                 }
             });
 
-            dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my admin-only commands!');
+            return dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my admin-only commands!');
         }
         if (name === 'owner') {
             embed.setTitle("Here's a list of all my owner-only commands:");
@@ -60,7 +60,7 @@ export default {
                 }
             });
 
-            dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my owner-only commands!');
+            return dmHelpEmbed(message, embed, '✅ I have sent you a DM with all my owner-only commands!');
         }
         if (!command) {
             return message.channel.send(
