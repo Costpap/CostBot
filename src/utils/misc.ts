@@ -2,7 +2,8 @@ import { promisify } from 'util';
 import child_process from 'child_process';
 import humanizeDuration from 'humanize-duration';
 import fetch from 'node-fetch';
-import { MessageEmbed, Client } from 'discord.js';
+import { Message, MessageEmbed, Client, version as discordVersion } from 'discord.js';
+import { version as tsVersion } from 'typescript';
 
 /**
  * Executes code in shell.
@@ -161,6 +162,40 @@ export async function clientStats(
         { name: strings.members, value: values.members, inline: true },
         { name: strings.uptime, value: values.uptime, inline: true },
     );
+}
+
+/**
+ * Generates an embed that is mostly useful for logging purposes in an error log channel.
+ * @param {string} title - The title of the embed
+ * @param {string} error - The error message
+ * @param message - discord.js Message
+ * @example
+ * import { generateBasicErrorEmbed } from './src/utils/misc';
+ *
+ * const embed = await generateBasicErrorEmbed('ReferenceError', 'ReferenceError: message is not defined', message);
+ * message.channel.send(embed);
+ */
+export async function generateBasicErrorEmbed(title: string, error: string, message: Message): Promise<MessageEmbed> {
+    const embed = new MessageEmbed()
+        .setColor('RED')
+        .setTitle(title)
+        .setDescription(`\`\`\`js\n${clean(error)}\`\`\``)
+        .addFields(
+            { name: 'Debug information:', value: '\u200B' },
+            { name: 'Bot Version', value: await version(), inline: true },
+            { name: 'TypeScript Version', value: `v${tsVersion}`, inline: true },
+            { name: 'discord.js Version', value: `v${discordVersion}`, inline: true },
+            {
+                name: 'Guild and Channel name',
+                value: `\`${message.guild.name}\` ${message.channel}`,
+                inline: true,
+            },
+            { name: 'Message Link', value: message.url, inline: true },
+            { name: 'Initiated by', value: `\`${message.author.tag} (${message.author.id})\``, inline: true },
+        )
+        .setTimestamp();
+
+    return embed;
 }
 
 export interface ClientStatOptions {
