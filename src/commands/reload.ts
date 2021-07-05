@@ -1,6 +1,6 @@
 import type { Command } from '../typings/index';
 import { coreLog, errorLog } from '../utils/logs';
-import { clean, exec } from '../utils/misc';
+import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
 import { Message, Client } from 'discord.js';
 
 export default {
@@ -19,6 +19,12 @@ export default {
         if (!command) {
             return message.channel.send(`❌ There is no command with name or alias \`${commandName}\`!`);
         }
+
+        const logMessage: Message = await coreLog(
+            `🔁 Reload of command **${command.name}** initiated by \`${message.author.tag} (${message.author.id})\`.`,
+            client,
+            { noWebhook: true },
+        );
         const sentMessage: Message = await message.channel.send('📝 Compiling TypeScript code...');
         const start: number = Date.now();
         try {
@@ -26,6 +32,17 @@ export default {
             if (stderr) throw stderr;
         } catch (stderr) {
             console.error('Error compiling TypeScript code: \n', stderr);
+
+            const embed = await generateBasicErrorEmbed(
+                `TypeScript Compilation Error while reloading command \`${command.name}\``,
+                stderr,
+                message,
+            );
+            errorLog(embed, client, { noWebhook: true });
+
+            logMessage.edit(
+                `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
+            );
             return sentMessage.edit(
                 `❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``,
             );
@@ -40,17 +57,21 @@ export default {
             const end: number = Date.now();
             const reloadTime: number = (end - start) / 1000;
             const sec: string = reloadTime === 1 ? 'second' : 'seconds';
-            coreLog(
-                `🔁 Command **${command.name}** was reloaded by \`${message.author.tag} (${
-                    message.author.id
-                })\` in ${reloadTime.toFixed(1)} ${sec}.`,
-                client,
-                { noWebhook: true },
+            await logMessage.edit(
+                `${logMessage.content}\n\n✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(
+                    1,
+                )} ${sec}!`,
             );
-            sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`);
+            await sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`);
         } catch (error) {
             console.error(error);
-            errorLog(error, client);
+
+            const embed = await generateBasicErrorEmbed('Reload Miscellaneous Error', error, message);
+            errorLog(embed, client, { noWebhook: true });
+
+            logMessage.edit(
+                `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
+            );
             sentMessage.edit(
                 `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${error.message}\`\`\``,
             );
