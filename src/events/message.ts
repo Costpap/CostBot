@@ -1,5 +1,6 @@
 import type { Command } from '../typings/index';
 import { prefix, botAdmin, botOwner } from '../botconfig';
+import { generateBasicErrorEmbed } from '../utils/misc';
 import { errorLog } from '../utils/logs';
 import { Client, Message } from 'discord.js';
 
@@ -81,7 +82,9 @@ export default async (Discord: typeof import('discord.js'), client: Client, mess
         command.do(message, client, args, Discord);
     } catch (error) {
         console.error(error);
-        errorLog(error, client);
+
+        const embed = await generateBasicErrorEmbed(`Generic command \`${command.name}\` error`, error, message);
+        errorLog(embed, client, { noWebhook: true });
         message.channel.send(
             `I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``,
         );
