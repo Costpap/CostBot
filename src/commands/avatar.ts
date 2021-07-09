@@ -15,9 +15,9 @@ export default {
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
             .setDescription(
-                `[Click here for URL](${user.displayAvatarURL({ format: 'png', dynamic: true }) + '?size=4096'})`,
+                `[Click here for URL](${user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 })})`,
             )
-            .setImage(user.displayAvatarURL({ format: 'png', dynamic: true }) + '?size=1024')
+            .setImage(user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
             .setTimestamp()
             .setFooter(
                 `Requested by ${message.author.tag}`,
