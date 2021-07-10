@@ -1,8 +1,9 @@
 import { LogChannel } from './typings';
 
 /**
- * A prefix used before commands. Should be short, easy to remember, and mainly consist of symbols,
- * such as `!`, `?`, `>`, `=`, `-`, `%`, `^`, `&`, `*`, `$`, `.`, `,` and `/`.
+ * A prefix used before commands. Should be short,
+ * easy to remember, and mainly consist of symbols,
+ * such as `!`, `?`, `>`, `=`, `-`, `_`, `%`, `^`, `&`, `*`, `$`, `.`, and `,`.
  * @param {string} prefix The bot's prefix. Up to 5 characters.
  */
 export const prefix = "Your bot's prefix here" as string;
