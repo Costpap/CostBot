@@ -29,13 +29,11 @@ const client = new Discord.Client({
         await import(`./events/${file}`).then(({ default: event }) => {
             const eventName: string = file.split('.')[0];
 
-            client.on(eventName as string | symbol, (...args) => {
-                try {
-                    event(Discord, client, ...args);
-                } catch (error) {
-                    console.error(error);
-                }
-            });
+            if (event.once) {
+                client.once(event.name, (...args) => event.do(...args, client, Discord));
+            } else {
+                client.on(event.name, (...args) => event.do(...args, client, Discord));
+            }
 
             client.events.set(eventName, event);
         });
