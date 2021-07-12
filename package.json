@@ -17,6 +17,7 @@
         "@types/humanize-duration": "^3.25.0",
         "@types/node": "^16.0.0",
         "@types/node-fetch": "^2.5.10",
+        "@types/ws": "^7.4.6",
         "@typescript-eslint/eslint-plugin": "^4.28.1",
         "@typescript-eslint/parser": "^4.28.1",
         "eslint": "^7.30.0",
@@ -27,7 +28,9 @@
     },
     "optionalDependencies": {
         "bufferutil": "^4.0.3",
-        "utf-8-validate": "^5.0.5"
+        "erlpack": "github:discord/erlpack",
+        "utf-8-validate": "^5.0.5",
+        "zlib-sync": "^0.1.7"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
