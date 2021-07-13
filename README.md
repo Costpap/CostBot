@@ -7,7 +7,7 @@
 </p>
 </div>
 
-This repository is home to all the code used by CostBot, a Discord Bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
+This repository is home to all the code used by CostBot, an MIT-licensed Discord Bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
 
 ## Detailed instructions on how to run the bot
 
