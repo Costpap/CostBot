@@ -88,7 +88,7 @@ export default {
             const embed = await generateBasicErrorEmbed(`Generic command \`${command.name}\` error`, error, message);
             errorLog(embed, client, { noWebhook: true });
             message.channel.send(
-                `I encountered an error while trying to execute this command: \n\`\`\`${error.message}\`\`\``,
+                `I encountered an error while trying to execute this command: \n\`\`\`${error?.message || error}\`\`\``,
             );
         }
     },

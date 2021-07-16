@@ -73,7 +73,9 @@ export default {
                 `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
             );
             sentMessage.edit(
-                `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${error.message}\`\`\``,
+                `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${
+                    error?.message || error
+                }\`\`\``,
             );
         }
     },

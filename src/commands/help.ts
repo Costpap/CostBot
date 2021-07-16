@@ -97,7 +97,9 @@ export default {
         } catch (error) {
             console.error(`Error trying to get info on ${command.name}:\n`, error);
             message.channel.send(
-                `❌ I encountered an error trying to get information on this command. \`\`\`js\n${error.message}\`\`\``,
+                `❌ I encountered an error trying to get information on this command. \`\`\`js\n${
+                    error?.message || error
+                }\`\`\``,
             );
         }
     },
