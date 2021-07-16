@@ -206,7 +206,7 @@ export interface ClientStatOptions {
     /** Whether or not to add an uptime field */
     noUptime?: boolean;
     /**
-     * Whether or not to add a field displaying the total amount of users accessible by CostBot,
+     * Whether or not to add a field displaying the total amount of users cached by the bot,
      * excluding bots.
      */
     membersExcludingBots?: boolean;
