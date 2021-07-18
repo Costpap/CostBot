@@ -47,7 +47,7 @@ export default {
                     `Could not send ${message.author.tag}'s (${message.author.id}) DM to ${dmUser.tag} (${dmUser.id}):\n`,
                     error,
                 );
-                return message.channel.send(`❌ Could not send message to ${dmUser.tag}`);
+                return message.channel.send(`❌ Could not send message to **${dmUser.tag}**.`);
             }
         }
 
