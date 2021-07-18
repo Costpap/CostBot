@@ -7,7 +7,6 @@ name: 'CodeQL'
 
 on:
     push:
-      branches-ignore: 'dependabot/**'
     pull_request:
     schedule:
         - cron: '0 5 * * *'
@@ -16,6 +15,7 @@ jobs:
     analyze:
         name: Analyze
         runs-on: ubuntu-latest
+        if: ${{ github.actor != 'dependabot[bot]' }}
 
         strategy:
             fail-fast: false
