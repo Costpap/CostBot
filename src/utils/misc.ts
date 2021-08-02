@@ -2,7 +2,7 @@ import { promisify } from 'util';
 import child_process from 'child_process';
 import humanizeDuration from 'humanize-duration';
 import fetch from 'node-fetch';
-import { Message, MessageEmbed, Client, version as discordVersion } from 'discord.js';
+import { Message, MessageEmbed, Client, version as libraryVersion } from 'discord.js';
 import { version as tsVersion } from 'typescript';
 
 /**
@@ -184,7 +184,7 @@ export async function generateBasicErrorEmbed(title: string, error: string, mess
             { name: 'Debug information:', value: '\u200B' },
             { name: 'Bot Version', value: await version(), inline: true },
             { name: 'TypeScript Version', value: `v${tsVersion}`, inline: true },
-            { name: 'discord.js Version', value: `v${discordVersion}`, inline: true },
+            { name: 'discord.js Version', value: `v${libraryVersion}`, inline: true },
             {
                 name: 'Guild and Channel name',
                 value: `\`${message.guild.name}\` ${message.channel}`,

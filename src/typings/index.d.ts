@@ -1,4 +1,4 @@
-import { Message, Client, PermissionResolvable } from 'discord.js';
+import { Client, Message, PermissionResolvable } from 'discord.js';
 
 export interface Command {
     /** The name of the command, should be identical to the file name. */

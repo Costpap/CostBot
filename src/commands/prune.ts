@@ -1,4 +1,4 @@
-import { Message, Client, TextChannel, NewsChannel } from 'discord.js';
+import { Client, Message, TextChannel, NewsChannel } from 'discord.js';
 
 export default {
     name: 'prune',

@@ -1,4 +1,4 @@
-import { Message, Client, GuildMember } from 'discord.js';
+import { Client, Message, GuildMember } from 'discord.js';
 import { parseMemberMention } from '../utils/parse';
 
 export default {

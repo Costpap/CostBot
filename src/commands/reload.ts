@@ -1,7 +1,7 @@
 import type { Command } from '../typings/index';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
-import { Message, Client } from 'discord.js';
+import { Client, Message } from 'discord.js';
 
 export default {
     name: 'reload',
