@@ -4,11 +4,10 @@
 <br role="presentation" />
 <p>
 <a href="https://github.com/Costpap/CostBot/actions"><img src="https://github.com/Costpap/CostBot/workflows/CostBot%20Continuous%20Integration/badge.svg" alt="CostBot CI"/></a>
-<a href="https://david-dm.org/Costpap/CostBot"><img src="https://img.shields.io/david/Costpap/CostBot.svg" alt="Dependencies" /></a>
 </p>
 </div>
 
-This repository is home to all the code used by CostBot, a Discord Bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
+This repository is home to all the code used by CostBot, an MIT-licensed Discord Bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
 
 ## Detailed instructions on how to run the bot
 
