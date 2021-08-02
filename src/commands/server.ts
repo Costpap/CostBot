@@ -1,4 +1,4 @@
-import { Message, Client } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { parseDate } from '../utils/parse';
 
 export default {
@@ -8,8 +8,8 @@ export default {
     guildOnly: true,
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, _client: Client, _args: string[], Discord: typeof import('discord.js')) => {
-        const embed = new Discord.MessageEmbed()
+    do: async (message: Message) => {
+        const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setTitle(`${message.guild.name}`)
             .addFields(

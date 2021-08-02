@@ -1,4 +1,4 @@
-import { Message, Client, Role } from 'discord.js';
+import { Client, Message, MessageEmbed, Role } from 'discord.js';
 import { parseDate, parseRoleMention } from '../utils/parse';
 
 export default {
@@ -10,12 +10,12 @@ export default {
     usage: '[role ID or mention]',
     permissions: ['EMBED_LINKS'],
     cooldown: 7,
-    do: async (message: Message, _client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, _client: Client, args: string[]) => {
         const role: Role = parseRoleMention(args[0], message.guild) || message.guild.roles.cache.get(args[0]);
         if (!role) {
             return message.channel.send("❌ That doesn't seem to be a valid role.");
         }
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(role.hexColor)
             .setTitle(`**Role name:** ${role.name}`)
             .setDescription(`**Role mention:** ${role}\n**Role ID:** \`${role.id}\``)

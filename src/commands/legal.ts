@@ -1,5 +1,5 @@
 import { botOwner, repository } from '../botconfig';
-import { Message, Client, User } from 'discord.js';
+import { Client, Message, MessageEmbed, User } from 'discord.js';
 
 export default {
     name: 'legal',
@@ -7,7 +7,7 @@ export default {
     aliases: ['priv', 'privacy', 'license'],
     permissions: ['EMBED_LINKS'],
     cooldown: 10,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, args: string[]) => {
         /* This automatically gets the user IDs from the botconfig,
         fetches the users and pushes their username, discriminator and ID to an array,
         which is then shown on the Privacy Policy of the bot. */
@@ -42,7 +42,7 @@ export default {
             } \`${owner.join(', ')}\` in order to obtain a copy of the Privacy Policy.`,
             license: `${client.user.username} is licensed under the MIT license. You may obtain a copy of the license by going [here](${repository}/blob/master/LICENSE).`,
         };
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor('BLUE')
             .setAuthor(strings.lastUpdated, client.user.displayAvatarURL({ format: 'png' }))
             .setTimestamp();

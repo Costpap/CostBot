@@ -1,5 +1,5 @@
 import { clientStats, version } from '../utils/misc';
-import { Message, Client } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'stats',
@@ -7,8 +7,8 @@ export default {
     aliases: ['statistics', 'uptime'],
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
-        const embed = new Discord.MessageEmbed()
+    do: async (message: Message, client: Client) => {
+        const embed = new MessageEmbed()
             .setColor(0x6293f5)
             .setTitle(`${client.user.username} Statistics`)
             .setTimestamp()

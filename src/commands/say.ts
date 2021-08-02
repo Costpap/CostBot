@@ -1,4 +1,4 @@
-import { Message, Client, TextChannel, NewsChannel, MessageEmbed } from 'discord.js';
+import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
 import { parseChannelMention } from '../utils/parse';
 
 export default {
@@ -10,7 +10,7 @@ export default {
     usage: '(#optional-channel) [text]',
     permissions: ['MANAGE_MESSAGES', 'EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, args: string[]) => {
         if (message.channel.type !== 'dm') message.delete();
 
         const sayChannel: TextChannel | NewsChannel = parseChannelMention(args[0], client);
@@ -23,7 +23,7 @@ export default {
             if (!sayChannel) sliceNumber = 1;
             else sliceNumber = 2;
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(0x6293f5)
                 .setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
                 .setDescription(args.slice(sliceNumber).join(' '))

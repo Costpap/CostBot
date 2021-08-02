@@ -1,6 +1,6 @@
 import { botOwner, repository } from '../botconfig';
 import { clientStats, version } from '../utils/misc';
-import { Message, Client, User } from 'discord.js';
+import { Client, Message, MessageEmbed, User, version as libraryVersion } from 'discord.js';
 
 export default {
     name: 'info',
@@ -8,7 +8,7 @@ export default {
     aliases: ['information', 'about'],
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client) => {
         /* This automatically gets the user IDs from the botconfig,
         fetches the users and pushes their username, discriminator and ID to an array,
         which is then shown on an embed field. */
@@ -28,14 +28,14 @@ export default {
             }
         }
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(0x6293f5)
             .setThumbnail(client.user.displayAvatarURL({ format: 'png' }))
             .setTitle(`${client.user.username} Information`)
             .addFields(
                 { name: developers.length > 1 ? 'Developers' : 'Developer', value: developers.join('\n') },
                 { name: 'Version', value: await version(), inline: true },
-                { name: 'Library', value: `discord.js v${Discord.version}`, inline: true },
+                { name: 'Library', value: `discord.js v${libraryVersion}`, inline: true },
                 { name: 'Number of commands', value: client.commands.size, inline: true },
                 { name: 'GitHub Repository', value: repository, inline: true },
                 { name: '\u200B', value: '\u200B' },
