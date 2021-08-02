@@ -1,5 +1,5 @@
 import { coreLog, errorLog } from '../utils/logs';
-import { clean, exec } from '../utils/misc';
+import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
 import { Message, Client } from 'discord.js';
 
 export default {
@@ -21,7 +21,10 @@ export default {
             if (stderr) throw stderr;
         } catch (stderr) {
             console.error('Error compiling TypeScript code: \n', stderr);
-            errorLog(stderr, client);
+
+            const embed = await generateBasicErrorEmbed('Deployment TypeScript Compilation Error', stderr, message);
+            errorLog(embed, client, { noWebhook: true });
+
             logMessage.edit(`${logMessage.content}\n\n❌ Deployment resulted in error.`);
             return depMessage.edit(
                 `❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``,

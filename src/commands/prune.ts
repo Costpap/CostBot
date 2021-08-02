@@ -35,7 +35,9 @@ export default {
                 error,
             );
             message.channel.send(
-                `❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${error.message}\`\`\``,
+                `❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${
+                    error?.message || error
+                }\`\`\``,
             );
         }
     },

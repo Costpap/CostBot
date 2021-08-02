@@ -57,7 +57,7 @@ export default {
         } catch (error) {
             console.error(error);
             message.channel.send(
-                `❌ Sorry, I couldn't fight ${member.user.tag} for you: \`\`\`js\n${error.message}\`\`\``,
+                `❌ Sorry, I couldn't fight ${member.user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
             );
         }
     },

@@ -1,5 +1,5 @@
 import type { LogChannel } from '../typings';
-import { Message, Client, TextChannel, NewsChannel } from 'discord.js';
+import { Message, MessageEmbed, Client, TextChannel, NewsChannel } from 'discord.js';
 import { corelog, guildlog, errorlog } from '../botconfig';
 
 /**
@@ -9,7 +9,12 @@ import { corelog, guildlog, errorlog } from '../botconfig';
  * @param input - What to send
  * @param options - Options
  */
-const send = async (client: Client, config: LogChannel, input: string, options?: LogOptions): Promise<Message> => {
+const send = async (
+    client: Client,
+    config: LogChannel,
+    input: string | MessageEmbed,
+    options?: LogOptions,
+): Promise<Message> => {
     if (!config || !config.id) return;
     if (options?.noWebhook) {
         return (
@@ -39,7 +44,7 @@ const send = async (client: Client, config: LogChannel, input: string, options?:
  * @param client - discord.js Client
  * @param options - Options
  */
-export const coreLog = async (input: string, client: Client, options?: LogOptions): Promise<Message> => {
+export const coreLog = async (input: string | MessageEmbed, client: Client, options?: LogOptions): Promise<Message> => {
     return send(client, corelog, input, options);
 };
 
@@ -49,7 +54,11 @@ export const coreLog = async (input: string, client: Client, options?: LogOption
  * @param client - discord.js Client
  * @param options - Options
  */
-export const guildLog = async (input: string, client: Client, options?: LogOptions): Promise<Message> => {
+export const guildLog = async (
+    input: string | MessageEmbed,
+    client: Client,
+    options?: LogOptions,
+): Promise<Message> => {
     return send(client, guildlog, input, options);
 };
 
@@ -59,7 +68,11 @@ export const guildLog = async (input: string, client: Client, options?: LogOptio
  * @param client - discord.js Client
  * @param options - Options
  */
-export const errorLog = async (input: string, client: Client, options?: LogOptions): Promise<Message> => {
+export const errorLog = async (
+    input: string | MessageEmbed,
+    client: Client,
+    options?: LogOptions,
+): Promise<Message> => {
     return send(client, errorlog, input, options);
 };
 

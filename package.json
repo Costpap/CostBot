@@ -1,6 +1,6 @@
 {
     "name": "costbot",
-    "version": "1.21.1",
+    "version": "1.22.0",
     "description": "A thing I made",
     "repository": "https://github.com/Costpap/CostBot",
     "main": "build/index.js",
@@ -20,6 +20,7 @@
         "@typescript-eslint/eslint-plugin": "^4.28.5",
         "@typescript-eslint/parser": "^4.28.5",
         "eslint": "^7.32.0",
+
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-prettier": "^3.4.0",
         "prettier": "^2.3.2",
@@ -27,7 +28,9 @@
     },
     "optionalDependencies": {
         "bufferutil": "^4.0.3",
-        "utf-8-validate": "^5.0.5"
+        "erlpack": "github:discord/erlpack",
+        "utf-8-validate": "^5.0.5",
+        "zlib-sync": "^0.1.7"
     },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
