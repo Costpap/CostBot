@@ -2,11 +2,11 @@ import type { Command } from '../typings/index';
 import { prefix, botAdmin, botOwner } from '../botconfig';
 import { generateBasicErrorEmbed } from '../utils/misc';
 import { errorLog } from '../utils/logs';
-import { Client, Message } from 'discord.js';
+import { Client, Collection, Message } from 'discord.js';
 
 export default {
     name: 'message',
-    do: async (message: Message, client: Client, Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client) => {
         if (!message.content.startsWith(prefix) || message.author.bot) return;
 
         const args: string[] = message.content.slice(prefix.length).trim().split(/ +/);
@@ -58,7 +58,7 @@ export default {
         }
 
         if (!client.cooldowns.has(command.name)) {
-            client.cooldowns.set(command.name, new Discord.Collection());
+            client.cooldowns.set(command.name, new Collection());
         }
 
         const now: number = Date.now();
@@ -81,7 +81,7 @@ export default {
         timestamps.set(message.author.id, now);
         setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
         try {
-            command.do(message, client, args, Discord);
+            command.do(message, client, args);
         } catch (error) {
             console.error(error);
 

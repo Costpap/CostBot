@@ -1,6 +1,6 @@
 import { clean, exec, parseCodeblock } from '../utils/misc';
 import { inspect } from 'util';
-import { Message, Client } from 'discord.js';
+import { Client, Message, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'shell',
@@ -10,7 +10,7 @@ export default {
     args: true,
     permissions: ['EMBED_LINKS'],
     cooldown: 0,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, args: string[]) => {
         let code: string = parseCodeblock(args.join(' '));
         const before: number = Date.now();
         try {
@@ -32,7 +32,7 @@ export default {
                     '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
             }
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor('GREEN')
                 .setTitle('Execution Successful')
                 .addField('📥 Input', `\`\`\`bash\n${code}\`\`\``)
@@ -47,7 +47,7 @@ export default {
             message.channel.send(embed);
         } catch (error) {
             console.error('Shell:', error);
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor('RED')
                 .setTitle('Execution Error')
                 .addFields(

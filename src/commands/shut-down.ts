@@ -1,5 +1,5 @@
 import { coreLog } from '../utils/logs';
-import { Message, Client } from 'discord.js';
+import { Client, Message } from 'discord.js';
 
 export default {
     name: 'shut-down',

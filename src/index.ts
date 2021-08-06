@@ -2,11 +2,11 @@ import { config } from 'dotenv';
 config({ path: './.env' });
 
 import { readdirSync } from 'fs';
-import Discord from 'discord.js';
+import { Intents, Client, Collection } from 'discord.js';
 import { prefix } from './botconfig';
 
-const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
-const client = new Discord.Client({
+const intents = new Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
+const client = new Client({
     ws: { intents: intents },
     presence: { activity: { name: 'Costpap shout', type: 'LISTENING' }, status: 'online' },
     messageCacheLifetime: 300,
@@ -14,7 +14,7 @@ const client = new Discord.Client({
 });
 
 (async () => {
-    client.events = new Discord.Collection();
+    client.events = new Collection();
     /**
      * Date representing when events started being loaded.
      */
@@ -30,9 +30,9 @@ const client = new Discord.Client({
             const eventName: string = file.split('.')[0];
 
             if (event.once) {
-                client.once(event.name, (...args) => event.do(...args, client, Discord));
+                client.once(event.name, (...args) => event.do(...args, client));
             } else {
-                client.on(event.name, (...args) => event.do(...args, client, Discord));
+                client.on(event.name, (...args) => event.do(...args, client));
             }
 
             client.events.set(eventName, event);
@@ -40,7 +40,7 @@ const client = new Discord.Client({
     }
     console.log(`Successfully loaded all ${client.events.size} events in ${Date.now() - eventStarted}ms!`);
 
-    client.commands = new Discord.Collection();
+    client.commands = new Collection();
     /**
      * Date representing when commands started being loaded.
      */
@@ -57,7 +57,7 @@ const client = new Discord.Client({
     console.log(`Successfully loaded all ${client.commands.size} commands in ${Date.now() - commandStarted}ms!`);
 })();
 
-client.cooldowns = new Discord.Collection();
+client.cooldowns = new Collection();
 
 if (!process.env.TOKEN) {
     console.error('Missing client token. Shutting down...');

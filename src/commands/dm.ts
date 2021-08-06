@@ -1,4 +1,4 @@
-import { Message, Client, User } from 'discord.js';
+import { Client, Message, MessageEmbed, User } from 'discord.js';
 import { parseUserMention } from '../utils/parse';
 
 export default {
@@ -9,7 +9,7 @@ export default {
     usage: '@user text',
     permissions: ['MANAGE_MESSAGES'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, args: string[]) => {
         const dmUser: User = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
         if (!dmUser) {
             return message.channel.send('❌ You need to specify a user to DM.');
@@ -27,7 +27,7 @@ export default {
             if (args[2] === 'name') sliceNumber = 3;
             else sliceNumber = 2;
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(0x6293f5)
                 .setDescription(args.slice(sliceNumber).join(' '))
                 .setTimestamp();

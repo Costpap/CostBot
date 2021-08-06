@@ -1,12 +1,12 @@
 import { errorLog } from '../utils/logs';
-import { Client, version } from 'discord.js';
+import { Client, MessageEmbed, version } from 'discord.js';
 
 export default {
     name: 'error',
-    do: async (error: string, client: Client, Discord: typeof import('discord.js')) => {
+    do: async (error: string, client: Client) => {
         console.error(error);
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor('RED')
             .setTitle(`${client.user.username} Client-Emitted Error`)
             .setDescription(`\`\`\`${error}\`\`\``)

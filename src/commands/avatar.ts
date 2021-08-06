@@ -1,4 +1,4 @@
-import { Message, Client, User } from 'discord.js';
+import { Client, Message, MessageEmbed, User } from 'discord.js';
 import { parseUserMention } from '../utils/parse';
 
 export default {
@@ -7,11 +7,11 @@ export default {
     aliases: ['icon', 'pfp'],
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, client: Client, args: string[]) => {
         let user: User;
         if (!args[0]) user = message.author;
         else user = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
             .setDescription(

@@ -1,4 +1,4 @@
-import { Message, Client, User } from 'discord.js';
+import { Client, Message, User } from 'discord.js';
 import { parseUserMention } from '../utils/parse';
 
 export default {

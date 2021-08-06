@@ -1,4 +1,4 @@
-import { Message, Client, GuildMember } from 'discord.js';
+import { Client, GuildMember, Message, MessageEmbed } from 'discord.js';
 import { parseMemberMention } from '../utils/parse';
 
 export default {
@@ -8,11 +8,11 @@ export default {
     guildOnly: true,
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, _client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, _client: Client, args: string[]) => {
         let member: GuildMember;
         if (!args[0]) member = message.member;
         else member = parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]);
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(member.displayHexColor)
             .setTitle(`Moderation Status for ${member.user.tag} (${member.id})`)
             .addFields(

@@ -1,4 +1,4 @@
-import { Message, Client } from 'discord.js';
+import { Client, Message } from 'discord.js';
 
 export default {
     name: 'invite',

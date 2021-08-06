@@ -1,4 +1,4 @@
-import { Message, Client, Role, GuildMember } from 'discord.js';
+import { Client, GuildMember, Message, MessageEmbed, Role } from 'discord.js';
 import { parseMemberMention, parseRoleMention } from '../utils/parse';
 
 export default {
@@ -8,10 +8,10 @@ export default {
     guildOnly: true,
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, _client: Client, args: string[], Discord: typeof import('discord.js')) => {
+    do: async (message: Message, _client: Client, args: string[]) => {
         if (args[0] === 'role') {
             const role: Role = parseRoleMention(args[0], message.guild) || message.guild.roles.cache.get(args[0]);
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor(role.hexColor)
                 .setTitle(`Members & permissions list for role **${role.name}**`)
                 .addFields(
@@ -33,7 +33,7 @@ export default {
         let member: GuildMember;
         if (!args[0]) member = message.member;
         else member = parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]);
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(member.displayHexColor)
             .setTitle(`Roles & permissions list for ${member.user.tag} (${member.id})`)
             .addFields(

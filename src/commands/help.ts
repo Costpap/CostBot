@@ -10,8 +10,8 @@ export default {
     usage: '[command name]',
     permissions: ['EMBED_LINKS'],
     cooldown: 5,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-        const embed = new Discord.MessageEmbed()
+    do: async (message: Message, client: Client, args: string[]) => {
+        const embed = new MessageEmbed()
             .setColor(0x6293f5)
             .setAuthor(`${client.user.username} Help`, client.user.displayAvatarURL({ format: 'png' }))
             .setTimestamp()
