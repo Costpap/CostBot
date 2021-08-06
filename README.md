@@ -17,8 +17,8 @@ First and foremost, you will need a [Discord Developer Application](https://disc
 
 ### The rest of the set-up
 
-1. First of all, you should have at least version 14 of [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. You can download them from [here](https://nodejs.org/en/download/). We recommend using the latest Long Term Support (LTS) release.
-   However, if you want to use a version earlier than 14, that is entirely possible. Before following _step 6_ later on, you can edit `tsconfig.json` and change the `target` to the ECMAScript version corresponding to the Node one you want to use.
+1. First of all, you should have at least version 16 of [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. You can download them from [here](https://nodejs.org/en/download/). ~~We recommend using the latest Long Term Support (LTS) release~~.
+   However, if you want to use a version earlier than 16, that is entirely possible. Before following _step 6_ later on, you can edit `tsconfig.json` and change the `target` to the ECMAScript version corresponding to the Node one you want to use. When doing this, please keep in mind that there is no way of guaranteeing that the bot will still properly function, as the version requirement is also based on the bot's dependencies and not the bot itself.
 
 2. Once Node and npm has finished installing, you should also install [Git](https://git-scm.com/), as it is needed in order to clone the repository. You can download it from [here](https://git-scm.com/downloads).
 

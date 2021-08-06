@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2020",
-        "lib": ["esnext"],
+        "target": "ES2021",
         "moduleResolution": "node",
         "rootDir": "./src",
         "outDir": "./build",
