@@ -1,35 +1,60 @@
-import { Client, Message, User } from 'discord.js';
-import { parseUserMention } from '../utils/parse';
+import { CommandInteraction, Permissions } from 'discord.js';
 
 export default {
     name: 'unban',
     description: 'Unbans a previously banned user from your server.',
-    aliases: ['un-ban'],
-    guildOnly: true,
-    usage: '@member (optional reason)',
-    permissions: ['BAN_MEMBERS'],
-    cooldown: 10,
-    do: async (message: Message, client: Client, args: string[]) => {
-        if (!message.member.hasPermission('BAN_MEMBERS', { checkAdmin: true, checkOwner: true })) {
-            return message.channel.send('⛔ You need the `Ban Members` permission in order to use this command!');
+    options: [
+        {
+            name: 'user',
+            description: 'User to unban',
+            type: 'USER',
+            required: true,
+        },
+        {
+            name: 'reason',
+            description: 'Reason for unbanning the user',
+            type: 'STRING',
+        },
+    ],
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction) => {
+        if (interaction.inGuild() === false) {
+            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
-        const user: User = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
-        if (!user) {
-            return message.channel.send('❌ You need to specify a user to unban!');
+        if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+            return interaction.reply({
+                content: '❌ Sorry, I need the `Ban Members` permission in order to execute this command.',
+                ephemeral: true,
+            });
         }
-        if (user.id === message.author.id) {
-            return message.channel.send('How do you unban yourself? 🤔');
+        if (typeof interaction.member.permissions === 'string')
+            return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
+        else if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+            return interaction.reply({
+                content: '⛔ You need the `Ban Members` permission in order to use this command!',
+                ephemeral: true,
+            });
+        }
+
+        const user = interaction.options.getUser('user');
+
+        if (user.id === interaction.user.id) {
+            return interaction.reply({ content: 'How do you unban yourself? 🤔', ephemeral: true });
         }
         try {
-            message.guild.members.unban(user, args.slice(1).join(' '));
-            message.channel.send(`✅ Unbanned \`${user.tag} (${user.id})\`.`);
+            await interaction.guild.members.unban(
+                user,
+                interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
+            );
+            interaction.reply({ content: `✅ Unbanned \`${user.tag} (${user.id})\`.`, ephemeral: true });
         } catch (error) {
             console.error(error);
-            message.channel.send(
-                `❌ I encountered an error while trying to unban \`${user.tag}\`: \n\`\`\`${
+            interaction.reply({
+                content: `❌ I encountered an error while trying to unban \`${user.tag}\`: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,
-            );
+                ephemeral: true,
+            });
         }
     },
 };

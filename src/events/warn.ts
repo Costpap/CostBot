@@ -3,7 +3,7 @@ import { Client, MessageEmbed, version } from 'discord.js';
 
 export default {
     name: 'warn',
-    do: async (warning: string, client: Client) => {
+    run: async (client: Client, warning: string) => {
         console.warn(warning);
 
         const embed = new MessageEmbed()
@@ -13,6 +13,6 @@ export default {
             .setTimestamp()
             .setFooter(`Warning occurred while running discord.js v${version}.`);
 
-        errorLog(embed, client, { noWebhook: true });
+        errorLog('', [embed], client, { noContent: true });
     },
 };

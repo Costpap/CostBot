@@ -1,45 +1,38 @@
-import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
-import { parseChannelMention } from '../utils/parse';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'say',
     description: 'Sends a message through the bot',
-    aliases: ['send'],
-    adminOnly: true,
-    args: true,
-    usage: '(#optional-channel) [text]',
-    permissions: ['MANAGE_MESSAGES', 'EMBED_LINKS'],
-    cooldown: 5,
-    do: async (message: Message, client: Client, args: string[]) => {
-        if (message.channel.type !== 'dm') message.delete();
-
-        const sayChannel: TextChannel | NewsChannel = parseChannelMention(args[0], client);
-
-        if (args[0] === 'embed' || args[1] === 'embed') {
-            /**
-             * Determines what number should be used in order to slice arguments.
-             */
-            let sliceNumber: number;
-            if (!sayChannel) sliceNumber = 1;
-            else sliceNumber = 2;
-
+    options: [
+        {
+            name: 'message',
+            description: 'What to send',
+            type: 'STRING',
+            required: true,
+        },
+        {
+            name: 'channel',
+            description: 'The channel to send a message in',
+            type: 'CHANNEL',
+        },
+        {
+            name: 'embed',
+            description: 'Whether or not to send the message in an embed',
+            type: 'BOOLEAN',
+        },
+    ],
+    defaultPermission: false,
+    run: async (interaction: CommandInteraction) => {
+        if (interaction.options.getBoolean('embed')) {
             const embed = new MessageEmbed()
                 .setColor(0x6293f5)
-                .setAuthor(message.author.tag, message.author.displayAvatarURL({ format: 'png', dynamic: true }))
-                .setDescription(args.slice(sliceNumber).join(' '))
+                .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ format: 'png', dynamic: true }))
+                .setDescription(interaction.options.getString('message'))
                 .setTimestamp();
-
-            return send(embed, sayChannel, message.channel as TextChannel | NewsChannel);
+            await send('', [embed], interaction);
+        } else {
+            await send(interaction.options.getString('message'), [], interaction);
         }
-
-        /**
-         * Determines what number should be used in order to slice arguments.
-         */
-        let sliceNumber: number;
-        if (!sayChannel) sliceNumber = 0;
-        else sliceNumber = 1;
-
-        await send(args.slice(sliceNumber).join(' '), sayChannel, message.channel as TextChannel | NewsChannel);
     },
 };
 
@@ -53,30 +46,20 @@ export default {
  * const str: string = 'Hello, world!';
  * await send(str, sayChannel, message.channel);
  */
-async function send(
-    input: string | MessageEmbed,
-    sChannel: TextChannel | NewsChannel,
-    messageChannel: TextChannel | NewsChannel,
-): Promise<Message> {
+async function send(input: string, embeds: MessageEmbed[], interaction: CommandInteraction): Promise<void> {
     /**
      * Determines what channel should be used in order to send the message.
      * @param sChannel - Should be `sayChannel`
      * @param messageChannel - The channel the `message` event was emitted in (`message.channel`)
      */
-    const channel: TextChannel | NewsChannel = sChannel || messageChannel;
-    await channel.send(input).catch((error) => {
-        console.error(
-            `Could not send message to #${channel.name} (${channel.id}) of guild ${channel.guild.id}:\n`,
-            error,
-        );
-        if (!sChannel) return;
-        return messageChannel.send(`❌ Could not send message to ${sChannel}.`);
-    });
-    if (!sChannel) return;
-    /**
-     * Message informing the user that their message has been successfully sent.
-     * Deletes itself after 3 seconds.
-     */
-    const sentMessage: Message = await messageChannel.send(`✅ Successfully sent message to ${sChannel}!`);
-    return sentMessage.delete({ timeout: 3000 });
+    const channel = interaction.options?.getChannel('channel') ?? interaction.channel;
+    try {
+        //@ts-expect-error discord.js typings
+        await channel?.send({ content: `${interaction.options.getString('message')}`, embeds: embeds });
+    } catch (error) {
+        //@ts-expect-error discord.js typings
+        console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
+        return interaction.reply({ content: `❌ Could not send message to ${channel.toString()}.`, ephemeral: true });
+    }
+    interaction.reply({ content: `✅ Successfully sent message to ${channel.toString()}!`, ephemeral: true });
 }

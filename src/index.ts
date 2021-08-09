@@ -2,15 +2,11 @@ import { config } from 'dotenv';
 config({ path: './.env' });
 
 import { readdirSync } from 'fs';
-import { Intents, Client, Collection } from 'discord.js';
-import { prefix } from './botconfig';
+import { Client, Collection, Intents } from 'discord.js';
 
-const intents = new Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
-const client = new Client({
-    ws: { intents: intents },
-    presence: { activity: { name: 'Costpap shout', type: 'LISTENING' }, status: 'online' },
-    messageCacheLifetime: 300,
-    messageSweepInterval: 600,
+export const client = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES],
+    presence: { status: 'online', activities: [{ name: 'Costpap shout', type: 'LISTENING' }] },
 });
 
 (async () => {
@@ -30,9 +26,9 @@ const client = new Client({
             const eventName: string = file.split('.')[0];
 
             if (event.once) {
-                client.once(event.name, (...args) => event.do(...args, client));
+                client.once(event.name, (...args) => event.run(client, ...args));
             } else {
-                client.on(event.name, (...args) => event.do(...args, client));
+                client.on(event.name, (...args) => event.run(client, ...args));
             }
 
             client.events.set(eventName, event);
@@ -57,14 +53,8 @@ const client = new Client({
     console.log(`Successfully loaded all ${client.commands.size} commands in ${Date.now() - commandStarted}ms!`);
 })();
 
-client.cooldowns = new Collection();
-
 if (!process.env.TOKEN) {
     console.error('Missing client token. Shutting down...');
-    process.exit(1);
-}
-if (!prefix || prefix.length > 5) {
-    console.error('Prefix is either missing or too long. Shutting down...');
     process.exit(1);
 }
 

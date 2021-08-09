@@ -1,42 +1,69 @@
-import { Client, Message, GuildMember } from 'discord.js';
-import { parseMemberMention } from '../utils/parse';
+import { CommandInteraction, Permissions } from 'discord.js';
 
 export default {
     name: 'kick',
-    description: 'Kicks the @mentioned user from your server.',
-    aliases: ['yeet'],
-    guildOnly: true,
-    args: true,
-    usage: '@member (optional reason)',
-    permissions: ['KICK_MEMBERS'],
-    cooldown: 10,
-    do: async (message: Message, _client: Client, args: string[]) => {
-        if (!message.member.hasPermission('KICK_MEMBERS', { checkAdmin: true, checkOwner: true })) {
-            return message.channel.send('⛔ You need the `Kick Members` permission in order to use this command!');
+    description: 'Kicks the mentioned user from your server.',
+    defaultPermission: true,
+    options: [
+        {
+            name: 'user',
+            description: 'User to ban',
+            type: 'USER',
+            required: true,
+        },
+        {
+            name: 'reason',
+            description: 'Reason for banning the user',
+            type: 'STRING',
+        },
+    ],
+    run: async (interaction: CommandInteraction) => {
+        if (interaction.inGuild() === false) {
+            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
-        const member: GuildMember =
-            parseMemberMention(args[0], message.guild) || message.guild.members.cache.get(args[0]);
+        if (!interaction.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+            return interaction.reply({
+                content: '❌ Sorry, I need the `Kick Members` in order to execute this command.',
+                ephemeral: true,
+            });
+        }
+        if (typeof interaction.member.permissions === 'string')
+            return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
+        else if (!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+            return interaction.reply({
+                content: '⛔ You need the `Kick Members` permission in order to use this command!',
+                ephemeral: true,
+            });
+        }
+
+        const user = interaction.options.getUser('user');
+        const member = interaction.guild.members.cache.get(user.id);
+
         if (!member) {
-            return message.channel.send('❌ You need to specify a user to kick!');
+            return interaction.reply({ content: '❌ You need to specify a valid user to kick!', ephemeral: true });
         }
-        if (member.id === message.author.id) {
-            return message.channel.send("Aww, please don't kick yourself! 💖");
+        if (member.id === interaction.user.id) {
+            return interaction.reply({ content: "Aww, please don't kick yourself! 💖", ephemeral: true });
         }
         if (member.kickable === false) {
-            return message.channel.send(
-                '❌ I cannot kick this user! \n**Please make sure that my highest role is above theirs.**',
-            );
+            return interaction.reply({
+                content: '❌ I cannot kick this user! \n**Please make sure that my highest role is above theirs.**',
+                ephemeral: true,
+            });
         }
         try {
-            member.kick(args.slice(1).join(' '));
-            message.channel.send(`🔨 Kicked \`${member.user.tag} (${member.id})\`.`);
+            await member.kick(
+                interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
+            );
+            interaction.reply({ content: `🔨 Kicked \`${member.user.tag} (${member.id})\`.`, ephemeral: true });
         } catch (error) {
             console.error(error);
-            message.channel.send(
-                `❌ I encountered an error while trying to kick \`${member.user.tag}\`: \n\`\`\`${
+            interaction.reply({
+                content: `❌ I encountered an error while trying to kick \`${member.user.tag}\`: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,
-            );
+                ephemeral: true,
+            });
         }
     },
 };

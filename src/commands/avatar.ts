@@ -1,16 +1,19 @@
-import { Client, Message, MessageEmbed, User } from 'discord.js';
-import { parseUserMention } from '../utils/parse';
+import { CommandInteraction, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'avatar',
-    description: 'Get the avatar of the mentioned user or yourself.',
-    aliases: ['icon', 'pfp'],
-    permissions: ['EMBED_LINKS'],
-    cooldown: 5,
-    do: async (message: Message, client: Client, args: string[]) => {
-        let user: User;
-        if (!args[0]) user = message.author;
-        else user = parseUserMention(args[0], client) || client.users.cache.get(args[0]);
+    description: 'Gets the avatar of the mentioned user or yourself.',
+    options: [
+        {
+            name: 'user',
+            description: 'User whose avatar you want to get',
+            type: 'USER',
+        },
+    ],
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction) => {
+        const user = interaction.options?.getUser('user') ?? interaction.user;
+
         const embed = new MessageEmbed()
             .setColor('RANDOM')
             .setAuthor(user.tag, user.displayAvatarURL({ format: 'png', dynamic: true }))
@@ -20,10 +23,10 @@ export default {
             .setImage(user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
             .setTimestamp()
             .setFooter(
-                `Requested by ${message.author.tag}`,
-                message.author.displayAvatarURL({ format: 'png', dynamic: true }),
+                `Requested by ${interaction.user.tag}`,
+                interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
             );
 
-        await message.channel.send(embed);
+        await interaction.reply({ embeds: [embed] });
     },
 };

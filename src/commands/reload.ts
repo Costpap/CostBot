@@ -1,31 +1,38 @@
 import type { Command } from '../typings/index';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
-import { Client, Message } from 'discord.js';
+import { Client, CommandInteraction, Message } from 'discord.js';
 
 export default {
     name: 'reload',
     description: 'Reloads a command.',
-    ownerOnly: true,
-    args: true,
-    aliases: ['cmdr'],
-    usage: '[command name]',
-    cooldown: 0,
-    do: async (message: Message, client: Client, args: string[]) => {
-        const commandName: string = args[0].toLowerCase();
-        const command: Command =
-            client.commands.get(commandName) || client.commands.find((cmd) => cmd.aliases?.includes(commandName));
+    options: [
+        {
+            name: 'name',
+            description: 'The name of the command to reload',
+            type: 'STRING',
+            required: true,
+        },
+    ],
+    defaultPermission: false,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        const commandName: string = interaction.options.getString('name');
+        const command: Command = await client.commands.get(commandName);
 
         if (!command) {
-            return message.channel.send(`❌ There is no command with name or alias \`${commandName}\`!`);
+            return interaction.reply({
+                content: `❌ There is no command with named \`${commandName}\`!`,
+                ephemeral: true,
+            });
         }
 
+        interaction.deferReply({ ephemeral: true });
         const logMessage: Message = await coreLog(
-            `🔁 Reload of command **${command.name}** initiated by \`${message.author.tag} (${message.author.id})\`.`,
+            `🔁 Reload of command **${command.name}** initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,
+            [],
             client,
             { noWebhook: true },
         );
-        const sentMessage: Message = await message.channel.send('📝 Compiling TypeScript code...');
         const start: number = Date.now();
         try {
             const { stderr } = await exec('npx tsc');
@@ -36,14 +43,14 @@ export default {
             const embed = await generateBasicErrorEmbed(
                 `TypeScript Compilation Error while reloading command \`${command.name}\``,
                 stderr,
-                message,
+                interaction,
             );
-            errorLog(embed, client, { noWebhook: true });
+            errorLog('', [embed], client, { noContent: true });
 
             logMessage.edit(
                 `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
             );
-            return sentMessage.edit(
+            return interaction.editReply(
                 `❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``,
             );
         }
@@ -62,17 +69,19 @@ export default {
                     1,
                 )} ${sec}!`,
             );
-            await sentMessage.edit(`✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`);
+            await interaction.editReply(
+                `✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`,
+            );
         } catch (error) {
             console.error(error);
 
-            const embed = await generateBasicErrorEmbed('Reload Miscellaneous Error', error, message);
-            errorLog(embed, client, { noWebhook: true });
+            const embed = await generateBasicErrorEmbed('Reload Miscellaneous Error', error, interaction);
+            errorLog('', [embed], client, { noContent: true });
 
             logMessage.edit(
                 `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
             );
-            sentMessage.edit(
+            interaction.editReply(
                 `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${
                     error?.message || error
                 }\`\`\``,

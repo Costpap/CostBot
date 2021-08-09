@@ -1,14 +1,6 @@
 import { LogChannel } from './typings';
 
 /**
- * A prefix used before commands. Should be short,
- * easy to remember, and mainly consist of symbols,
- * such as `!`, `?`, `>`, `=`, `-`, `_`, `%`, `^`, `&`, `*`, `$`, `.`, and `,`.
- * @param {string} prefix The bot's prefix. Up to 5 characters.
- */
-export const prefix = "Your bot's prefix here" as string;
-
-/**
  * An array of IDs of bot "owners". Used for validation in ownerOnly commands
  * and for the `info` command (by default).
  * @param {string[]} botOwner An array of snowflakes.

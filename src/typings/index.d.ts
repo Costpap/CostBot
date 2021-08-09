@@ -1,4 +1,4 @@
-import { Client, Message, PermissionResolvable } from 'discord.js';
+import { Client, Collection, CommandInteraction, PermissionResolvable } from 'discord.js';
 
 export interface Command {
     /** The name of the command, should be identical to the file name. */
@@ -48,8 +48,8 @@ export interface Command {
      * `MessageEmbed`, `Collection`, `Util`.
      */
     do: (
-        /** discord.js Message */
-        message: Message,
+        /** discord.js Command Interaction */
+        interaction: CommandInteraction,
         /** discord.js Client */
         client?: Client,
         /** `message.content` split into an array. */
@@ -80,7 +80,8 @@ export interface LogChannel {
 declare module 'discord.js' {
     export interface Client {
         events: Collection<string, unknown>;
-        commands: Collection<string, Command>;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        commands: Collection<string, any>;
         cooldowns: Collection<string, CooldownOptions>;
     }
 }

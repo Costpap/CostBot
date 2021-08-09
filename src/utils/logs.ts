@@ -12,7 +12,8 @@ import { corelog, guildlog, errorlog } from '../botconfig';
 const send = async (
     client: Client,
     config: LogChannel,
-    input: string | MessageEmbed,
+    input: string,
+    embeds: MessageEmbed[],
     options?: LogOptions,
 ): Promise<Message> => {
     if (!config || !config.id) return;
@@ -29,10 +30,20 @@ const send = async (
     if (!config.webhookID || !config.token) return;
     try {
         const webhook = await client.fetchWebhook(config.webhookID, config.token);
-        webhook.send(input, {
-            avatarURL: client.user.displayAvatarURL({ format: 'png' }),
-            username: webhook.name ?? client.user.username,
-        });
+        if (options?.noContent) {
+            webhook.send({
+                embeds: embeds,
+                avatarURL: client.user.displayAvatarURL({ format: 'png' }),
+                username: webhook.name ?? client.user.username,
+            });
+        } else {
+            webhook.send({
+                content: input,
+                embeds: embeds,
+                avatarURL: client.user.displayAvatarURL({ format: 'png' }),
+                username: webhook.name ?? client.user.username,
+            });
+        }
     } catch (error) {
         console.error('Error sending message with webhook:\n', error);
     }
@@ -44,8 +55,13 @@ const send = async (
  * @param client - discord.js Client
  * @param options - Options
  */
-export const coreLog = async (input: string | MessageEmbed, client: Client, options?: LogOptions): Promise<Message> => {
-    return send(client, corelog, input, options);
+export const coreLog = async (
+    input: string,
+    embeds: MessageEmbed[],
+    client: Client,
+    options?: LogOptions,
+): Promise<Message> => {
+    return send(client, corelog, input, embeds, options);
 };
 
 /**
@@ -55,11 +71,12 @@ export const coreLog = async (input: string | MessageEmbed, client: Client, opti
  * @param options - Options
  */
 export const guildLog = async (
-    input: string | MessageEmbed,
+    input: string,
+    embeds: MessageEmbed[],
     client: Client,
     options?: LogOptions,
 ): Promise<Message> => {
-    return send(client, guildlog, input, options);
+    return send(client, guildlog, input, embeds, options);
 };
 
 /**
@@ -69,14 +86,17 @@ export const guildLog = async (
  * @param options - Options
  */
 export const errorLog = async (
-    input: string | MessageEmbed,
+    input: string,
+    embeds: MessageEmbed[],
     client: Client,
     options?: LogOptions,
 ): Promise<Message> => {
-    return send(client, errorlog, input, options);
+    return send(client, errorlog, input, embeds, options);
 };
 
 export interface LogOptions {
     /** Whether to send the message as a webhook or not */
-    noWebhook: boolean;
+    noWebhook?: boolean;
+    /** Whether to include content when sending only embeds. */
+    noContent?: boolean;
 }

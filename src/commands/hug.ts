@@ -1,27 +1,28 @@
-import { Client, Message, GuildMember } from 'discord.js';
-import { parseMemberMention } from '../utils/parse';
+import { Client, CommandInteraction } from 'discord.js';
 
 export default {
     name: 'hug',
     description: 'Give a sweet little hug to someone!',
-    args: true,
-    guildOnly: true,
-    usage: 'person you want to hug',
-    cooldown: 10,
-    do: async (message: Message, client: Client, args: string[]) => {
-        const member: GuildMember =
-            parseMemberMention(args[0], message.guild) ||
-            message.guild.members.cache.get(args[0]) ||
-            message.guild.members.cache.find((m) => m.user.username === args[0] || m.user.tag === args[0]);
+    options: [
+        {
+            name: 'user',
+            description: 'User you want to hug',
+            type: 'USER',
+            required: true,
+        },
+    ],
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        const user = interaction.options.getUser('user');
 
-        if (!member) {
-            return message.channel.send('❌ You need to specify a user to hug!');
+        if (user.id === interaction.user.id) {
+            return interaction.reply({
+                content: 'Why do you want to hug yourself? You can have a hug from me instead! 🤗',
+                ephemeral: true,
+            });
         }
-        if (member.id === message.member.id) {
-            return message.channel.send('Why do you want to hug yourself? You can have a hug from me instead! 🤗');
-        }
-        if (member.id === client.user.id) {
-            return message.channel.send('Aww, thanks for hugging me! 💖');
+        if (user.id === client.user.id) {
+            return interaction.reply({ content: 'Aww, thanks for hugging me! 💖', ephemeral: true });
         }
 
         /**
@@ -35,16 +36,16 @@ export default {
          * and `${message.member}` is used for the person who is hugging them.
          */
         const hugStrings: string[] = [
-            `${member} just received a big hug from ${message.member}!`,
-            `${member}, you have received a hug from ${message.member}!`,
-            `${message.member} has hugged ${member}. How sweet!`,
-            `${message.member} awkwardly gave a hug to ${member}.`,
-            `${message.member} gave a very friendly hug to ${member}.`,
-            `${message.member} has given ${member} a small hug.`,
-            `${message.member} just gave ${member} a small hug.`,
-            `${message.member} gave a hug to ${member}, but where is mine?`,
-            `${message.member} wants to strengthen their friendship with ${member}, so they gave them a cute little hug!`,
-            `${message.member} wanted to fight ${member}, but gave them a hug in confusion.`,
+            `${user.toString()} just received a big hug from ${interaction.user.toString()}!`,
+            `${user.toString()}, you have received a hug from ${interaction.user.toString()}!`,
+            `${interaction.user.toString()} just hugged ${user.toString()}. How sweet!`,
+            `${interaction.user.toString()} awkwardly gave a hug to ${user.toString()}.`,
+            `${interaction.user.toString()} gave a very friendly hug to ${user.toString()}.`,
+            `${interaction.user.toString()} has given ${user.toString()} a small hug.`,
+            `${interaction.user.toString()} just gave ${user.toString()} a small hug.`,
+            `${interaction.user.toString()} gave a hug to ${user.toString()}, but where is mine?`,
+            `${interaction.user.toString()} wants to strengthen their friendship with ${user.toString()}, so they gave them a cute little hug!`,
+            `${interaction.user.toString()} wanted to fight ${user.toString()}, but gave them a hug in confusion.`,
         ];
         /**
          * Randomly picks a string from the `hugStrings` array in order to send to the user.
@@ -53,12 +54,13 @@ export default {
         const hugString: string = hugStrings[Math.floor(Math.random() * hugStrings.length)];
 
         try {
-            message.channel.send(hugString);
+            interaction.reply(hugString);
         } catch (error) {
             console.error(error);
-            message.channel.send(
-                `❌ Sorry, I couldn't hug ${member.user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
-            );
+            interaction.reply({
+                content: `❌ Sorry, I couldn't hug ${user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
+                ephemeral: true,
+            });
         }
     },
 };
