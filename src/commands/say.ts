@@ -38,24 +38,19 @@ export default {
 
 /**
  * A function for sending say messages and handling errors as well as information regarding the message being sent.
- * @param input - What to send
- * @param sChannel - The channel it should be sent in (should be `sayChannel`)
- * @param messageChannel - The channel the `message` event was emitted in (should be `message.channel`)
+ * @param input - String to send
+ * @param embeds - Array of MessageEmbeds to send
+ * @param interaction - discord.js CommandInteraction
  * @example
  * // This should work if you haven't modified any variable shown here.
  * const str: string = 'Hello, world!';
  * await send(str, sayChannel, message.channel);
  */
 async function send(input: string, embeds: MessageEmbed[], interaction: CommandInteraction): Promise<void> {
-    /**
-     * Determines what channel should be used in order to send the message.
-     * @param sChannel - Should be `sayChannel`
-     * @param messageChannel - The channel the `message` event was emitted in (`message.channel`)
-     */
     const channel = interaction.options?.getChannel('channel') ?? interaction.channel;
     try {
         //@ts-expect-error discord.js typings
-        await channel?.send({ content: `${interaction.options.getString('message')}`, embeds: embeds });
+        await channel?.send({ content: `${input}`, embeds: embeds });
     } catch (error) {
         //@ts-expect-error discord.js typings
         console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
