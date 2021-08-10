@@ -1,6 +1,6 @@
 import type { LogChannel } from '../typings';
 import { Message, MessageEmbed, Client, TextChannel, NewsChannel } from 'discord.js';
-import { corelog, guildlog, errorlog } from '../botconfig';
+import { corelog, errorlog } from '../botconfig';
 
 /**
  * Arrow function used for sending messages to the logging channels.
@@ -62,21 +62,6 @@ export const coreLog = async (
     options?: LogOptions,
 ): Promise<Message> => {
     return send(client, corelog, input, embeds, options);
-};
-
-/**
- * Sends a message to the `guildLog` channel.
- * @param {string} input - What to send
- * @param client - discord.js Client
- * @param options - Options
- */
-export const guildLog = async (
-    input: string,
-    embeds: MessageEmbed[],
-    client: Client,
-    options?: LogOptions,
-): Promise<Message> => {
-    return send(client, guildlog, input, embeds, options);
 };
 
 /**
