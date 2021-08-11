@@ -65,7 +65,7 @@ process.on('exit', () => {
     client.destroy();
 });
 
-// This caches unhandled promise rejections.
+// This catches unhandled promise rejections and logs them.
 process.on('unhandledRejection', (error) => console.error('Uncaught Promise Rejection', error));
 
 client.login(process.env.TOKEN).catch((err) => console.error('Error logging into Discord', err));
