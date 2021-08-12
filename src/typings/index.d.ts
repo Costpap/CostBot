@@ -73,7 +73,7 @@ export interface CooldownOptions {
 
 export interface LogChannel {
     id: string;
-    webhookID: string;
+    webhookId: string;
     token: string;
 }
 

@@ -27,9 +27,9 @@ const send = async (
     /* This if statement is separate from the return at the start of the function 
     in order to allow for messages to be sent without requiring a webhook ID/token
     when "noWebhook" is set to "true", if you so choose to. */
-    if (!config.webhookID || !config.token) return;
+    if (!config.webhookId || !config.token) return;
     try {
-        const webhook = await client.fetchWebhook(config.webhookID, config.token);
+        const webhook = await client.fetchWebhook(config.webhookId, config.token);
         if (options?.noContent) {
             webhook.send({
                 embeds: embeds,
