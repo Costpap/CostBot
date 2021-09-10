@@ -5,7 +5,7 @@ import { Client, Interaction } from 'discord.js';
 export default {
     name: 'interactionCreate',
     run: async (client: Client, interaction: Interaction) => {
-        if (!interaction.isCommand() || !interaction.isContextMenu()) return;
+        if (!interaction.isCommand()) return;
         if (!client.commands.has(interaction.commandName)) return;
 
         try {

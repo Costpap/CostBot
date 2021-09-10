@@ -68,8 +68,8 @@ export const parseCodeblock = (script: string): string => {
  * console.log(version());
  */
 export const version = async (): Promise<string> => {
-    const { tag_name } = await fetch('https://api.github.com/repos/Costpap/CostBot/releases/latest').then((response) =>
-        response.json(),
+    const { tag_name } = await fetch('https://api.github.com/repos/Costpap/CostBot/releases/latest').then(
+        (response) => response.json() as never,
     );
     return tag_name as string;
 };
