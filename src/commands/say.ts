@@ -52,7 +52,6 @@ async function send(input: string, embeds: MessageEmbed[], interaction: CommandI
         //@ts-expect-error discord.js typings
         await channel?.send({ content: `${input}`, embeds: embeds });
     } catch (error) {
-        //@ts-expect-error discord.js typings
         console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
         return interaction.reply({ content: `❌ Could not send message to ${channel.toString()}.`, ephemeral: true });
     }
