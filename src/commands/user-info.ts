@@ -27,7 +27,7 @@ export default {
 
         const embed = new MessageEmbed()
             .setColor(member.displayHexColor)
-            .setAuthor(member.user.tag, member.user.displayAvatarURL({ format: 'png', dynamic: true }))
+            .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ format: 'png', dynamic: true }) })
             .setDescription(`**User mention:** ${member}\n**User ID:** \`${member.id}\``)
             .setThumbnail(member.user.displayAvatarURL({ format: 'png', dynamic: true }))
             .addFields(
@@ -47,10 +47,10 @@ export default {
                 { name: 'Joined Discord', value: `${parseDate(member.user.createdAt)}`, inline: true },
             )
             .setTimestamp()
-            .setFooter(
-                `Requested by ${interaction.user.tag}`,
-                interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
-            );
+            .setFooter({
+                text: `Requested by ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+            });
 
         if (interaction.options?.getBoolean('show_permissions')) {
             embed.addField(

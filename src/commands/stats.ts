@@ -10,7 +10,10 @@ export default {
             .setColor(0x6293f5)
             .setTitle(`${client.user.username} Statistics`)
             .setTimestamp()
-            .setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
+            .setFooter({
+                text: `${client.user.username} ${await version()}`,
+                iconURL: client.user.displayAvatarURL({ format: 'png' }),
+            });
         clientStats(embed, client, { membersExcludingBots: true });
         interaction.reply({ embeds: [embed] });
     },

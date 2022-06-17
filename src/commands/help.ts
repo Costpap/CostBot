@@ -11,7 +11,10 @@ export default {
             .setColor(0x6293f5)
             .setTitle("Here's a list of all my commands:")
             .setTimestamp()
-            .setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
+            .setFooter({
+                text: `${client.user.username} ${await version()}`,
+                iconURL: client.user.displayAvatarURL({ format: 'png' }),
+            });
 
         client.commands.forEach((command: Command) => {
             embed.addField(`/${command.name}`, command.description || 'No description');

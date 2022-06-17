@@ -150,7 +150,10 @@ async function generateEmbed(
     const stderr = outs?.stderr;
 
     const embed: MessageEmbed = new MessageEmbed()
-        .setFooter(`Execution time: ${end - start}ms`, client.user.displayAvatarURL({ format: 'png' }))
+        .setFooter({
+            text: `Execution time: ${end - start}ms`,
+            iconURL: client.user.displayAvatarURL({ format: 'png' }),
+        })
         .setTimestamp()
         .addField('📥 Input', '```js\n' + code.substring(0, 1015) + '```');
 

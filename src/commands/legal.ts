@@ -65,7 +65,10 @@ export default {
         };
         const embed = new MessageEmbed()
             .setColor('BLUE')
-            .setAuthor(strings.lastUpdated, client.user.displayAvatarURL({ format: 'png' }))
+            .setAuthor({
+                name: strings.lastUpdated,
+                iconURL: client.user.displayAvatarURL({ format: 'png', dynamic: true }),
+            })
             .setTimestamp();
 
         switch (interaction.options.getString('type')) {

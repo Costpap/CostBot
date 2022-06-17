@@ -20,7 +20,10 @@ export default {
                 { name: 'Websocket Heartbeat', value: `${client.ws.ping}ms`, inline: true },
             )
             .setTimestamp()
-            .setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
+            .setFooter({
+                text: `${client.user.username} ${await version()}`,
+                iconURL: client.user.displayAvatarURL({ format: 'png' }),
+            });
         interaction.editReply({ embeds: [embed] });
     },
 };

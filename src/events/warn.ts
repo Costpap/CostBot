@@ -11,7 +11,7 @@ export default {
             .setTitle(`${client.user.username} Client-Emitted Warning`)
             .setDescription(`\`\`\`${warning}\`\`\``)
             .setTimestamp()
-            .setFooter(`Warning occurred while running discord.js v${version}.`);
+            .setFooter({ text: `Warning occurred while running discord.js v${version}.` });
 
         errorLog('', [embed], client, { noContent: true });
     },

@@ -11,7 +11,7 @@ export default {
             .setTitle(`${client.user.username} Client-Emitted Error`)
             .setDescription(`\`\`\`${error}\`\`\``)
             .setTimestamp()
-            .setFooter(`Error occurred while running discord.js v${version}.`);
+            .setFooter({ text: `Error occurred while running discord.js v${version}.` });
 
         errorLog('', [embed], client, { noContent: true });
     },

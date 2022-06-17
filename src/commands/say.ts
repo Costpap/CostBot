@@ -26,7 +26,10 @@ export default {
         if (interaction.options.getBoolean('embed')) {
             const embed = new MessageEmbed()
                 .setColor(0x6293f5)
-                .setAuthor(interaction.user.tag, interaction.user.displayAvatarURL({ format: 'png', dynamic: true }))
+                .setAuthor({
+                    name: interaction.user.tag,
+                    iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+                })
                 .setDescription(interaction.options.getString('message'))
                 .setTimestamp();
             await send('', [embed], interaction);
