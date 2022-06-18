@@ -59,10 +59,10 @@ export default {
                     { name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
                 )
                 .setTimestamp()
-                .setFooter(
-                    `Execution time: ${Math.round(Date.now() - before)}ms`,
-                    client.user.displayAvatarURL({ format: 'png' }),
-                );
+                .setFooter({
+                    text: `Execution time: ${Math.round(Date.now() - before)}ms`,
+                    iconURL: client.user.displayAvatarURL({ format: 'png' }),
+                });
             interaction.reply({ embeds: [embed], ephemeral: true });
         }
     },
