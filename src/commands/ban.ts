@@ -38,15 +38,13 @@ export default {
 
         const user = interaction.options.getUser('user');
 
-        /* This checks if the user to be banned
-        is the person who sent the message,
-        and if true, it prevents them
-        from banning themselves. */
+        /* This checks if the user to be banned is the person who sent the message,
+        and if true, it prevents them from banning themselves. */
         if (user.id === interaction.user.id) {
             return interaction.reply({ content: "Aww, please don't ban yourself! 💖", ephemeral: true });
         }
 
-        /* Attempts to ban the user, if the ban is successful,
+        /* Attempts to ban the user. If the ban is successful,
         the bot will send a message indicating it was successful,
         otherwise an error message will be sent */
         try {
