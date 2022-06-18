@@ -1,4 +1,4 @@
-import { version } from '../utils/misc';
+import { version } from '../utils/version';
 import type { Command } from '../typings';
 import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
 

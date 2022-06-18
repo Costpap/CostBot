@@ -1,12 +1,12 @@
 import { promisify } from 'util';
 import child_process from 'child_process';
 import humanizeDuration from 'humanize-duration';
-import fetch from 'node-fetch';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { MessageEmbed, Client, Interaction, version as libraryVersion } from 'discord.js';
 import { version as tsVersion } from 'typescript';
+import { version } from './version';
 
 dayjs.extend(utc);
 dayjs.extend(relativeTime);
@@ -56,22 +56,6 @@ export const parseCodeblock = (script: string): string => {
         return result[4];
     }
     return script;
-};
-
-/**
- * Automatically gets the latest release from {@link https://github.com/Costpap/CostBot GitHub}.
- * @param {string} tag_name - The name of the tag of the latest release, for example: `v0.0.0`
- * @returns {Promise<string>} The name of the tag of the latest release, for example: `v0.0.0`
- * @example
- * import { version } from './utils/misc';
- *
- * console.log(version());
- */
-export const version = async (): Promise<string> => {
-    const { tag_name } = await fetch('https://api.github.com/repos/Costpap/CostBot/releases/latest').then(
-        (response) => response.json() as never,
-    );
-    return tag_name as string;
 };
 
 /**
