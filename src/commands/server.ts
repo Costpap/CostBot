@@ -36,10 +36,10 @@ export default {
                 },
             )
             .setTimestamp()
-            .setFooter(
-                `Requested by ${interaction.user.tag}`,
-                interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
-            );
+            .setFooter({
+                text: `Requested by ${interaction.user.tag}`,
+                iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+            });
 
         if (interaction.options?.getBoolean('show_roles')) {
             embed.addField(

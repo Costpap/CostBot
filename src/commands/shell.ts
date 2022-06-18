@@ -41,10 +41,10 @@ export default {
                 .setTitle('Execution Successful')
                 .addField('📥 Input', `\`\`\`bash\n${code}\`\`\``)
                 .setTimestamp()
-                .setFooter(
-                    `Execution time: ${Math.round(Date.now() - before)}ms`,
-                    client.user.displayAvatarURL({ format: 'png' }),
-                );
+                .setFooter({
+                    text: `Execution time: ${Math.round(Date.now() - before)}ms`,
+                    iconURL: client.user.displayAvatarURL({ format: 'png' }),
+                });
             if (stdout) {
                 embed.addField('🖥 stdout', `\`\`\`bash\n${clean(stdout)}\`\`\``);
             }
