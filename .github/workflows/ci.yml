@@ -8,11 +8,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout to repository
-              uses: actions/checkout@v2.4.0
+              uses: actions/checkout@v3.0.2
             - name: Configure files
               run: mv src/botconfig-example.ts src/botconfig.ts | mv .env.example .env
             - name: Setup Node.js v16
-              uses: actions/setup-node@v2.4.1
+              uses: actions/setup-node@v3.3.0
               with:
                   node-version: 16
                   cache: npm
@@ -25,11 +25,11 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout to repository
-              uses: actions/checkout@v2.4.0
+              uses: actions/checkout@v3.0.2
             - name: Configure files
               run: mv src/botconfig-example.ts src/botconfig.ts | mv .env.example .env
             - name: Setup Node.js v16
-              uses: actions/setup-node@v2.4.1
+              uses: actions/setup-node@v3.3.0
               with:
                   node-version: 16
                   cache: npm
