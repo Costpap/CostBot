@@ -1,17 +1,21 @@
 import { clean, exec, parseCodeblock } from '../utils/misc';
 import { inspect } from 'util';
-import { Message, Client } from 'discord.js';
+import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'shell',
-    description: 'Runs Shell code.',
-    ownerOnly: true,
-    usage: 'code',
-    args: true,
-    permissions: ['EMBED_LINKS'],
-    cooldown: 0,
-    do: async (message: Message, client: Client, args: string[], Discord: typeof import('discord.js')) => {
-        let code: string = parseCodeblock(args.join(' '));
+    description: 'Executes Shell code.',
+    options: [
+        {
+            name: 'code',
+            description: 'The code to execute',
+            type: 'STRING',
+            required: true,
+        },
+    ],
+    defaultPermission: false,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        let code: string = parseCodeblock(interaction.options.getString('code'));
         const before: number = Date.now();
         try {
             let { stdout } = await exec(code);
@@ -32,22 +36,22 @@ export default {
                     '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
             }
 
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor('GREEN')
                 .setTitle('Execution Successful')
                 .addField('📥 Input', `\`\`\`bash\n${code}\`\`\``)
                 .setTimestamp()
-                .setFooter(
-                    `Execution time: ${Math.round(Date.now() - before)}ms`,
-                    client.user.displayAvatarURL({ format: 'png' }),
-                );
+                .setFooter({
+                    text: `Execution time: ${Math.round(Date.now() - before)}ms`,
+                    iconURL: client.user.displayAvatarURL({ format: 'png' }),
+                });
             if (stdout) {
                 embed.addField('🖥 stdout', `\`\`\`bash\n${clean(stdout)}\`\`\``);
             }
-            message.channel.send(embed);
+            interaction.reply({ embeds: [embed], ephemeral: true });
         } catch (error) {
             console.error('Shell:', error);
-            const embed = new Discord.MessageEmbed()
+            const embed = new MessageEmbed()
                 .setColor('RED')
                 .setTitle('Execution Error')
                 .addFields(
@@ -55,11 +59,11 @@ export default {
                     { name: '❌ Error message', value: `\`\`\`js\n${error.message}\`\`\`` },
                 )
                 .setTimestamp()
-                .setFooter(
-                    `Execution time: ${Math.round(Date.now() - before)}ms`,
-                    client.user.displayAvatarURL({ format: 'png' }),
-                );
-            message.channel.send(embed);
+                .setFooter({
+                    text: `Execution time: ${Math.round(Date.now() - before)}ms`,
+                    iconURL: client.user.displayAvatarURL({ format: 'png' }),
+                });
+            interaction.reply({ embeds: [embed], ephemeral: true });
         }
     },
 };

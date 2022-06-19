@@ -2,19 +2,15 @@ import { config } from 'dotenv';
 config({ path: './.env' });
 
 import { readdirSync } from 'fs';
-import Discord from 'discord.js';
-import { prefix } from './botconfig';
+import { Client, Collection, Intents } from 'discord.js';
 
-const intents = new Discord.Intents(['GUILDS', 'GUILD_BANS', 'GUILD_MESSAGES', 'GUILD_PRESENCES', 'DIRECT_MESSAGES']);
-const client = new Discord.Client({
-    ws: { intents: intents },
-    presence: { activity: { name: 'Costpap shout', type: 'LISTENING' }, status: 'online' },
-    messageCacheLifetime: 300,
-    messageSweepInterval: 600,
+export const client = new Client({
+    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES],
+    presence: { status: 'online', activities: [{ name: 'Costpap shout', type: 'LISTENING' }] },
 });
 
 (async () => {
-    client.events = new Discord.Collection();
+    client.events = new Collection();
     /**
      * Date representing when events started being loaded.
      */
@@ -30,9 +26,9 @@ const client = new Discord.Client({
             const eventName: string = file.split('.')[0];
 
             if (event.once) {
-                client.once(event.name, (...args) => event.do(...args, client, Discord));
+                client.once(event.name, (...args) => event.run(client, ...args));
             } else {
-                client.on(event.name, (...args) => event.do(...args, client, Discord));
+                client.on(event.name, (...args) => event.run(client, ...args));
             }
 
             client.events.set(eventName, event);
@@ -40,7 +36,7 @@ const client = new Discord.Client({
     }
     console.log(`Successfully loaded all ${client.events.size} events in ${Date.now() - eventStarted}ms!`);
 
-    client.commands = new Discord.Collection();
+    client.commands = new Collection();
     /**
      * Date representing when commands started being loaded.
      */
@@ -57,14 +53,8 @@ const client = new Discord.Client({
     console.log(`Successfully loaded all ${client.commands.size} commands in ${Date.now() - commandStarted}ms!`);
 })();
 
-client.cooldowns = new Discord.Collection();
-
 if (!process.env.TOKEN) {
     console.error('Missing client token. Shutting down...');
-    process.exit(1);
-}
-if (!prefix || prefix.length > 5) {
-    console.error('Prefix is either missing or too long. Shutting down...');
     process.exit(1);
 }
 
@@ -75,7 +65,7 @@ process.on('exit', () => {
     client.destroy();
 });
 
-// This caches unhandled promise rejections.
+// This catches unhandled promise rejections and logs them.
 process.on('unhandledRejection', (error) => console.error('Uncaught Promise Rejection', error));
 
 client.login(process.env.TOKEN).catch((err) => console.error('Error logging into Discord', err));

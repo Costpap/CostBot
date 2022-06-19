@@ -1,19 +1,21 @@
-import { clientStats, version } from '../utils/misc';
-import { Message, Client } from 'discord.js';
+import { clientStats } from '../utils/misc';
+import { version } from '../utils/version';
+import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'stats',
     description: 'Displays statistics about this bot.',
-    aliases: ['statistics', 'uptime'],
-    permissions: ['EMBED_LINKS'],
-    cooldown: 5,
-    do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
-        const embed = new Discord.MessageEmbed()
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        const embed = new MessageEmbed()
             .setColor(0x6293f5)
             .setTitle(`${client.user.username} Statistics`)
             .setTimestamp()
-            .setFooter(`${client.user.username} ${await version()}`, client.user.displayAvatarURL({ format: 'png' }));
+            .setFooter({
+                text: `${client.user.username} ${await version()}`,
+                iconURL: client.user.displayAvatarURL({ format: 'png' }),
+            });
         clientStats(embed, client, { membersExcludingBots: true });
-        message.channel.send(embed);
+        interaction.reply({ embeds: [embed] });
     },
 };

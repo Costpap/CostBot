@@ -1,27 +1,28 @@
-import { Message, Client, GuildMember } from 'discord.js';
-import { parseMemberMention } from '../utils/parse';
+import { Client, CommandInteraction } from 'discord.js';
 
 export default {
     name: 'fight',
     description: 'Have a little online fight with someone.',
-    args: true,
-    guildOnly: true,
-    usage: 'person you want to fight',
-    cooldown: 10,
-    do: async (message: Message, client: Client, args: string[]) => {
-        const member: GuildMember =
-            parseMemberMention(args[0], message.guild) ||
-            message.guild.members.cache.get(args[0]) ||
-            message.guild.members.cache.find((m) => m.user.username === args[0] || m.user.tag === args[0]);
+    options: [
+        {
+            name: 'user',
+            description: 'User you want to fight',
+            type: 'USER',
+            required: true,
+        },
+    ],
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        const user = interaction.options.getUser('user');
 
-        if (!member) {
-            return message.channel.send('❌ You need to specify a user to fight.');
+        if (user.id === interaction.user.id) {
+            return interaction.reply({
+                content: 'Why would you fight yourself? Have a little hug from me! 🤗',
+                ephemeral: true,
+            });
         }
-        if (member.id === message.member.id) {
-            return message.channel.send('Why would you fight yourself? Have a little hug from me! 🤗');
-        }
-        if (member.id === client.user.id) {
-            return message.channel.send('Why would you fight me? 😔');
+        if (user.id === client.user.id) {
+            return interaction.reply({ content: 'Why would you fight me? 😔', ephemeral: true });
         }
 
         /**
@@ -35,16 +36,16 @@ export default {
          * and `${message.member}` is used for the person who is fighting them.
          */
         const fightStrings: string[] = [
-            `${member}, you are being fought by ${message.member}!`,
-            `${member}, ${message.member} is fighting you!`,
-            `${member} just got tackled down by ${message.member}!`,
-            `${message.member} is having a small fight with ${member}.`,
-            `${message.member} is fighting with ${member}. Oh no.`,
-            `${message.member} is trying to fight ${member} but it didn't turn out that well.`,
-            `${message.member} tried to fight ${member}, but it didn't end well at all.`,
-            `${message.member} tried to tackle down ${member} but accidentally fell instead!`,
-            `${message.member} got jealous over ${member} and decided to have a fight with them.`,
-            `${message.member} tried to hug ${member}, but fought them in confusion.`,
+            `${user.toString()}, you are being fought by ${interaction.user.toString()}!`,
+            `${user.toString()}, ${interaction.user.toString()} is fighting you!`,
+            `${user.toString()} just got tackled down by ${interaction.user.toString()}!`,
+            `${interaction.user.toString()} is having a small fight with ${user.toString()}.`,
+            `${interaction.user.toString()} is fighting with ${user.toString()}. Oh no.`,
+            `${interaction.user.toString()} is trying to fight ${user.toString()} but it didn't turn out that well.`,
+            `${interaction.user.toString()} tried to fight ${user.toString()}, but it didn't end well at all.`,
+            `${interaction.user.toString()} tried to tackle down ${user.toString()} but accidentally fell instead!`,
+            `${interaction.user.toString()} got jealous over ${user.toString()} and decided to have a fight with them.`,
+            `${interaction.user.toString()} tried to hug ${user.toString()}, but fought them in confusion.`,
         ];
         /**
          * Randomly picks a string from the `fightStrings` array in order to send to the user.
@@ -53,12 +54,13 @@ export default {
         const fightString: string = fightStrings[Math.floor(Math.random() * fightStrings.length)];
 
         try {
-            message.channel.send(fightString);
+            interaction.reply(fightString);
         } catch (error) {
             console.error(error);
-            message.channel.send(
-                `❌ Sorry, I couldn't fight ${member.user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
-            );
+            interaction.reply({
+                content: `❌ Sorry, I couldn't fight ${user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
+                ephemeral: true,
+            });
         }
     },
 };

@@ -1,18 +1,22 @@
 import { parseCodeblock } from '../utils/misc';
 import { inspect } from 'util';
 import { runInNewContext, RunningScriptOptions, Context } from 'vm';
-import Discord from 'discord.js';
+import Discord, { CommandInteraction, Client, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'eval',
-    description: 'Runs JavaScript code.',
-    ownerOnly: true,
-    usage: 'code',
-    args: true,
-    permissions: ['EMBED_LINKS'],
-    cooldown: 0,
-    do: async (message: Discord.Message, client: Discord.Client, args: string[]) => {
-        const code: string = parseCodeblock(args.join(' '));
+    description: 'Executes JavaScript code.',
+    options: [
+        {
+            name: 'code',
+            description: 'The code to execute',
+            type: 'STRING',
+            required: true,
+        },
+    ],
+    defaultPermission: false,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        const code: string = parseCodeblock(interaction.options.getString('code'));
 
         const options = {
             callback: false,
@@ -22,8 +26,7 @@ export default {
 
         const context: Context = {
             client,
-            message,
-            args,
+            interaction,
             Discord,
             console,
             require,
@@ -32,7 +35,7 @@ export default {
         };
 
         const scriptOptions: RunningScriptOptions = {
-            filename: `${message.author.id}@${message.guild.id}`,
+            filename: `${interaction.id}-${interaction.user.id}@${interaction.guildId}#${interaction.channelId}`,
             timeout: 60000,
             displayErrors: true,
         };
@@ -66,8 +69,8 @@ export default {
                 }
                 console.log('Eval output - end');
             }
-            const embed: Discord.MessageEmbed = await generateEmbed(code, res, { start, end }, client);
-            message.channel.send(embed);
+            const embed: MessageEmbed = await generateEmbed(code, res, { start, end }, client);
+            interaction.reply({ embeds: [embed], ephemeral: true });
         });
     },
 };
@@ -140,14 +143,17 @@ async function generateEmbed(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     outs: any,
     { start, end }: { start: number; end: number },
-    client: Discord.Client,
-): Promise<Discord.MessageEmbed> {
+    client: Client,
+): Promise<MessageEmbed> {
     const output = typeof outs?.callbackOutput?.then === 'function' ? await outs?.callbackOutput : outs?.callbackOutput;
     const stdout = outs?.stdout;
     const stderr = outs?.stderr;
 
-    const embed: Discord.MessageEmbed = new Discord.MessageEmbed()
-        .setFooter(`Execution time: ${end - start}ms`, client.user.displayAvatarURL({ format: 'png' }))
+    const embed: MessageEmbed = new MessageEmbed()
+        .setFooter({
+            text: `Execution time: ${end - start}ms`,
+            iconURL: client.user.displayAvatarURL({ format: 'png' }),
+        })
         .setTimestamp()
         .addField('📥 Input', '```js\n' + code.substring(0, 1015) + '```');
 

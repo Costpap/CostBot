@@ -1,22 +1,22 @@
-import { Message, Client } from 'discord.js';
+import { Client, CommandInteraction, Permissions } from 'discord.js';
 
 export default {
     name: 'invite',
     description: 'Sends you a link to invite the bot.',
-    aliases: ['inv'],
-    cooldown: 5,
-    do: async (message: Message, client: Client) => {
-        const link: string = await client.generateInvite({
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction, client: Client) => {
+        const link: string = client.generateInvite({
+            scopes: ['bot', 'applications.commands'],
             permissions: [
-                'KICK_MEMBERS',
-                'BAN_MEMBERS',
-                'VIEW_CHANNEL',
-                'SEND_MESSAGES',
-                'MANAGE_MESSAGES',
-                'EMBED_LINKS',
-                'READ_MESSAGE_HISTORY',
+                Permissions.FLAGS.KICK_MEMBERS,
+                Permissions.FLAGS.BAN_MEMBERS,
+                Permissions.FLAGS.VIEW_CHANNEL,
+                Permissions.FLAGS.SEND_MESSAGES,
+                Permissions.FLAGS.MANAGE_MESSAGES,
+                Permissions.FLAGS.EMBED_LINKS,
+                Permissions.FLAGS.READ_MESSAGE_HISTORY,
             ],
         });
-        message.channel.send(`You can invite me to your server from this link: <${link}>.`);
+        interaction.reply({ content: `You can invite me to your server [here](${link}).`, ephemeral: true });
     },
 };

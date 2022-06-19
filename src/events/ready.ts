@@ -3,9 +3,10 @@ import { Client } from 'discord.js';
 
 export default {
     name: 'ready',
-    do: async (client: Client) => {
+    run: async (client: Client) => {
         coreLog(
             `🆗 Logged in with **${client.users.cache.size}** users across **${client.guilds.cache.size}** guilds!`,
+            [],
             client,
             { noWebhook: true },
         );

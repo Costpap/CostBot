@@ -1,9 +1,15 @@
 import { promisify } from 'util';
 import child_process from 'child_process';
 import humanizeDuration from 'humanize-duration';
-import fetch from 'node-fetch';
-import { Message, MessageEmbed, Client, version as discordVersion } from 'discord.js';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import { MessageEmbed, Client, Interaction, version as libraryVersion } from 'discord.js';
 import { version as tsVersion } from 'typescript';
+import { version } from './version';
+
+dayjs.extend(utc);
+dayjs.extend(relativeTime);
 
 /**
  * Executes code in shell.
@@ -50,22 +56,6 @@ export const parseCodeblock = (script: string): string => {
         return result[4];
     }
     return script;
-};
-
-/**
- * Automatically gets the latest release from {@link https://github.com/Costpap/CostBot GitHub}.
- * @param {string} tag_name - The name of the tag of the latest release, for example: `v0.0.0`
- * @returns {Promise<string>} The name of the tag of the latest release, for example: `v0.0.0`
- * @example
- * import { version } from './utils/misc';
- *
- * console.log(version());
- */
-export const version = async (): Promise<string> => {
-    const { tag_name } = await fetch('https://api.github.com/repos/Costpap/CostBot/releases/latest').then((response) =>
-        response.json(),
-    );
-    return tag_name as string;
 };
 
 /**
@@ -124,43 +114,43 @@ export async function clientStats(
 
     if (options?.noInline) {
         return embed.addFields(
-            { name: strings.serverCount, value: values.serverCount, inline: false },
-            { name: strings.members, value: values.members, inline: false },
-            { name: strings.uptime, value: values.uptime, inline: false },
+            { name: `${strings.serverCount}`, value: `${values.serverCount}`, inline: false },
+            { name: `${strings.members}`, value: `${values.members}`, inline: false },
+            { name: `${strings.uptime}`, value: `${values.uptime}`, inline: false },
         );
     }
     if (options?.noUptimeInline) {
         return embed.addFields(
-            { name: strings.serverCount, value: values.serverCount, inline: true },
-            { name: strings.members, value: values.members, inline: true },
-            { name: strings.uptime, value: values.uptime, inline: false },
+            { name: `${strings.serverCount}`, value: `${values.serverCount}`, inline: true },
+            { name: `${strings.members}`, value: `${values.members}`, inline: true },
+            { name: `${strings.uptime}`, value: `${values.uptime}`, inline: false },
         );
     }
     if (options?.noUptime) {
         return embed.addFields(
-            { name: strings.serverCount, value: values.serverCount, inline: true },
-            { name: strings.members, value: values.members, inline: true },
+            { name: `${strings.serverCount}`, value: `${values.serverCount}`, inline: true },
+            { name: `${strings.members}`, value: `${values.members}`, inline: true },
         );
     }
     if (options?.membersExcludingBots) {
         return embed.addFields(
-            { name: strings.serverCount, value: values.serverCount, inline: true },
-            { name: strings.members, value: values.members, inline: true },
-            { name: strings.membersExcludingBots, value: values.membersExcludingBots, inline: false },
-            { name: strings.uptime, value: values.uptime, inline: true },
+            { name: `${strings.serverCount}`, value: `${values.serverCount}`, inline: true },
+            { name: `${strings.members}`, value: `${values.members}`, inline: true },
+            { name: `${strings.membersExcludingBots}`, value: `${values.membersExcludingBots}`, inline: false },
+            { name: `${strings.uptime}`, value: `${values.uptime}`, inline: true },
         );
     }
     if (options?.membersExcludingBots2) {
         return embed.addFields(
-            { name: strings.serverCount, value: values.serverCount, inline: true },
-            { name: strings.members, value: values.membersExcludingBots2, inline: true },
-            { name: strings.uptime, value: values.uptime, inline: false },
+            { name: `${strings.serverCount}`, value: `${values.serverCount}`, inline: true },
+            { name: `${strings.members}`, value: `${values.membersExcludingBots2}`, inline: true },
+            { name: `${strings.uptime}`, value: `${values.uptime}`, inline: false },
         );
     }
     return embed.addFields(
-        { name: strings.serverCount, value: values.serverCount, inline: true },
-        { name: strings.members, value: values.members, inline: true },
-        { name: strings.uptime, value: values.uptime, inline: true },
+        { name: `${strings.serverCount}`, value: `${values.serverCount}`, inline: true },
+        { name: `${strings.members}`, value: `${values.members}`, inline: true },
+        { name: `${strings.uptime}`, value: `${values.uptime}`, inline: true },
     );
 }
 
@@ -175,7 +165,11 @@ export async function clientStats(
  * const embed = await generateBasicErrorEmbed('ReferenceError', 'ReferenceError: message is not defined', message);
  * message.channel.send(embed);
  */
-export async function generateBasicErrorEmbed(title: string, error: string, message: Message): Promise<MessageEmbed> {
+export async function generateBasicErrorEmbed(
+    title: string,
+    error: string,
+    interaction: Interaction,
+): Promise<MessageEmbed> {
     const embed = new MessageEmbed()
         .setColor('RED')
         .setTitle(title)
@@ -184,18 +178,35 @@ export async function generateBasicErrorEmbed(title: string, error: string, mess
             { name: 'Debug information:', value: '\u200B' },
             { name: 'Bot Version', value: await version(), inline: true },
             { name: 'TypeScript Version', value: `v${tsVersion}`, inline: true },
-            { name: 'discord.js Version', value: `v${discordVersion}`, inline: true },
+            { name: 'discord.js Version', value: `v${libraryVersion}`, inline: true },
             {
                 name: 'Guild and Channel name',
-                value: `\`${message.guild.name}\` ${message.channel}`,
+                value: `\`${interaction.guild.name}\` ${interaction.channel.toString()}`,
                 inline: true,
             },
-            { name: 'Message Link', value: message.url, inline: true },
-            { name: 'Initiated by', value: `\`${message.author.tag} (${message.author.id})\``, inline: true },
+            { name: 'Interaction ID', value: interaction.id, inline: true },
+            { name: 'Initiated by', value: `\`${interaction.user.tag} (${interaction.user.id})\``, inline: true },
         )
         .setTimestamp();
 
     return embed;
+}
+
+/**
+ * Parses and formats a date object appropriately.
+ * @param {Date} date - The date object to parse/format
+ * @returns {string} `ddd, D MMM YYYY HH:mm:ss UTC (Roughly [time] ago)`
+ * @example
+ * import { parseDate } from './src/utils/parse';
+ *
+ * const d = parseDate(new Date());
+ * console.log(d);
+ */
+export function parseDate(date: Date): string {
+    const actualDate: string = dayjs(date).utc().format('ddd[,] D MMM YYYY HH:mm:ss');
+    const agoTime: string = dayjs().to(dayjs(actualDate));
+    const completeDate = `${actualDate} UTC (Roughly ${agoTime})`;
+    return completeDate;
 }
 
 export interface ClientStatOptions {

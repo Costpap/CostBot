@@ -1,18 +1,18 @@
 import { errorLog } from '../utils/logs';
-import { Client, version } from 'discord.js';
+import { Client, MessageEmbed, version } from 'discord.js';
 
 export default {
     name: 'error',
-    do: async (error: string, client: Client, Discord: typeof import('discord.js')) => {
+    run: async (client: Client, error: string) => {
         console.error(error);
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor('RED')
             .setTitle(`${client.user.username} Client-Emitted Error`)
             .setDescription(`\`\`\`${error}\`\`\``)
             .setTimestamp()
-            .setFooter(`Error occurred while running discord.js v${version}.`);
+            .setFooter({ text: `Error occurred while running discord.js v${version}.` });
 
-        errorLog(embed, client, { noWebhook: true });
+        errorLog('', [embed], client, { noContent: true });
     },
 };

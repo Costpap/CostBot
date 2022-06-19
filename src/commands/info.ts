@@ -1,14 +1,13 @@
 import { botOwner, repository } from '../botconfig';
-import { clientStats, version } from '../utils/misc';
-import { Message, Client, User } from 'discord.js';
+import { clientStats } from '../utils/misc';
+import { version } from '../utils/version';
+import { Client, CommandInteraction, MessageEmbed, User, version as libraryVersion } from 'discord.js';
 
 export default {
     name: 'info',
     description: 'Displays information about the bot.',
-    aliases: ['information', 'about'],
-    permissions: ['EMBED_LINKS'],
-    cooldown: 5,
-    do: async (message: Message, client: Client, _args: string[], Discord: typeof import('discord.js')) => {
+    defaultPermission: true,
+    run: async (interaction: CommandInteraction, client: Client) => {
         /* This automatically gets the user IDs from the botconfig,
         fetches the users and pushes their username, discriminator and ID to an array,
         which is then shown on an embed field. */
@@ -22,26 +21,27 @@ export default {
                 developers.push(`${dev.tag} (\`${dev.id}\`)`);
             } catch (error) {
                 console.error(error);
-                message.channel.send(
-                    `❌ Encountered an error while getting developer information: \`\`\`js\n${error}\`\`\``,
-                );
+                interaction.reply({
+                    content: `❌ Encountered an error while getting developer information: \`\`\`js\n${error}\`\`\``,
+                    ephemeral: true,
+                });
             }
         }
 
-        const embed = new Discord.MessageEmbed()
+        const embed = new MessageEmbed()
             .setColor(0x6293f5)
             .setThumbnail(client.user.displayAvatarURL({ format: 'png' }))
             .setTitle(`${client.user.username} Information`)
             .addFields(
-                { name: developers.length > 1 ? 'Developers' : 'Developer', value: developers.join('\n') },
-                { name: 'Version', value: await version(), inline: true },
-                { name: 'Library', value: `discord.js v${Discord.version}`, inline: true },
-                { name: 'Number of commands', value: client.commands.size, inline: true },
-                { name: 'GitHub Repository', value: repository, inline: true },
+                { name: `${developers.length > 1 ? 'Developers' : 'Developer'}`, value: `${developers.join('\n')}` },
+                { name: 'Version', value: `${await version()}`, inline: true },
+                { name: 'Library', value: `discord.js v${libraryVersion}`, inline: true },
+                { name: 'Number of commands', value: `${client.commands.size}`, inline: true },
+                { name: 'GitHub Repository', value: `${repository}`, inline: true },
                 { name: '\u200B', value: '\u200B' },
             )
             .setTimestamp();
         clientStats(embed, client, { membersExcludingBots2: true });
-        message.channel.send(embed);
+        interaction.reply({ embeds: [embed] });
     },
 };
