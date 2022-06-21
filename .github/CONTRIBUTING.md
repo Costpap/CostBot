@@ -8,11 +8,17 @@ Note: If you have [GitHub CLI](https://cli.github.com) installed, you can simply
 
 ## What to remember when contributing
 
-With that out of the way, you can now make as many changes to the codebase as you wish! Please make sure to run `npx eslint .` and `npm run build` (or removing the `build` directory and running `npx tsc` after each change in order to make sure that there are no style or compiler errors. While there is a [GitHub Actions](https://github.com/Costpap/CostBot/actions/) workflow to ensure that there are no style or compiler errors, it's better to be safe than sorry. In addition to that, it is much more time-efficient and easier to fix problems as they appear, instead of having to do so after finishing and submitting a pull request. It is also highly recommended that you check any changes you make in Discord, as GitHub Actions is not perfect and errors can still manage to appear. If you have made changes to a command, be sure to run that command in order to be certain it works. If you have made changes to an event, you can use the `eval` command and run `client.emit('event name', User/GuildMember etc)` in order to make sure that the event actually works.
+With that out of the way, you can now make as many changes to the codebase as you wish! Please make sure to run `npx eslint .` and `npm run build` (or removing the `build` directory and running `npx tsc` after each change) in order to make sure that there are no style or compiler errors.
 
-### Code style
+Moreover, any changes made to the bot itself and any of its commands or events should be tested thoroughly in Discord using a bot. Unlike code style and compiler errors, Continuous Integration **cannot** know if an interaction is going to resolve successfully or not.
 
-Code style is automatically enforced by [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/). As mentioned above, you can run `npx eslint .` in a terminal or command prompt in order to make sure that everything is fine. If it gives you some errors, most of the time they can easily be fixed wih `npx eslint . --fix`. In conjunction with that, please also run `npx tsc` in order to make sure that there are no compiler errors. If there are, your IDE will most likely have a tooltip of some sorts to help you fix it.
+For your convenience, if you make any changes to events, you can test them using the `/eval` command and running `client.emit('eventName', User/GuildMember/etc)`
+
+### Code style & TS compiler errors
+
+Code style is automatically enforced by [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/). As mentioned above, you can run `npx eslint .` in a terminal or command prompt in order to make sure that everything is fine. If it gives you some errors, most of the time they can easily be fixed wih `npx eslint . --fix`. 
+
+As this project is written in TypeScript, the TypeScript compiler is used in order to transpile the project and make it readable by Node.js. The TypeScript compiler can be ran using `npx tsc`. If it gives you errors, chances are your IDE will have a tooltip of some sorts to help you fix them.
 
 ### Typings
 
