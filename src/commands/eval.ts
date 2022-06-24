@@ -16,6 +16,7 @@ export default {
     ],
     defaultPermission: false,
     run: async (interaction: CommandInteraction, client: Client) => {
+        await interaction.deferReply({ ephemeral: true });
         const code: string = parseCodeblock(interaction.options.getString('code'));
 
         const options = {
@@ -70,7 +71,7 @@ export default {
                 console.log('Eval output - end');
             }
             const embed: MessageEmbed = await generateEmbed(code, res, { start, end }, client);
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.editReply({ embeds: [embed] });
         });
     },
 };

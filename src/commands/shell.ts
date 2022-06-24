@@ -15,7 +15,9 @@ export default {
     ],
     defaultPermission: false,
     run: async (interaction: CommandInteraction, client: Client) => {
+        await interaction.deferReply({ ephemeral: true });
         let code: string = parseCodeblock(interaction.options.getString('code'));
+
         const before: number = Date.now();
         try {
             let { stdout } = await exec(code);
@@ -48,7 +50,7 @@ export default {
             if (stdout) {
                 embed.addField('🖥 stdout', `\`\`\`bash\n${clean(stdout)}\`\`\``);
             }
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.editReply({ embeds: [embed] });
         } catch (error) {
             console.error('Shell:', error);
             const embed = new MessageEmbed()
@@ -63,7 +65,7 @@ export default {
                     text: `Execution time: ${Math.round(Date.now() - before)}ms`,
                     iconURL: client.user.displayAvatarURL({ format: 'png' }),
                 });
-            interaction.reply({ embeds: [embed], ephemeral: true });
+            interaction.editReply({ embeds: [embed] });
         }
     },
 };
