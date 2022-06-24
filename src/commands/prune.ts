@@ -33,7 +33,7 @@ export default {
         /**
          * The total number of messages to bulkDelete.
          */
-        const amount: number = interaction.options.getInteger('amount');
+        const amount: number = interaction.options.getInteger('amount', true);
 
         if (amount <= 1 || amount > 100) {
             return interaction.reply({ content: '❌ You need to input a number between 1 and 100.', ephemeral: true });

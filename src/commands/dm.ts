@@ -24,7 +24,7 @@ export default {
     ],
     defaultPermission: false,
     run: async (interaction: CommandInteraction) => {
-        const dmUser = interaction.options.getUser('user');
+        const dmUser = interaction.options.getUser('user', true);
         if (dmUser.bot) {
             return interaction.reply({ content: '❌ You cannot send messages to bots.', ephemeral: true });
         }
@@ -36,7 +36,7 @@ export default {
                 .setTimestamp();
             return send('\u200B', [embed], dmUser, interaction);
         }
-        await send(interaction.options.getString('message'), [], dmUser, interaction);
+        await send(interaction.options.getString('message', true), [], dmUser, interaction);
     },
 };
 

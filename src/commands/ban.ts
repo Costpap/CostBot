@@ -36,7 +36,7 @@ export default {
             });
         }
 
-        const user = interaction.options.getUser('user');
+        const user = interaction.options.getUser('user', true);
 
         /* This checks if the user to be banned is the person who sent the message,
         and if true, it prevents them from banning themselves. */

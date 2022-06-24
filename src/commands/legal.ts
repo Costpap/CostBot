@@ -71,7 +71,7 @@ export default {
             })
             .setTimestamp();
 
-        switch (interaction.options.getString('type')) {
+        switch (interaction.options.getString('type', true)) {
             case 'privacy':
                 embed.setTitle(`${client.user.username} Privacy Information`);
                 embed.setDescription(strings.privacy);

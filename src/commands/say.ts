@@ -30,11 +30,11 @@ export default {
                     name: interaction.user.tag,
                     iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
                 })
-                .setDescription(interaction.options.getString('message'))
+                .setDescription(interaction.options.getString('message', true))
                 .setTimestamp();
             await sendEmbed([embed], interaction);
         } else {
-            await send(interaction.options.getString('message'), interaction);
+            await send(interaction.options.getString('message', true), interaction);
         }
     },
 };

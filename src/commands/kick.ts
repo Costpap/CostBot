@@ -36,7 +36,7 @@ export default {
             });
         }
 
-        const user = interaction.options.getUser('user');
+        const user = interaction.options.getUser('user', true);
         const member = interaction.guild.members.cache.get(user.id);
 
         if (!member) {

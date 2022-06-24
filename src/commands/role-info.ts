@@ -27,7 +27,7 @@ export default {
         if (interaction.inGuild() === false) {
             return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
-        const apiRole = interaction.options.getRole('role');
+        const apiRole = interaction.options.getRole('role', true);
         const role: Role = interaction.guild.roles.cache.get(apiRole.id);
 
         const embed = new MessageEmbed()

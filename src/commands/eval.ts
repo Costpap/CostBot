@@ -17,7 +17,7 @@ export default {
     defaultPermission: false,
     run: async (interaction: CommandInteraction, client: Client) => {
         await interaction.deferReply({ ephemeral: true });
-        const code: string = parseCodeblock(interaction.options.getString('code'));
+        const code: string = parseCodeblock(interaction.options.getString('code', true));
 
         const options = {
             callback: false,

@@ -13,7 +13,7 @@ export default {
     ],
     defaultPermission: true,
     run: async (interaction: CommandInteraction, client: Client) => {
-        const user = interaction.options.getUser('user');
+        const user = interaction.options.getUser('user', true);
 
         if (user.id === interaction.user.id) {
             return interaction.reply({
