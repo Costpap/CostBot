@@ -1,5 +1,5 @@
-import { botOwner, repository } from '../botconfig';
 import { Client, CommandInteraction, MessageEmbed, User } from 'discord.js';
+import { botOwner, repository } from '../botconfig';
 
 export default {
     name: 'legal',

@@ -1,7 +1,7 @@
-import { parseCodeblock } from '../utils/misc';
+import Discord, { Client, CommandInteraction, MessageEmbed } from 'discord.js';
 import { inspect } from 'util';
-import { runInNewContext, RunningScriptOptions, Context } from 'vm';
-import Discord, { CommandInteraction, Client, MessageEmbed } from 'discord.js';
+import { Context, runInNewContext, RunningScriptOptions } from 'vm';
+import { parseCodeblock } from '../utils/misc';
 
 export default {
     name: 'eval',

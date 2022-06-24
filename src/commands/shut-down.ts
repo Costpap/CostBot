@@ -1,5 +1,5 @@
-import { coreLog } from '../utils/logs';
 import { Client, CommandInteraction } from 'discord.js';
+import { coreLog } from '../utils/logs';
 
 export default {
     name: 'shut-down',

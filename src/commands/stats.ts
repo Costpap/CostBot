@@ -1,6 +1,6 @@
+import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
 import { clientStats } from '../utils/misc';
 import { version } from '../utils/version';
-import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
 
 export default {
     name: 'stats',

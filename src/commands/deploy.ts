@@ -1,6 +1,6 @@
+import { Client, CommandInteraction, Message } from 'discord.js';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
-import { Client, CommandInteraction, Message } from 'discord.js';
 
 export default {
     name: 'deploy',

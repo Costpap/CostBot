@@ -1,6 +1,6 @@
-import type { LogChannel } from '../typings';
-import { Message, MessageEmbed, Client, TextChannel, NewsChannel } from 'discord.js';
+import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
 import { corelog, errorlog } from '../botconfig';
+import type { LogChannel } from '../typings';
 
 /**
  * Arrow function used for sending messages to the logging channels.

@@ -1,4 +1,4 @@
-import { CommandInteraction, TextChannel, NewsChannel, Permissions } from 'discord.js';
+import { CommandInteraction, NewsChannel, Permissions, TextChannel } from 'discord.js';
 
 export default {
     name: 'prune',

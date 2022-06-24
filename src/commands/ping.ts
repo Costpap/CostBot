@@ -1,5 +1,5 @@
-import { version } from '../utils/version';
 import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
+import { version } from '../utils/version';
 
 export default {
     name: 'ping',

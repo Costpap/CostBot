@@ -1,5 +1,5 @@
-import fetch from 'node-fetch';
 import { readFileSync } from 'fs';
+import fetch from 'node-fetch';
 
 /**
  * Gets the commit hash of the commit HEAD is currently pointed to.

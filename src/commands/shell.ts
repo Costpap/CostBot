@@ -1,6 +1,6 @@
-import { clean, exec, parseCodeblock } from '../utils/misc';
-import { inspect } from 'util';
 import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
+import { inspect } from 'util';
+import { clean, exec, parseCodeblock } from '../utils/misc';
 
 export default {
     name: 'shell',

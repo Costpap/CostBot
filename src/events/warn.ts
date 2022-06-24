@@ -1,5 +1,5 @@
-import { errorLog } from '../utils/logs';
 import { Client, MessageEmbed, version } from 'discord.js';
+import { errorLog } from '../utils/logs';
 
 export default {
     name: 'warn',

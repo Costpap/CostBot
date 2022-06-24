@@ -1,6 +1,6 @@
-import { generateBasicErrorEmbed } from '../utils/misc';
-import { errorLog } from '../utils/logs';
 import { Client, Interaction } from 'discord.js';
+import { errorLog } from '../utils/logs';
+import { generateBasicErrorEmbed } from '../utils/misc';
 
 export default {
     name: 'interactionCreate',

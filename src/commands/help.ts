@@ -1,6 +1,6 @@
-import { version } from '../utils/version';
-import type { Command } from '../typings';
 import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
+import type { Command } from '../typings';
+import { version } from '../utils/version';
 
 export default {
     name: 'help',

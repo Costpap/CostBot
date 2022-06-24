@@ -1,11 +1,11 @@
-import { promisify } from 'util';
 import child_process from 'child_process';
-import humanizeDuration from 'humanize-duration';
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import { MessageEmbed, Client, Interaction, version as libraryVersion } from 'discord.js';
+import utc from 'dayjs/plugin/utc';
+import { Client, Interaction, MessageEmbed, version as libraryVersion } from 'discord.js';
+import humanizeDuration from 'humanize-duration';
 import { version as tsVersion } from 'typescript';
+import { promisify } from 'util';
 import { version } from './version';
 
 dayjs.extend(utc);
