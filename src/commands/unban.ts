@@ -62,7 +62,7 @@ export default {
             }
 
             console.error(error);
-            interaction.reply({
+            return interaction.reply({
                 content: `❌ I encountered an error while trying to unban \`${user.tag}\`: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,

@@ -48,7 +48,7 @@ export default {
                 `Error pruning messages in #${textChannel.name} (${textChannel.id}) of ${textChannel.guild.id}:\n`,
                 error,
             );
-            interaction.reply({
+            return interaction.reply({
                 content: `❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,

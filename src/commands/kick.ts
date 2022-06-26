@@ -42,6 +42,7 @@ export default {
         if (!member) {
             return interaction.reply({ content: '❌ You need to specify a valid user to kick!', ephemeral: true });
         }
+
         /* This checks if the user to be kicked is the person who sent the command,
         and if true, it prevents them from kicking themselves. */
         if (member.id === interaction.user.id) {
@@ -64,7 +65,7 @@ export default {
             interaction.reply({ content: `🔨 Kicked \`${member.user.tag} (${member.id})\`.`, ephemeral: true });
         } catch (error) {
             console.error(error);
-            interaction.reply({
+            return interaction.reply({
                 content: `❌ I encountered an error while trying to kick \`${member.user.tag}\`: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,

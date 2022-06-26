@@ -41,7 +41,7 @@ export default {
                 owner.push(`${own.tag} (${own.id})`);
             } catch (error) {
                 console.error(error);
-                interaction.reply({
+                return interaction.reply({
                     content: `❌ Encountered an error while getting owner information: \`\`\`js\n${error}\`\`\``,
                     ephemeral: true,
                 });
@@ -95,7 +95,10 @@ export default {
         try {
             await interaction.reply({ content: `${strings.permNote}`, embeds: [embed], ephemeral: true });
         } catch (error) {
-            console.error(`Could not send legal info to ${interaction.user.tag} (${interaction.user.id}):\n`, error);
+            return console.error(
+                `Could not send legal info to ${interaction.user.tag} (${interaction.user.id}):\n`,
+                error,
+            );
         }
     },
 };

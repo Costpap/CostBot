@@ -70,7 +70,7 @@ export default {
                 });
         } catch (error) {
             console.error(error);
-            await interaction.reply({
+            return interaction.reply({
                 content: `❌ I encountered an error while trying to ban \`${user.tag}\`: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,

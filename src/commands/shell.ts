@@ -65,7 +65,7 @@ export default {
                     text: `Execution time: ${Math.round(Date.now() - before)}ms`,
                     iconURL: client.user.displayAvatarURL({ format: 'png' }),
                 });
-            interaction.editReply({ embeds: [embed] });
+            return interaction.editReply({ embeds: [embed] });
         }
     },
 };

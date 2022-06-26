@@ -81,7 +81,7 @@ export default {
             logMessage.edit(
                 `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
             );
-            interaction.editReply(
+            return interaction.editReply(
                 `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${
                     error?.message || error
                 }\`\`\``,

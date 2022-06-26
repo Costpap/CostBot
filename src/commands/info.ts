@@ -21,7 +21,7 @@ export default {
                 developers.push(`${dev.tag} (\`${dev.id}\`)`);
             } catch (error) {
                 console.error(error);
-                interaction.reply({
+                return interaction.reply({
                     content: `❌ Encountered an error while getting developer information: \`\`\`js\n${error}\`\`\``,
                     ephemeral: true,
                 });

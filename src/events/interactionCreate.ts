@@ -19,7 +19,7 @@ export default {
                 interaction,
             );
             errorLog('', [embed], client, { noContent: true });
-            interaction.reply({
+            return interaction.reply({
                 content: `❌ I encountered an error while trying to execute this command: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,

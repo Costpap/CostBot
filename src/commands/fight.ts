@@ -57,7 +57,7 @@ export default {
             interaction.reply(fightString);
         } catch (error) {
             console.error(error);
-            interaction.reply({
+            return interaction.reply({
                 content: `❌ Sorry, I couldn't fight ${user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
                 ephemeral: true,
             });
