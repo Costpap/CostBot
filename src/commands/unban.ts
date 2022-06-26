@@ -1,4 +1,4 @@
-import { CommandInteraction, Permissions } from 'discord.js';
+import { Client, CommandInteraction, DiscordAPIError, Permissions } from 'discord.js';
 
 export default {
     name: 'unban',
@@ -17,7 +17,7 @@ export default {
         },
     ],
     defaultPermission: true,
-    run: async (interaction: CommandInteraction) => {
+    run: async (interaction: CommandInteraction, client: Client) => {
         if (interaction.inGuild() === false) {
             return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
@@ -41,6 +41,12 @@ export default {
         if (user.id === interaction.user.id) {
             return interaction.reply({ content: 'How do you unban yourself? 🤔', ephemeral: true });
         }
+        if (user.id === client.user.id) {
+            return interaction.reply({
+                content: 'If I was banned, would you be seeing this message? 🤔',
+                ephemeral: true,
+            });
+        }
         try {
             await interaction.guild.members.unban(
                 user,
@@ -48,6 +54,13 @@ export default {
             );
             interaction.reply({ content: `✅ Unbanned \`${user.tag} (${user.id})\`.`, ephemeral: true });
         } catch (error) {
+            if (error instanceof DiscordAPIError && error.httpStatus === 404) {
+                return interaction.reply({
+                    content: '❌ This user is not currently banned.',
+                    ephemeral: true,
+                });
+            }
+
             console.error(error);
             interaction.reply({
                 content: `❌ I encountered an error while trying to unban \`${user.tag}\`: \n\`\`\`${
