@@ -38,7 +38,7 @@ export default {
 
         const user = interaction.options.getUser('user', true);
 
-        /* This checks if the user to be banned is the person who sent the message,
+        /* This checks if the user to be banned is the person who sent the command,
         and if true, it prevents them from banning themselves. */
         if (user.id === interaction.user.id) {
             return interaction.reply({ content: "Aww, please don't ban yourself! 💖", ephemeral: true });

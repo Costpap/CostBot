@@ -42,6 +42,8 @@ export default {
         if (!member) {
             return interaction.reply({ content: '❌ You need to specify a valid user to kick!', ephemeral: true });
         }
+        /* This checks if the user to be kicked is the person who sent the command,
+        and if true, it prevents them from kicking themselves. */
         if (member.id === interaction.user.id) {
             return interaction.reply({ content: "Aww, please don't kick yourself! 💖", ephemeral: true });
         }
@@ -51,6 +53,10 @@ export default {
                 ephemeral: true,
             });
         }
+
+        /* Attempts to kick the user. If the kick is successful,
+        the bot will send a message indicating it was successful,
+        otherwise an error message will be sent */
         try {
             await member.kick(
                 interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
