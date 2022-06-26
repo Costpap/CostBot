@@ -34,7 +34,7 @@ export const getBuildNumber = async (): Promise<string> => {
         return run.run_number as string;
     } catch (err) {
         console.error(`Could not get build number: ${err}`);
-        return (await getCommitHash()).substring(0, 7);
+        return getCommitHash().substring(0, 7);
     }
 };
 
