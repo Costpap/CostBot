@@ -7,13 +7,13 @@ export default {
     options: [
         {
             name: 'user',
-            description: 'User to ban',
+            description: 'User to kick',
             type: 'USER',
             required: true,
         },
         {
             name: 'reason',
-            description: 'Reason for banning the user',
+            description: 'Reason for kicking the user',
             type: 'STRING',
         },
     ],
