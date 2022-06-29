@@ -11,9 +11,7 @@ export const client = new Client({
 
 (async () => {
     client.events = new Collection();
-    /**
-     * Date representing when events started being loaded.
-     */
+    /** Date representing when events started being loaded. */
     const eventStarted: number = Date.now();
     /**
      * Array containing the names of the files ending with `.js` inside of the
@@ -37,9 +35,7 @@ export const client = new Client({
     console.log(`Successfully loaded all ${client.events.size} events in ${Date.now() - eventStarted}ms!`);
 
     client.commands = new Collection();
-    /**
-     * Date representing when commands started being loaded.
-     */
+    /** Date representing when commands started being loaded. */
     const commandStarted: number = Date.now();
     /**
      * Array containing the names of the files ending with `.js` inside of the
