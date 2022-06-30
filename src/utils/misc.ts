@@ -62,12 +62,12 @@ export const parseCodeblock = (script: string): string => {
  *
  * @param embed - discord.js messageEmbed
  * @param client - discord.js client
- * @param strings - Strings required for field names
- * @param values - Values required for embeds
  * @param options - Options
  * @param {boolean} options.noInline - Whether or not to inline the embed fields
  * @param {boolean} options.noUptimeInline - Whether or not to inline the uptime field
  * @param {boolean} options.noUptime - Whether or not to add an uptime field
+ * @property {object} strings - Strings required for field names
+ * @property {object} values - Values required for embeds
  * @example
  * import  Discord from 'discord.js';
  * import { clientStats } from './src/utils/misc';
@@ -84,9 +84,9 @@ export async function clientStats(
 ): Promise<MessageEmbed> {
     /**
      * Strings used in embed field names.
-     * @param {string} serverCount - Server Count
-     * @param {string} members - Total Members
-     * @param {string} uptime - Bot Uptime
+     * @property {string} serverCount - Server Count
+     * @property {string} members - Total Members
+     * @property {string} uptime - Bot Uptime
      */
     const strings = {
         serverCount: 'Server Count',
@@ -96,11 +96,11 @@ export async function clientStats(
     };
     /**
      * Values used in embed field values.
-     * @param {number} serverCount - client.guilds.cache.size
-     * @param {number} members - client.users.cache.size
-     * @param {string} uptime - client.uptime in humanized form.
-     * @param {string} membersExcludingBots - client.users.cache excluding bots.
-     * @param {string} membersExcludingBots2 - client.users.cache both with and without bots/
+     * @property {number} serverCount - client.guilds.cache.size
+     * @property {number} members - client.users.cache.size
+     * @property {string} uptime - client.uptime in humanized form.
+     * @property {string} membersExcludingBots - client.users.cache excluding bots.
+     * @property {string} membersExcludingBots2 - client.users.cache both with and without bots/
      */
     const values = {
         serverCount: client.guilds.cache.size,

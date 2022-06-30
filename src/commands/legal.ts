@@ -49,10 +49,10 @@ export default {
         }
         /**
          * @const
-         * @param {string} lastUpdated - Shows the last time the Privacy Policy was updated and as of when it's effective.
-         * @param {string} permNote - A permission warning shown to users in case they're unable to see the embed.
-         * @param {string} privacy - Shows the bot's Privacy Policy.
-         * @param {string} license - Shows information about the bot's license.
+         * @property {string} lastUpdated - Shows the last time the Privacy Policy was updated and as of when it's effective.
+         * @property {string} permNote - A permission warning shown to users in case they're unable to see the embed.
+         * @property {string} privacy - Shows the bot's Privacy Policy.
+         * @property {string} license - Shows information about the bot's license.
          */
         const strings = {
             lastUpdated: 'Last updated and effective: September 4, 2020',
