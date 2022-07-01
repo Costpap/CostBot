@@ -158,7 +158,7 @@ export async function clientStats(
  * Generates an embed that is mostly useful for logging purposes in an error log channel.
  * @param {string} title - The title of the embed
  * @param {string} error - The error message
- * @param message - discord.js Message
+ * @param interaction - discord.js Interaction
  * @example
  * import { generateBasicErrorEmbed } from './src/utils/misc';
  *
