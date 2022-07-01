@@ -61,7 +61,7 @@ export default {
             privacy: `Please send a Direct Message to ${
                 owner.length > 1 ? 'one of the following people:' : ''
             } \`${owner.join(', ')}\` in order to obtain a copy of the Privacy Policy.`,
-            license: `${client.user.username} is licensed under the MIT license. You may obtain a copy of the license by going [here](${repository}/blob/master/LICENSE).`,
+            license: `${client.user.username} is licensed under the MIT license. You may obtain a copy of the license by going [here](${repository}/blob/main/LICENSE).`,
         };
         const embed = new MessageEmbed()
             .setColor('BLUE')
