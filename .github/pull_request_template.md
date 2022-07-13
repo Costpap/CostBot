@@ -10,6 +10,6 @@ _If your pull request closes any open issues, please describe which ones. ([See 
 
 _Please tick the following checklists (by placing an x) as appropriate._
 
--   [ ] I have read and agreed to both the [Code of Conduct](./CODE_OF_CONDUCT.md) and [Contributing Guidelines](.github/CONTRIBUTING.md) (**required**)
+-   [ ] I have read and agreed to both the [Code of Conduct]([./CODE_OF_CONDUCT.md](https://github.com/Costpap/CostBot/blob/main/.github/CODE_OF_CONDUCT.md)) and [Contributing Guidelines]([.github/CONTRIBUTING.md)](https://github.com/Costpap/CostBot/blob/main/.github/CONTRIBUTING.md) (**required**)
 -   [ ] Code changes have been tested **with a bot account on Discord**, or there are none. (**required**)
 -   [ ] Any code changes have been checked against ESLint (`npx eslint .`) and the TypeScript compiler (`npx tsc`) and there are no errors, or there are no code changes. (**required**)
