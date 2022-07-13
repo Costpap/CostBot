@@ -1,5 +1,9 @@
 # CostBot
 
+<p align="center">
+  <img width="460" height="300" src="https://github.com/PiPinecone/CostBot/blob/main/eebfce883d39e9051644676641d83bf6.png">
+</p>
+
 <div align="center">
 <br role="presentation" />
 <p>
