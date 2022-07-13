@@ -35,11 +35,6 @@ export interface Command {
     /** The Discord permissions needed by the bot in order to execute the command. */
     permissions?: PermissionResolvable[];
     /**
-     * How much to wait (in seconds) before allowing a User to execute the same command again.
-     * Defaults to `3` seconds.
-     */
-    cooldown?: number;
-    /**
      * This is where the code to be executed goes.
      * @param message - discord.js Message
      * @param client - discord.js Client
@@ -62,15 +57,6 @@ export interface Command {
     ) => unknown | Promise<unknown>;
 }
 
-export interface CooldownOptions {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    has: any;
-    get: any;
-    set: any;
-    delete: any;
-    /* eslint-enable @typescript-eslint/no-explicit-any */
-}
-
 export interface LogChannel {
     id: string;
     webhookId: string;
@@ -82,6 +68,5 @@ declare module 'discord.js' {
         events: Collection<string, unknown>;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         commands: Collection<string, any>;
-        cooldowns: Collection<string, CooldownOptions>;
     }
 }
