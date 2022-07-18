@@ -11,7 +11,12 @@ export default {
         .setName('prune')
         .setDescription('Deletes up to 100 messages.')
         .addIntegerOption((option) =>
-            option.setName('amount').setDescription('Amount of messages to delete').setRequired(true),
+            option
+                .setName('amount')
+                .setDescription('Amount of messages to delete')
+                .setMinValue(1)
+                .setMaxValue(100)
+                .setRequired(true),
         )
         .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
@@ -36,11 +41,7 @@ export default {
          * The total number of messages to bulkDelete.
          */
         const amount: number = interaction.options.getInteger('amount', true);
-
-        if (amount <= 1 || amount > 100) {
-            return interaction.reply({ content: '❌ You need to input a number between 1 and 100.', ephemeral: true });
-        }
-
+        
         const textChannel = interaction.channel as TextChannel | NewsChannel;
         try {
             const deletedMessages = await textChannel.bulkDelete(amount, true);
