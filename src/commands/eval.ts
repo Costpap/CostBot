@@ -1,4 +1,4 @@
-import Discord, { Client, CommandInteraction, MessageEmbed } from 'discord.js';
+import Discord, { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
 import { inspect } from 'util';
 import { Context, runInNewContext, RunningScriptOptions } from 'vm';
 import { parseCodeblock } from '../utils/misc';
@@ -15,7 +15,10 @@ export default {
         },
     ],
     defaultPermission: false,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         await interaction.deferReply({ ephemeral: true });
         const code: string = parseCodeblock(interaction.options.getString('code', true));
 
@@ -70,7 +73,7 @@ export default {
                 }
                 console.log('Eval output - end');
             }
-            const embed: MessageEmbed = await generateEmbed(code, res, { start, end }, client);
+            const embed: EmbedBuilder = await generateEmbed(code, res, { start, end }, client);
             interaction.editReply({ embeds: [embed] });
         });
     },
@@ -145,43 +148,52 @@ async function generateEmbed(
     outs: any,
     { start, end }: { start: number; end: number },
     client: Client,
-): Promise<MessageEmbed> {
+): Promise<EmbedBuilder> {
     const output = typeof outs?.callbackOutput?.then === 'function' ? await outs?.callbackOutput : outs?.callbackOutput;
     const stdout = outs?.stdout;
     const stderr = outs?.stderr;
 
-    const embed: MessageEmbed = new MessageEmbed()
+    const embed: EmbedBuilder = new EmbedBuilder()
         .setFooter({
             text: `Execution time: ${end - start}ms`,
-            iconURL: client.user.displayAvatarURL({ format: 'png' }),
+            iconURL: client.user.displayAvatarURL({ extension: 'png' }),
         })
         .setTimestamp()
-        .addField('📥 Input', '```js\n' + code.substring(0, 1015) + '```');
+        .addFields([{ name: '📥 Input', value: '```js\n' + code.substring(0, 1015) + '```' }]);
 
     if (output) {
-        embed.addField(
-            '📤 Output',
-            '```js\n' +
-                ((typeof output === 'string' ? output : inspect(output)) || 'undefined')?.substring(0, 1015) +
-                '```',
-        );
+        embed.addFields([
+            {
+                name: '📤 Output',
+                value:
+                    '```js\n' +
+                    ((typeof output === 'string' ? output : inspect(output)) || 'undefined')?.substring(0, 1015) +
+                    '```',
+            },
+        ]);
     }
 
     if (stdout)
-        embed.addField(
-            '🖥 stdout',
-            '```js\n' +
-                ((typeof stdout === 'string' ? stdout : inspect(stdout)) || 'undefined')?.substring(0, 1015) +
-                '```',
-        );
+        embed.addFields([
+            {
+                name: '🖥 stdout',
+                value:
+                    '```js\n' +
+                    ((typeof stdout === 'string' ? stdout : inspect(stdout)) || 'undefined')?.substring(0, 1015) +
+                    '```',
+            },
+        ]);
 
     if (stderr)
-        embed.addField(
-            '⚠ stderr',
-            '```js\n' +
-                ((typeof stderr === 'string' ? stderr : inspect(stderr)) || 'undefined')?.substring(0, 1015) +
-                '```',
-        );
+        embed.addFields([
+            {
+                name: '⚠ stderr',
+                value:
+                    '```js\n' +
+                    ((typeof stderr === 'string' ? stderr : inspect(stderr)) || 'undefined')?.substring(0, 1015) +
+                    '```',
+            },
+        ]);
 
     if ((stdout && !isError(outs?.callbackOutput)) || (stdout && !output) || (!stdout && !output && !stderr))
         embed.setTitle('Evaluation Successful');
@@ -189,9 +201,9 @@ async function generateEmbed(
     else embed.setTitle(isError(output) ? 'Evaluation Error' : 'Evaluation Successful');
 
     if ((stdout && !isError(outs?.callbackOutput)) || (stdout && !output) || (!stdout && !output && !stderr))
-        embed.setColor('GREEN');
-    else if (!stdout && !output && stderr) embed.setColor('YELLOW');
-    else embed.setColor(isError(output) ? 'RED' : 'GREEN');
+        embed.setColor('Green');
+    else if (!stdout && !output && stderr) embed.setColor('Yellow');
+    else embed.setColor(isError(output) ? 'Red' : 'Green');
 
     return embed;
 }

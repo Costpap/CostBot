@@ -1,4 +1,4 @@
-import { CommandInteraction, MessageEmbed, User } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, User } from 'discord.js';
 
 export default {
     name: 'dm',
@@ -23,14 +23,17 @@ export default {
         },
     ],
     defaultPermission: false,
-    run: async (interaction: CommandInteraction) => {
+    run: async (interaction: ChatInputCommandInteraction) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         const dmUser = interaction.options.getUser('user', true);
         if (dmUser.bot) {
             return interaction.reply({ content: '❌ You cannot send messages to bots.', ephemeral: true });
         }
 
         if (interaction.options.getBoolean('embed')) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor(0x6293f5)
                 .setDescription(interaction.options.getString('message'))
                 .setTimestamp();
@@ -40,7 +43,12 @@ export default {
     },
 };
 
-async function send(input: string, embeds: MessageEmbed[], user: User, interaction: CommandInteraction): Promise<void> {
+async function send(
+    input: string,
+    embeds: EmbedBuilder[],
+    user: User,
+    interaction: ChatInputCommandInteraction,
+): Promise<InteractionResponse> {
     try {
         user.send({ content: input, embeds: embeds });
         await interaction.reply({ content: `✅ Successfully sent DM to **${user.tag}**!`, ephemeral: true });

@@ -1,4 +1,10 @@
-import { Client, CommandInteraction, DiscordAPIError, Permissions } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    Client,
+    DiscordAPIError,
+    PermissionFlagsBits,
+    RESTJSONErrorCodes,
+} from 'discord.js';
 
 export default {
     name: 'unban',
@@ -17,11 +23,14 @@ export default {
         },
     ],
     defaultPermission: true,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         if (interaction.inGuild() === false) {
             return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
-        if (!interaction.guild.me.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+        if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Ban Members` permission in order to execute this command.',
                 ephemeral: true,
@@ -29,7 +38,7 @@ export default {
         }
         if (typeof interaction.member.permissions === 'string')
             return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
-        else if (!interaction.member.permissions.has(Permissions.FLAGS.BAN_MEMBERS)) {
+        else if (!interaction.member.permissions.has(PermissionFlagsBits.BanMembers)) {
             return interaction.reply({
                 content: '⛔ You need the `Ban Members` permission in order to use this command!',
                 ephemeral: true,
@@ -54,7 +63,7 @@ export default {
             );
             interaction.reply({ content: `✅ Unbanned \`${user.tag} (${user.id})\`.`, ephemeral: true });
         } catch (error) {
-            if (error instanceof DiscordAPIError && error.httpStatus === 404) {
+            if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownBan) {
                 return interaction.reply({
                     content: '❌ This user is not currently banned.',
                     ephemeral: true,

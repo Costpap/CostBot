@@ -1,12 +1,12 @@
 import { config } from 'dotenv';
-config({ path: './.env' });
+config({ path: './.env.test' });
 
-import { Client, Collection, Intents } from 'discord.js';
+import { ActivityType, Client, Collection, GatewayIntentBits } from 'discord.js';
 import { readdirSync } from 'fs';
 
 export const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_PRESENCES],
-    presence: { status: 'online', activities: [{ name: 'Costpap shout', type: 'LISTENING' }] },
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildPresences],
+    presence: { status: 'online', activities: [{ name: 'Costpap shout', type: ActivityType.Listening }] },
 });
 
 (async () => {

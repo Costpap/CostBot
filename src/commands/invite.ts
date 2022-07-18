@@ -1,20 +1,21 @@
-import { Client, CommandInteraction, Permissions } from 'discord.js';
+import { ChatInputCommandInteraction, Client, OAuth2Scopes, PermissionFlagsBits } from 'discord.js';
 
 export default {
     name: 'invite',
     description: 'Sends you a link to invite the bot.',
     defaultPermission: true,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const link: string = client.generateInvite({
-            scopes: ['bot', 'applications.commands'],
+            scopes: [OAuth2Scopes.Bot, OAuth2Scopes.ApplicationsCommands],
             permissions: [
-                Permissions.FLAGS.KICK_MEMBERS,
-                Permissions.FLAGS.BAN_MEMBERS,
-                Permissions.FLAGS.VIEW_CHANNEL,
-                Permissions.FLAGS.SEND_MESSAGES,
-                Permissions.FLAGS.MANAGE_MESSAGES,
-                Permissions.FLAGS.EMBED_LINKS,
-                Permissions.FLAGS.READ_MESSAGE_HISTORY,
+                PermissionFlagsBits.KickMembers,
+                PermissionFlagsBits.BanMembers,
+                PermissionFlagsBits.ViewChannel,
+                PermissionFlagsBits.SendMessages,
+                PermissionFlagsBits.ManageMessages,
+                PermissionFlagsBits.EmbedLinks,
+                PermissionFlagsBits.ReadMessageHistory,
+                PermissionFlagsBits.ModerateMembers,
             ],
         });
         interaction.reply({ content: `You can invite me to your server [here](${link}).`, ephemeral: true });

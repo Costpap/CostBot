@@ -1,4 +1,4 @@
-import { Client, Message, MessageEmbed, NewsChannel, TextChannel } from 'discord.js';
+import { Client, EmbedBuilder, Message, NewsChannel, TextChannel } from 'discord.js';
 import { corelog, errorlog } from '../botconfig';
 import type { LogChannel } from '../typings';
 
@@ -13,7 +13,7 @@ const send = async (
     client: Client,
     config: LogChannel,
     input: string,
-    embeds: MessageEmbed[],
+    embeds: EmbedBuilder[],
     options?: LogOptions,
 ): Promise<Message> => {
     if (!config || !config.id) return;
@@ -33,14 +33,14 @@ const send = async (
         if (options?.noContent) {
             webhook.send({
                 embeds: embeds,
-                avatarURL: client.user.displayAvatarURL({ format: 'png' }),
+                avatarURL: client.user.displayAvatarURL({ extension: 'png' }),
                 username: webhook.name ?? client.user.username,
             });
         } else {
             webhook.send({
                 content: input,
                 embeds: embeds,
-                avatarURL: client.user.displayAvatarURL({ format: 'png' }),
+                avatarURL: client.user.displayAvatarURL({ extension: 'png' }),
                 username: webhook.name ?? client.user.username,
             });
         }
@@ -57,7 +57,7 @@ const send = async (
  */
 export const coreLog = async (
     input: string,
-    embeds: MessageEmbed[],
+    embeds: EmbedBuilder[],
     client: Client,
     options?: LogOptions,
 ): Promise<Message> => {
@@ -72,7 +72,7 @@ export const coreLog = async (
  */
 export const errorLog = async (
     input: string,
-    embeds: MessageEmbed[],
+    embeds: EmbedBuilder[],
     client: Client,
     options?: LogOptions,
 ): Promise<Message> => {

@@ -1,4 +1,4 @@
-import { Client, CommandInteraction } from 'discord.js';
+import { ChatInputCommandInteraction, Client } from 'discord.js';
 
 export default {
     name: 'hug',
@@ -12,7 +12,7 @@ export default {
         },
     ],
     defaultPermission: true,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const user = interaction.options.getUser('user', true);
 
         if (user.id === interaction.user.id) {

@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, Message } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message } from 'discord.js';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
 
@@ -6,7 +6,7 @@ export default {
     name: 'deploy',
     description: 'Compiles TypeScript code and then restarts the bot.',
     defaultPermission: false,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const logMessage: Message = await coreLog(
             `🔃 Deployment initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,
             [],

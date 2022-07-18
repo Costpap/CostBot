@@ -2,7 +2,7 @@ import child_process from 'child_process';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
-import { Client, Interaction, MessageEmbed, version as libraryVersion } from 'discord.js';
+import { Client, EmbedBuilder, Interaction, version as libraryVersion } from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import { version as tsVersion } from 'typescript';
 import { promisify } from 'util';
@@ -60,7 +60,7 @@ export const parseCodeblock = (script: string): string => {
 
 /**
  *
- * @param embed - discord.js messageEmbed
+ * @param embed - discord.js EmbedBuilder
  * @param client - discord.js client
  * @param options - Options
  * @param {boolean} options.noInline - Whether or not to inline the embed fields
@@ -72,16 +72,16 @@ export const parseCodeblock = (script: string): string => {
  * import  Discord from 'discord.js';
  * import { clientStats } from './src/utils/misc';
  *
- * const embed = new Discord.MessageEmbed();
+ * const embed = new Discord.EmbedBuilder();
  * clientStats(embed, client);
  *
  * message.channel.send(embed);
  */
 export async function clientStats(
-    embed: MessageEmbed,
+    embed: EmbedBuilder,
     client: Client,
     options?: ClientStatOptions,
-): Promise<MessageEmbed> {
+): Promise<EmbedBuilder> {
     /**
      * Strings used in embed field names.
      * @property {string} serverCount - Server Count
@@ -169,9 +169,9 @@ export async function generateBasicErrorEmbed(
     title: string,
     error: string,
     interaction: Interaction,
-): Promise<MessageEmbed> {
-    const embed = new MessageEmbed()
-        .setColor('RED')
+): Promise<EmbedBuilder> {
+    const embed = new EmbedBuilder()
+        .setColor('Red')
         .setTitle(title)
         .setDescription(`\`\`\`js\n${clean(error)}\`\`\``)
         .addFields(
