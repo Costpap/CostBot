@@ -7,17 +7,15 @@ export default {
         .addUserOption((option) => option.setName('user').setDescription('User to ban').setRequired(true))
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for banning the user').setRequired(false),
-        ),
+        )
+        .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
             return interaction.reply({
-                content: '❌ Sorry, I need the `Ban Members` permission n order to execute this command.',
+                content: '❌ Sorry, I need the `Ban Members` permission in order to execute this command.',
                 ephemeral: true,
             });
         }

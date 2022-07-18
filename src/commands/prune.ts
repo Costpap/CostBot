@@ -12,14 +12,12 @@ export default {
         .setDescription('Deletes up to 100 messages.')
         .addIntegerOption((option) =>
             option.setName('amount').setDescription('Amount of messages to delete').setRequired(true),
-        ),
+        )
+        .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ManageMessages)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Manage Messages` permission in order to execute this command.',

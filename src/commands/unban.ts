@@ -14,14 +14,12 @@ export default {
         .addUserOption((option) => option.setName('user').setDescription('User to unban').setRequired(true))
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for unbanning the user').setRequired(false),
-        ),
+        )
+        .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Ban Members` permission in order to execute this command.',

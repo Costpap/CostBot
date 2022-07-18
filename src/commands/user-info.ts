@@ -13,14 +13,12 @@ export default {
                 .setName('show_permissions')
                 .setDescription("Whether to show the user's permissions")
                 .setRequired(false),
-        ),
+        )
+        .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         const user = interaction.options?.getUser('user') ?? interaction.user;
 
         const member = interaction.guild.members.cache.get(user.id);
