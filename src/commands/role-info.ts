@@ -17,7 +17,7 @@ export default {
                 .setDescription("Whether to show the role's permissions")
                 .setRequired(false),
         )
-        .setDMpermissions(false),
+        .setDMPermission(false),
 
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.

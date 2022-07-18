@@ -15,7 +15,7 @@ export default {
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for unbanning the user').setRequired(false),
         )
-        .setDMpermissions(false),
+        .setDMPermission(false),
         
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.

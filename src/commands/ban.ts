@@ -8,7 +8,7 @@ export default {
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for banning the user').setRequired(false),
         )
-        .setDMpermissions(false),
+        .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

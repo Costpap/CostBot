@@ -8,7 +8,7 @@ export default {
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for kicking the user').setRequired(false),
         )
-        .setDMpermissions(false),
+        .setDMPermission(false),
         
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
