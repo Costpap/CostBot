@@ -15,7 +15,6 @@ export default {
                 .setRequired(false),
         )
         .setDMPermission(false),
-        
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
