@@ -4,25 +4,17 @@ import {
     DiscordAPIError,
     PermissionFlagsBits,
     RESTJSONErrorCodes,
+    SlashCommandBuilder,
 } from 'discord.js';
 
 export default {
-    name: 'unban',
-    description: 'Unbans a previously banned user from your server.',
-    options: [
-        {
-            name: 'user',
-            description: 'User to unban',
-            type: 'USER',
-            required: true,
-        },
-        {
-            name: 'reason',
-            description: 'Reason for unbanning the user',
-            type: 'STRING',
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('unban')
+        .setDescription('Unbans a previously banned user from your server.')
+        .addUserOption((option) => option.setName('user').setDescription('User to unban').setRequired(true))
+        .addStringOption((option) =>
+            option.setName('reason').setDescription('Reason for unbanning the user').setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

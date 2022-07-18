@@ -1,17 +1,13 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { parseDate } from '../utils/misc';
 
 export default {
-    name: 'server',
-    description: 'Displays info about your server.',
-    options: [
-        {
-            name: 'show_roles',
-            description: "Whether to show the server's roles",
-            type: 'BOOLEAN',
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('server')
+        .setDescription('Displays info about your server')
+        .addBooleanOption((option) =>
+            option.setName('show_roles').setDescription("Whether to show the server's roles").setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

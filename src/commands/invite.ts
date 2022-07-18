@@ -1,9 +1,13 @@
-import { ChatInputCommandInteraction, Client, OAuth2Scopes, PermissionFlagsBits } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    Client,
+    OAuth2Scopes,
+    PermissionFlagsBits,
+    SlashCommandBuilder,
+} from 'discord.js';
 
 export default {
-    name: 'invite',
-    description: 'Sends you a link to invite the bot.',
-    defaultPermission: true,
+    data: new SlashCommandBuilder().setName('invite').setDescription('Sends you a link to invite the bot.'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const link: string = client.generateInvite({
             scopes: [OAuth2Scopes.Bot, OAuth2Scopes.ApplicationsCommands],

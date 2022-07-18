@@ -1,10 +1,8 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { version } from '../utils/version';
 
 export default {
-    name: 'ping',
-    description: 'Pings the bot!',
-    defaultPermission: true,
+    data: new SlashCommandBuilder().setName('ping').setDescription('Pings the bot!'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const createdTimestamp: number = Date.now();
         await interaction.deferReply();

@@ -1,28 +1,22 @@
-import { ChatInputCommandInteraction, EmbedBuilder, Role } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, Role, SlashCommandBuilder } from 'discord.js';
 import { parseDate } from '../utils/misc';
 
 export default {
-    name: 'role-info',
-    description: 'Displays information about a role.',
-    options: [
-        {
-            name: 'role',
-            description: 'Role to get information on',
-            type: 'ROLE',
-            required: true,
-        },
-        {
-            name: 'show_members',
-            description: "Whether to show the role's members",
-            type: 'BOOLEAN',
-        },
-        {
-            name: 'show_permissions',
-            description: "Whether to show the role's permissions",
-            type: 'BOOLEAN',
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('role-info')
+        .setDescription('Displays information about a role.')
+        .addRoleOption((option) =>
+            option.setName('role').setDescription('Role to get information on').setRequired(true),
+        )
+        .addBooleanOption((option) =>
+            option.setName('show_members').setDescription("Whether to show the role's members").setRequired(false),
+        )
+        .addBooleanOption((option) =>
+            option
+                .setName('show_permissions')
+                .setDescription("Whether to show the role's permissions")
+                .setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

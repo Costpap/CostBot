@@ -1,12 +1,17 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder, User, version as libraryVersion } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    Client,
+    EmbedBuilder,
+    SlashCommandBuilder,
+    User,
+    version as libraryVersion,
+} from 'discord.js';
 import { botOwner, repository } from '../botconfig';
 import { clientStats } from '../utils/misc';
 import { version } from '../utils/version';
 
 export default {
-    name: 'info',
-    description: 'Displays information about the bot.',
-    defaultPermission: true,
+    data: new SlashCommandBuilder().setName('info').setDescription('Displays information about the bot.'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         /* This automatically gets the user IDs from the botconfig,
         fetches the users and pushes their username, discriminator and ID to an array,

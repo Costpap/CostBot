@@ -3,31 +3,21 @@ import {
     ChatInputCommandInteraction,
     EmbedBuilder,
     InteractionResponse,
+    SlashCommandBuilder,
     TextBasedChannel,
 } from 'discord.js';
 
 export default {
-    name: 'say',
-    description: 'Sends a message through the bot',
-    options: [
-        {
-            name: 'message',
-            description: 'What to send',
-            type: 'STRING',
-            required: true,
-        },
-        {
-            name: 'channel',
-            description: 'The channel to send a message in',
-            type: 'CHANNEL',
-        },
-        {
-            name: 'embed',
-            description: 'Whether or not to send the message in an embed',
-            type: 'BOOLEAN',
-        },
-    ],
-    defaultPermission: false,
+    data: new SlashCommandBuilder()
+        .setName('say')
+        .setDescription('Sends a message through the bot')
+        .addStringOption((option) => option.setName('message').setDescription('What to send').setRequired(true))
+        .addChannelOption((option) =>
+            option.setName('channel').setDescription('Channel to send message to').setRequired(false),
+        )
+        .addBooleanOption((option) =>
+            option.setName('embed').setDescription('Whether or not to send the message in an embed').setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

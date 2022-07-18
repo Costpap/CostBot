@@ -1,10 +1,8 @@
-import { ChatInputCommandInteraction, Client } from 'discord.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 import { coreLog } from '../utils/logs';
 
 export default {
-    name: 'shut-down',
-    description: 'Shuts down the bot.',
-    defaultPermission: false,
+    data: new SlashCommandBuilder().setName('shut-down').setDescription('Shuts down the bot.'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         coreLog(`🔄 Shutdown initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`, [], client, {
             noWebhook: true,

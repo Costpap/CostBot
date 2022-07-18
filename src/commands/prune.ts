@@ -1,17 +1,18 @@
-import { ChatInputCommandInteraction, NewsChannel, PermissionFlagsBits, TextChannel } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    NewsChannel,
+    PermissionFlagsBits,
+    SlashCommandBuilder,
+    TextChannel,
+} from 'discord.js';
 
 export default {
-    name: 'prune',
-    description: 'Deletes up to 100 messages.',
-    options: [
-        {
-            name: 'amount',
-            description: 'Amount of messages to delete',
-            type: 'INTEGER',
-            required: true,
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('prune')
+        .setDescription('Deletes up to 100 messages.')
+        .addIntegerOption((option) =>
+            option.setName('amount').setDescription('Amount of messages to delete').setRequired(true),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

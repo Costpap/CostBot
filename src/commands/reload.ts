@@ -1,20 +1,15 @@
-import { ChatInputCommandInteraction, Client, Message } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../typings/index';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
 
 export default {
-    name: 'reload',
-    description: 'Reloads a command.',
-    options: [
-        {
-            name: 'name',
-            description: 'The name of the command to reload',
-            type: 'STRING',
-            required: true,
-        },
-    ],
-    defaultPermission: false,
+    data: new SlashCommandBuilder()
+        .setName('reload')
+        .setDescription('Reloads a command.')
+        .addStringOption((option) =>
+            option.setName('name').setDescription('The name of the command to reload').setRequired(true),
+        ),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
@@ -31,7 +26,7 @@ export default {
 
         interaction.deferReply({ ephemeral: true });
         const logMessage: Message = await coreLog(
-            `🔁 Reload of command **${command.name}** initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,
+            `🔁 Reload of command **${command.data.name}** initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,
             [],
             client,
             { noWebhook: true },
@@ -44,36 +39,36 @@ export default {
             console.error('Error compiling TypeScript code: \n', stderr);
 
             const embed = await generateBasicErrorEmbed(
-                `TypeScript Compilation Error while reloading command \`${command.name}\``,
+                `TypeScript Compilation Error while reloading command \`${command.data.name}\``,
                 stderr,
                 interaction,
             );
             errorLog('', [embed], client, { noContent: true });
 
             logMessage.edit(
-                `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
+                `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.data.name}\`.`,
             );
             return interaction.editReply(
                 `❌ There was an error while compiling TypeScript code: \`\`\`js\n${clean(stderr)}\`\`\``,
             );
         }
 
-        delete require.cache[require.resolve(`./${command.name}.js`)];
+        delete require.cache[require.resolve(`./${command.data.name}.js`)];
 
         try {
-            await import(`./${command.name}.js`).then(({ default: newCommand }) =>
-                client.commands.set(newCommand.name, newCommand),
+            await import(`./${command.data.name}.js`).then(({ default: newCommand }) =>
+                client.commands.set(newCommand.data.name, newCommand),
             );
             const end: number = Date.now();
             const reloadTime: number = (end - start) / 1000;
             const sec: string = reloadTime === 1 ? 'second' : 'seconds';
             await logMessage.edit(
-                `${logMessage.content}\n\n✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(
+                `${logMessage.content}\n\n✅ Command **${command.data.name}** was reloaded in ${reloadTime.toFixed(
                     1,
                 )} ${sec}!`,
             );
             await interaction.editReply(
-                `✅ Command **${command.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`,
+                `✅ Command **${command.data.name}** was reloaded in ${reloadTime.toFixed(1)} ${sec}!`,
             );
         } catch (error) {
             console.error(error);
@@ -82,10 +77,10 @@ export default {
             errorLog('', [embed], client, { noContent: true });
 
             logMessage.edit(
-                `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.name}\`.`,
+                `${logMessage.content}\n\n❌ There was an error while reloading command \`${command.data.name}\`.`,
             );
             return interaction.editReply(
-                `❌ There was an error while reloading command \`${command.name}\`:\n\`\`\`js\n${
+                `❌ There was an error while reloading command \`${command.data.name}\`:\n\`\`\`js\n${
                     error?.message || error
                 }\`\`\``,
             );
