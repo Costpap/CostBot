@@ -1,10 +1,4 @@
-import {
-    ChatInputCommandInteraction,
-    NewsChannel,
-    PermissionFlagsBits,
-    SlashCommandBuilder,
-    TextChannel,
-} from 'discord.js';
+import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -41,7 +35,8 @@ export default {
          * The total number of messages to bulkDelete.
          */
         const amount: number = interaction.options.getInteger('amount', true);
-        const textChannel = interaction.channel as TextChannel | NewsChannel;
+        /** The channel to delete messages from. This is the channel the command was executed in. */
+        const textChannel = interaction.channel;
         try {
             const deletedMessages = await textChannel.bulkDelete(amount, true);
             interaction.reply({ content: `✅ Pruned **${deletedMessages.size}** messages.`, ephemeral: true });
