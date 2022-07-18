@@ -9,7 +9,6 @@ export default {
             option.setName('show_roles').setDescription("Whether to show the server's roles").setRequired(false),
         )
         .setDMPermission(false),
-        
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
