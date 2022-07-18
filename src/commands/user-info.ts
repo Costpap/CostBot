@@ -1,22 +1,19 @@
-import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { parseDate } from '../utils/misc';
 
 export default {
-    name: 'user-info',
-    description: 'Displays info about the mentioned user or yourself.',
-    options: [
-        {
-            name: 'user',
-            description: 'User to get information on',
-            type: 'USER',
-        },
-        {
-            name: 'show_permissions',
-            description: "Whether to show the user's permissions",
-            type: 'BOOLEAN',
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('user-info')
+        .setDescription('Displays info about the mentioned user or yourself.')
+        .addUserOption((option) =>
+            option.setName('user').setDescription('User to get information on').setRequired(false),
+        )
+        .addBooleanOption((option) =>
+            option
+                .setName('show_permissions')
+                .setDescription("Whether to show the user's permissions")
+                .setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

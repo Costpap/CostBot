@@ -44,7 +44,9 @@ export const client = new Client({
     const commandFiles: string[] = readdirSync('./build/commands').filter((file) => file.endsWith('.js'));
 
     for (const file of commandFiles) {
-        await import(`./commands/${file}`).then(({ default: command }) => client.commands.set(command.name, command));
+        await import(`./commands/${file}`).then(({ default: command }) =>
+            client.commands.set(command.data.name, command),
+        );
     }
     console.log(`Successfully loaded all ${client.commands.size} commands in ${Date.now() - commandStarted}ms!`);
 })();

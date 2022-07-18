@@ -1,28 +1,14 @@
-import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, User } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder, User } from 'discord.js';
 
 export default {
-    name: 'dm',
-    description: 'Sends a direct message through the bot',
-    options: [
-        {
-            name: 'user',
-            description: 'User you want to DM',
-            type: 'USER',
-            required: true,
-        },
-        {
-            name: 'message',
-            description: 'What to send',
-            type: 'STRING',
-            required: true,
-        },
-        {
-            name: 'embed',
-            description: 'Whether or not to send the message in an embed',
-            type: 'BOOLEAN',
-        },
-    ],
-    defaultPermission: false,
+    data: new SlashCommandBuilder()
+        .setName('dm')
+        .setDescription('Sends a direct message through the bot')
+        .addUserOption((option) => option.setName('user').setDescription('User you want to DM').setRequired(true))
+        .addStringOption((option) => option.setName('message').setDescription('What to send').setRequired(true))
+        .addBooleanOption((option) =>
+            option.setName('embed').setDescription('Whether or not to send the message in an embed').setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

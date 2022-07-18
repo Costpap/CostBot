@@ -1,17 +1,10 @@
-import { ChatInputCommandInteraction, Client } from 'discord.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 
 export default {
-    name: 'fight',
-    description: 'Have a little online fight with someone.',
-    options: [
-        {
-            name: 'user',
-            description: 'User you want to fight',
-            type: 'USER',
-            required: true,
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('fight')
+        .setDescription('Have a little online fight with someone')
+        .addUserOption((option) => option.setName('user').setDescription('User you want to fight').setRequired(true)),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const user = interaction.options.getUser('user', true);
 

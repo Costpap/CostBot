@@ -1,11 +1,11 @@
-import { ChatInputCommandInteraction, Client, Message } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder } from 'discord.js';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
 
 export default {
-    name: 'deploy',
-    description: 'Compiles TypeScript code and then restarts the bot.',
-    defaultPermission: false,
+    data: new SlashCommandBuilder()
+        .setName('deploy')
+        .setDescription('Compiles TypeScript code and then restarts the bot.'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const logMessage: Message = await coreLog(
             `🔃 Deployment initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,

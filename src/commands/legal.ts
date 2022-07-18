@@ -1,32 +1,21 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder, User } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder, User } from 'discord.js';
 import { botOwner, repository } from '../botconfig';
 
 export default {
-    name: 'legal',
-    description: 'Shows legal info related to privacy and licensing.',
-    defaultPermission: true,
-    options: [
-        {
-            name: 'type',
-            description: "The type of information you'd like to see",
-            type: 'STRING',
-            required: true,
-            choices: [
-                {
-                    name: 'Privacy',
-                    value: 'privacy',
-                },
-                {
-                    name: 'License',
-                    value: 'license',
-                },
-                {
-                    name: 'Show me both of them!',
-                    value: 'both',
-                },
-            ],
-        },
-    ],
+    data: new SlashCommandBuilder()
+        .setName('legal')
+        .setDescription('Shows legal info related to privacy and licensing.')
+        .addStringOption((option) =>
+            option
+                .setName('type')
+                .setDescription("The type of information you'd like to see")
+                .addChoices(
+                    { name: 'Privacy', value: 'privacy' },
+                    { name: 'License', value: 'license' },
+                    { name: 'Show me both of them!', value: 'both' },
+                )
+                .setRequired(true),
+        ),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

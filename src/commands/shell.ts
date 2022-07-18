@@ -1,19 +1,12 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { inspect } from 'util';
 import { clean, exec, parseCodeblock } from '../utils/misc';
 
 export default {
-    name: 'shell',
-    description: 'Executes Shell code.',
-    options: [
-        {
-            name: 'code',
-            description: 'The code to execute',
-            type: 'STRING',
-            required: true,
-        },
-    ],
-    defaultPermission: false,
+    data: new SlashCommandBuilder()
+        .setName('shell')
+        .setDescription('Executes Shell code.')
+        .addStringOption((option) => option.setName('code').setDescription('The code to execute').setRequired(true)),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

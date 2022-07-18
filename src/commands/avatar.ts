@@ -1,16 +1,12 @@
-import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 
 export default {
-    name: 'avatar',
-    description: 'Gets the avatar of the mentioned user or yourself.',
-    options: [
-        {
-            name: 'user',
-            description: 'User whose avatar you want to get',
-            type: 'USER',
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('avatar')
+        .setDescription('Gets the avatar of the mentioned user or yourself.')
+        .addUserOption((option) =>
+            option.setName('user').setDescription('User whose avatar you want to get').setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         const user = interaction.options?.getUser('user') ?? interaction.user;
 

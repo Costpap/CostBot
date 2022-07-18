@@ -1,11 +1,9 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import { clientStats } from '../utils/misc';
 import { version } from '../utils/version';
 
 export default {
-    name: 'stats',
-    description: 'Displays statistics about this bot.',
-    defaultPermission: true,
+    data: new SlashCommandBuilder().setName('stats').setDescription('Displays statistics about this bot.'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const embed = new EmbedBuilder()
             .setColor(0x6293f5)

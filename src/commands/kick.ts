@@ -1,22 +1,13 @@
-import { ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
+import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export default {
-    name: 'kick',
-    description: 'Kicks the mentioned user from your server.',
-    defaultPermission: true,
-    options: [
-        {
-            name: 'user',
-            description: 'User to kick',
-            type: 'USER',
-            required: true,
-        },
-        {
-            name: 'reason',
-            description: 'Reason for kicking the user',
-            type: 'STRING',
-        },
-    ],
+    data: new SlashCommandBuilder()
+        .setName('kick')
+        .setDescription('Kicks the mentioned user from your server.')
+        .addUserOption((option) => option.setName('user').setDescription('User to kick').setRequired(true))
+        .addStringOption((option) =>
+            option.setName('reason').setDescription('Reason for kicking the user').setRequired(false),
+        ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

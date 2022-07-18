@@ -1,17 +1,10 @@
-import { ChatInputCommandInteraction, Client } from 'discord.js';
+import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
 
 export default {
-    name: 'hug',
-    description: 'Give a sweet little hug to someone!',
-    options: [
-        {
-            name: 'user',
-            description: 'User you want to hug',
-            type: 'USER',
-            required: true,
-        },
-    ],
-    defaultPermission: true,
+    data: new SlashCommandBuilder()
+        .setName('hug')
+        .setDescription('Give a sweet little hug to someone!')
+        .addUserOption((option) => option.setName('user').setDescription('User you want to hug').setRequired(true)),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const user = interaction.options.getUser('user', true);
 
