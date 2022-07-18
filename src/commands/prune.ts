@@ -41,7 +41,6 @@ export default {
          * The total number of messages to bulkDelete.
          */
         const amount: number = interaction.options.getInteger('amount', true);
-        
         const textChannel = interaction.channel as TextChannel | NewsChannel;
         try {
             const deletedMessages = await textChannel.bulkDelete(amount, true);
