@@ -9,7 +9,6 @@ export default {
             option.setName('reason').setDescription('Reason for kicking the user').setRequired(false),
         )
         .setDMPermission(false),
-        
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
