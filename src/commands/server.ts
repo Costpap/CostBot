@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
 import { parseDate } from '../utils/misc';
 
 export default {
@@ -12,12 +12,15 @@ export default {
         },
     ],
     defaultPermission: true,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         if (interaction.inGuild() === false) {
             return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
-        const embed = new MessageEmbed()
-            .setColor('RANDOM')
+        const embed = new EmbedBuilder()
+            .setColor('Random')
             .setTitle(`${interaction.guild.name}`)
             .addFields(
                 {
@@ -38,22 +41,24 @@ export default {
             .setTimestamp()
             .setFooter({
                 text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+                iconURL: interaction.user.displayAvatarURL({ extension: 'png', forceStatic: false }),
             });
 
         if (interaction.options?.getBoolean('show_roles')) {
-            embed.addField(
-                `Server Roles (${interaction.guild.roles.cache.size})`,
-                `${interaction.guild.roles.cache
-                    .map((role) => role)
-                    .join(', ')
-                    .substring(0, 1017)}`,
-            );
+            embed.addFields([
+                {
+                    name: `Server Roles (${interaction.guild.roles.cache.size})`,
+                    value: `${interaction.guild.roles.cache
+                        .map((role) => role)
+                        .join(', ')
+                        .substring(0, 1017)}`,
+                },
+            ]);
         }
         /* This checks whether or not the guild has a server icon or not
         and if true sets it as the embed thumbnail. */
         if (interaction.guild.iconURL) {
-            embed.setThumbnail(interaction.guild.iconURL({ format: 'png', dynamic: true }));
+            embed.setThumbnail(interaction.guild.iconURL({ extension: 'png', forceStatic: false }));
         }
 
         interaction.reply({ embeds: [embed] });

@@ -1,4 +1,4 @@
-import { Client, Collection, CommandInteraction, PermissionResolvable } from 'discord.js';
+import { Client, Collection, PermissionResolvable } from 'discord.js';
 
 export interface Command {
     /** The name of the command, should be identical to the file name. */
@@ -40,18 +40,18 @@ export interface Command {
      * @param client - discord.js Client
      * @param {string[]} args - The `message.content` split into an array.
      * @param Discord - An import of discord.js. Can be used to access properties and constructors such as
-     * `MessageEmbed`, `Collection`, `Util`.
+     * `EmbedBuilder`, `Collection`, `Util`.
      */
     do: (
         /** discord.js Command Interaction */
-        interaction: CommandInteraction,
+        interaction: ChatInputCommandInteraction,
         /** discord.js Client */
         client?: Client,
         /** `message.content` split into an array. */
         args?: string[],
         /**
          * An import of discord.js. Can be used to access properties and constructors such as
-         * `MessageEmbed`, `Collection`, `Util`.
+         * `EmbedBuilder`, `Collection`, `Util`.
          */
         Discord?: typeof import('discord.js'),
     ) => unknown | Promise<unknown>;

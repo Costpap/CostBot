@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, Message } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message } from 'discord.js';
 import type { Command } from '../typings/index';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
@@ -15,7 +15,10 @@ export default {
         },
     ],
     defaultPermission: false,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         const commandName: string = interaction.options.getString('name');
         const command: Command = await client.commands.get(commandName);
 

@@ -1,4 +1,4 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder } from 'discord.js';
 
 export default {
     name: 'avatar',
@@ -11,20 +11,20 @@ export default {
         },
     ],
     defaultPermission: true,
-    run: async (interaction: CommandInteraction) => {
+    run: async (interaction: ChatInputCommandInteraction) => {
         const user = interaction.options?.getUser('user') ?? interaction.user;
 
-        const embed = new MessageEmbed()
-            .setColor('RANDOM')
-            .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ format: 'png', dynamic: true }) })
+        const embed = new EmbedBuilder()
+            .setColor('Random')
+            .setAuthor({ name: user.tag, iconURL: user.displayAvatarURL({ extension: 'png', forceStatic: false }) })
             .setDescription(
-                `[Click here for URL](${user.displayAvatarURL({ format: 'png', dynamic: true, size: 4096 })})`,
+                `[Click here for URL](${user.displayAvatarURL({ extension: 'png', forceStatic: false, size: 4096 })})`,
             )
-            .setImage(user.displayAvatarURL({ format: 'png', dynamic: true, size: 1024 }))
+            .setImage(user.displayAvatarURL({ extension: 'png', forceStatic: false, size: 1024 }))
             .setTimestamp()
             .setFooter({
                 text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+                iconURL: interaction.user.displayAvatarURL({ extension: 'png', forceStatic: false }),
             });
 
         await interaction.reply({ embeds: [embed] });

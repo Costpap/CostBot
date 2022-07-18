@@ -1,4 +1,4 @@
-import { CommandInteraction, MessageEmbed, Role } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, Role } from 'discord.js';
 import { parseDate } from '../utils/misc';
 
 export default {
@@ -23,14 +23,17 @@ export default {
         },
     ],
     defaultPermission: true,
-    run: async (interaction: CommandInteraction) => {
+    run: async (interaction: ChatInputCommandInteraction) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         if (interaction.inGuild() === false) {
             return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
         const apiRole = interaction.options.getRole('role', true);
         const role: Role = interaction.guild.roles.cache.get(apiRole.id);
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor(role.hexColor)
             .setTitle(`**Role name:** ${role.name}`)
             .setDescription(`**Role mention:** ${role.toString()}\n**Role ID:** \`${role.id}\``)
@@ -52,21 +55,27 @@ export default {
             .setTimestamp()
             .setFooter({
                 text: `Requested by ${interaction.user.tag}`,
-                iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+                iconURL: interaction.user.displayAvatarURL({ extension: 'png', forceStatic: false }),
             });
 
         if (interaction.options?.getBoolean('show_members')) {
-            embed.addField(
-                'Role members',
-                `${role.members.map((member) => member).join(', ') || 'There are no members with this role.'}`,
-            );
+            embed.addFields([
+                {
+                    name: 'Role members',
+                    value: `${
+                        role.members.map((member) => member).join(', ') || 'There are no members with this role.'
+                    }`,
+                },
+            ]);
         }
 
         if (interaction.options?.getBoolean('show_permissions')) {
-            embed.addField(
-                'Role permissions',
-                `${role.permissions.toArray().join(', ') || "This role doesn't have any permissions."}`,
-            );
+            embed.addFields([
+                {
+                    name: 'Role permissions',
+                    value: `${role.permissions.toArray().join(', ') || "This role doesn't have any permissions."}`,
+                },
+            ]);
         }
 
         interaction.reply({ embeds: [embed] });

@@ -5,7 +5,7 @@ import { generateBasicErrorEmbed } from '../utils/misc';
 export default {
     name: 'interactionCreate',
     run: async (client: Client, interaction: Interaction) => {
-        if (!interaction.isCommand()) return;
+        if (!interaction.isChatInputCommand()) return;
         if (!client.commands.has(interaction.commandName)) return;
 
         try {

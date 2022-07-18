@@ -1,4 +1,4 @@
-import { Client, MessageEmbed, version } from 'discord.js';
+import { Client, EmbedBuilder, version } from 'discord.js';
 import { errorLog } from '../utils/logs';
 
 export default {
@@ -6,8 +6,8 @@ export default {
     run: async (client: Client, error: string) => {
         console.error(error);
 
-        const embed = new MessageEmbed()
-            .setColor('RED')
+        const embed = new EmbedBuilder()
+            .setColor('Red')
             .setTitle(`${client.user.username} Client-Emitted Error`)
             .setDescription(`\`\`\`${error}\`\`\``)
             .setTimestamp()

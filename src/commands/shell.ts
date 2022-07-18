@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, MessageEmbed } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder } from 'discord.js';
 import { inspect } from 'util';
 import { clean, exec, parseCodeblock } from '../utils/misc';
 
@@ -14,7 +14,10 @@ export default {
         },
     ],
     defaultPermission: false,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         await interaction.deferReply({ ephemeral: true });
         let code: string = parseCodeblock(interaction.options.getString('code'));
 
@@ -38,23 +41,23 @@ export default {
                     '"The output cannot be displayed as it is longer than 1024 characters. Please check the console."';
             }
 
-            const embed = new MessageEmbed()
-                .setColor('GREEN')
+            const embed = new EmbedBuilder()
+                .setColor('Green')
                 .setTitle('Execution Successful')
-                .addField('📥 Input', `\`\`\`bash\n${code}\`\`\``)
+                .addFields([{ name: '📥 Input', value: `\`\`\`bash\n${code}\`\`\`` }])
                 .setTimestamp()
                 .setFooter({
                     text: `Execution time: ${Math.round(Date.now() - before)}ms`,
-                    iconURL: client.user.displayAvatarURL({ format: 'png' }),
+                    iconURL: client.user.displayAvatarURL({ extension: 'png' }),
                 });
             if (stdout) {
-                embed.addField('🖥 stdout', `\`\`\`bash\n${clean(stdout)}\`\`\``);
+                embed.addFields([{ name: '🖥 stdout', value: `\`\`\`bash\n${clean(stdout)}\`\`\`` }]);
             }
             interaction.editReply({ embeds: [embed] });
         } catch (error) {
             console.error('Shell:', error);
-            const embed = new MessageEmbed()
-                .setColor('RED')
+            const embed = new EmbedBuilder()
+                .setColor('Red')
                 .setTitle('Execution Error')
                 .addFields(
                     { name: '📥 Input', value: `\`\`\`js\n${code}\`\`\`` },
@@ -63,7 +66,7 @@ export default {
                 .setTimestamp()
                 .setFooter({
                     text: `Execution time: ${Math.round(Date.now() - before)}ms`,
-                    iconURL: client.user.displayAvatarURL({ format: 'png' }),
+                    iconURL: client.user.displayAvatarURL({ extension: 'png' }),
                 });
             return interaction.editReply({ embeds: [embed] });
         }

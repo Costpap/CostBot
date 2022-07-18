@@ -1,4 +1,4 @@
-import { CommandInteraction, Permissions } from 'discord.js';
+import { ChatInputCommandInteraction, PermissionFlagsBits } from 'discord.js';
 
 export default {
     name: 'kick',
@@ -17,11 +17,14 @@ export default {
             type: 'STRING',
         },
     ],
-    run: async (interaction: CommandInteraction) => {
+    run: async (interaction: ChatInputCommandInteraction) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         if (interaction.inGuild() === false) {
             return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
         }
-        if (!interaction.guild.me.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+        if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.KickMembers)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Kick Members` in order to execute this command.',
                 ephemeral: true,
@@ -29,7 +32,7 @@ export default {
         }
         if (typeof interaction.member.permissions === 'string')
             return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
-        else if (!interaction.member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+        else if (!interaction.member.permissions.has(PermissionFlagsBits.KickMembers)) {
             return interaction.reply({
                 content: '⛔ You need the `Kick Members` permission in order to use this command!',
                 ephemeral: true,

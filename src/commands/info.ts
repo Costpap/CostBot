@@ -1,4 +1,4 @@
-import { Client, CommandInteraction, MessageEmbed, User, version as libraryVersion } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, User, version as libraryVersion } from 'discord.js';
 import { botOwner, repository } from '../botconfig';
 import { clientStats } from '../utils/misc';
 import { version } from '../utils/version';
@@ -7,7 +7,7 @@ export default {
     name: 'info',
     description: 'Displays information about the bot.',
     defaultPermission: true,
-    run: async (interaction: CommandInteraction, client: Client) => {
+    run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         /* This automatically gets the user IDs from the botconfig,
         fetches the users and pushes their username, discriminator and ID to an array,
         which is then shown on an embed field. */
@@ -28,9 +28,9 @@ export default {
             }
         }
 
-        const embed = new MessageEmbed()
+        const embed = new EmbedBuilder()
             .setColor(0x6293f5)
-            .setThumbnail(client.user.displayAvatarURL({ format: 'png' }))
+            .setThumbnail(client.user.displayAvatarURL({ extension: 'png' }))
             .setTitle(`${client.user.username} Information`)
             .addFields(
                 { name: `${developers.length > 1 ? 'Developers' : 'Developer'}`, value: `${developers.join('\n')}` },

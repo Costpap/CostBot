@@ -1,4 +1,10 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js';
+import {
+    ChannelType,
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    InteractionResponse,
+    TextBasedChannel,
+} from 'discord.js';
 
 export default {
     name: 'say',
@@ -22,13 +28,16 @@ export default {
         },
     ],
     defaultPermission: false,
-    run: async (interaction: CommandInteraction) => {
+    run: async (interaction: ChatInputCommandInteraction) => {
+        // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+        if (!interaction.isChatInputCommand()) return;
+
         if (interaction.options.getBoolean('embed')) {
-            const embed = new MessageEmbed()
+            const embed = new EmbedBuilder()
                 .setColor(0x6293f5)
                 .setAuthor({
                     name: interaction.user.tag,
-                    iconURL: interaction.user.displayAvatarURL({ format: 'png', dynamic: true }),
+                    iconURL: interaction.user.displayAvatarURL({ extension: 'png', forceStatic: false }),
                 })
                 .setDescription(interaction.options.getString('message', true))
                 .setTimestamp();
@@ -48,10 +57,14 @@ export default {
  * const str: string = 'Hello, world!';
  * await send(str, interaction);
  */
-async function send(input: string, interaction: CommandInteraction): Promise<void> {
-    const channel = interaction.options?.getChannel('channel') ?? interaction.channel;
+async function send(input: string, interaction: ChatInputCommandInteraction): Promise<InteractionResponse> {
+    // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+    if (!interaction.isChatInputCommand()) return;
+
+    const channel = (interaction.options?.getChannel('channel') ?? interaction.channel) as TextBasedChannel;
+    if (channel.type === ChannelType.DM) return;
+
     try {
-        //@ts-expect-error discord.js typings
         await channel?.send({ content: `${input}` });
     } catch (error) {
         console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
@@ -62,17 +75,24 @@ async function send(input: string, interaction: CommandInteraction): Promise<voi
 
 /**
  * A function for sending embed messages and handling errors as well as information regarding the message being sent.
- * @param embeds - Array of MessageEmbeds to send
+ * @param embeds - Array of EmbedBuilders to send
  * @param interaction - discord.js CommandInteraction
  * @example
  * // This should work if you haven't modified any variable shown here.
  * const str: string = 'Hello, world!';
  * await send([embed1, embed2, etc], message.interaction);
  */
-async function sendEmbed(embeds: MessageEmbed[], interaction: CommandInteraction): Promise<void> {
-    const channel = interaction.options?.getChannel('channel') ?? interaction.channel;
+async function sendEmbed(
+    embeds: EmbedBuilder[],
+    interaction: ChatInputCommandInteraction,
+): Promise<InteractionResponse> {
+    // Typeguard in order to ensure having access to ChatInputCommand interaction options.
+    if (!interaction.isChatInputCommand()) return;
+
+    const channel = (interaction.options?.getChannel('channel') ?? interaction.channel) as TextBasedChannel;
+    if (channel.type === ChannelType.DM) return;
+
     try {
-        //@ts-expect-error discord.js typings
         await channel?.send({ embeds: embeds });
     } catch (error) {
         console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
