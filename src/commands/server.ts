@@ -7,14 +7,13 @@ export default {
         .setDescription('Displays info about your server')
         .addBooleanOption((option) =>
             option.setName('show_roles').setDescription("Whether to show the server's roles").setRequired(false),
-        ),
+        )
+        .setDMpermissions(false),
+        
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         const embed = new EmbedBuilder()
             .setColor('Random')
             .setTitle(`${interaction.guild.name}`)

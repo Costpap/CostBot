@@ -16,14 +16,13 @@ export default {
                 .setName('show_permissions')
                 .setDescription("Whether to show the role's permissions")
                 .setRequired(false),
-        ),
+        )
+        .setDMpermissions(false),
+
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         const apiRole = interaction.options.getRole('role', true);
         const role: Role = interaction.guild.roles.cache.get(apiRole.id);
 

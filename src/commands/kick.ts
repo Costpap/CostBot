@@ -7,14 +7,13 @@ export default {
         .addUserOption((option) => option.setName('user').setDescription('User to kick').setRequired(true))
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for kicking the user').setRequired(false),
-        ),
+        )
+        .setDMpermissions(false),
+        
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.KickMembers)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Kick Members` in order to execute this command.',
