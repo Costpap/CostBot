@@ -31,9 +31,7 @@ export default {
                 ephemeral: true,
             });
         }
-        /**
-         * The total number of messages to bulkDelete.
-         */
+        /** The total number of messages to bulkDelete. */
         const amount: number = interaction.options.getInteger('amount', true);
         /** The channel to delete messages from. This is the channel the command was executed in. */
         const textChannel = interaction.channel;
