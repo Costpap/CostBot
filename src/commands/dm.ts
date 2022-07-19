@@ -8,7 +8,8 @@ export default {
         .addStringOption((option) => option.setName('message').setDescription('What to send').setRequired(true))
         .addBooleanOption((option) =>
             option.setName('embed').setDescription('Whether or not to send the message in an embed').setRequired(false),
-        ),
+        )
+        .setDefaultMemberPermissions(0),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

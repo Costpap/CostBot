@@ -2,7 +2,10 @@ import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discor
 import { coreLog } from '../utils/logs';
 
 export default {
-    data: new SlashCommandBuilder().setName('shut-down').setDescription('Shuts down the bot.'),
+    data: new SlashCommandBuilder()
+        .setName('shut-down')
+        .setDescription('Shuts down the bot.')
+        .setDefaultMemberPermissions(0),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         coreLog(`🔄 Shutdown initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`, [], client, {
             noWebhook: true,

@@ -9,7 +9,8 @@ export default {
         .setDescription('Reloads a command.')
         .addStringOption((option) =>
             option.setName('name').setDescription('The name of the command to reload').setRequired(true),
-        ),
+        )
+        .setDefaultMemberPermissions(0),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
