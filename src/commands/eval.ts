@@ -9,6 +9,9 @@ export default {
         .setDescription('Executes JavaScript code.')
         .addStringOption((option) => option.setName('code').setDescription('The code to execute').setRequired(true))
         .setDefaultMemberPermissions(0),
+    internals: {
+        privileged: true,
+    },
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;

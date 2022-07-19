@@ -6,6 +6,9 @@ export default {
         .setName('shut-down')
         .setDescription('Shuts down the bot.')
         .setDefaultMemberPermissions(0),
+    internals: {
+        privileged: true,
+    },
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         coreLog(`🔄 Shutdown initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`, [], client, {
             noWebhook: true,

@@ -7,6 +7,9 @@ export default {
         .setName('deploy')
         .setDescription('Compiles TypeScript code and then restarts the bot.')
         .setDefaultMemberPermissions(0),
+    internals: {
+        privileged: true,
+    },
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
         const logMessage: Message = await coreLog(
             `🔃 Deployment initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,
