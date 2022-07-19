@@ -37,6 +37,7 @@
         "test": "npm run lint && npm run build",
         "prebuild": "node -e \"require('fs').rm('build', { recursive: true, force: true }, (e) => { console.error(e) });\"",
         "build": "npx tsc",
+        "commands": "node build/register.js",
         "lint": "eslint .",
         "start": "node ."
     },
