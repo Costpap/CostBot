@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-config({ path: './.env.test' });
+config({ path: './.env' });
 
 import { ActivityType, Client, Collection, GatewayIntentBits } from 'discord.js';
 import { readdirSync } from 'fs';

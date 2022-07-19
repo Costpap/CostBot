@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-config({ path: './.env.test' });
+config({ path: './.env' });
 
 import { REST } from '@discordjs/rest';
 import { APIApplicationCommand, Routes } from 'discord.js';
