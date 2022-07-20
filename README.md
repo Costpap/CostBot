@@ -27,10 +27,9 @@ This repository is home to all the code used by CostBot, an MIT-licensed Discord
 
 5. Before starting the bot, you need to register its commands with Discord by running `npm run commands set [guild id for privileged commands]`.
 
-⚠️ **Note**: Some commands are dangerous. As such, they are considered as **privileged** and can only be used in a specific server of your choice. By default, only admins in that server will be able to use them, but this can be changed through **Server Settings → Integrations**. You can copy and paste the id of that server in the command above, without the brackets (eg. `npm run commands set 613425648685547541`).
+⚠️ **Note**: Some commands are dangerous. As such, they are considered as **privileged** and can only be used in a specific server of your choice. By default, only admins in that server will be able to use them, but this can be changed through **Server Settings → Integrations**. You can copy and paste the id of that server in the command above, without the brackets (eg. `npm run commands set 613425648685547541`). Additionally, the authors of CostBot are not responsible for any damage arising from misuse of such commands and disclaim all warranties, in accordance with the terms of the MIT license.
 
 6. You can now run `npm run start` to start up CostBot 🎉
 
 ## Important Documents
-
 If you are planning to make contributions to the bot, please make yourself aware of the [Code of Conduct](.github/CODE_OF_CONDUCT.md) and [Contributing Guidelines](.github/CONTRIBUTING.md).
