@@ -25,8 +25,8 @@ export default {
          * if you'd like to see them used in the command.
          *
          * Notes about constants:
-         * `${member}` is used for the member getting hugged,
-         * and `${message.member}` is used for the person who is hugging them.
+         * `${user.toString()}` is used for the member getting hugged,
+         * and `${interaction.user.toString()}` is used for the person who is hugging them.
          */
         const hugStrings: string[] = [
             `${user.toString()} just received a big hug from ${interaction.user.toString()}!`,

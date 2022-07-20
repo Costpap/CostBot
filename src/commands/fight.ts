@@ -25,8 +25,8 @@ export default {
          * if you'd like to see them used in the command.
          *
          * Notes about constants:
-         * `${member}` is used for the member getting fought,
-         * and `${message.member}` is used for the person who is fighting them.
+         * `${user.toString()}` is used for the member getting fought,
+         * and `${interaction.user.toString()}` is used for the person who is fighting them.
          */
         const fightStrings: string[] = [
             `${user.toString()}, you are being fought by ${interaction.user.toString()}!`,
