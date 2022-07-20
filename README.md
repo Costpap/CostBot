@@ -10,8 +10,8 @@
 This repository is home to all the code used by CostBot, an MIT-licensed Discord bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
 
 ## Requirements
-- [Node.js](https://nodejs.org/) version 16 or newer (LTS release recommended)
-- [npm](https://www.npmjs.com/) installed
+- [Node.js](https://nodejs.org/) version 16.9.0 or newer (LTS release recommended)
+- [npm](https://www.npmjs.com/) installed (pre-installed with Node)
 - [Git](https://git-scm.com/) installed
 - A Discord server for privileged commands
 
@@ -29,7 +29,7 @@ This repository is home to all the code used by CostBot, an MIT-licensed Discord
 
 ⚠️ **Note**: Some commands are dangerous. As such, they are considered as **privileged** and can only be used in a specific server of your choice. By default, only admins in that server will be able to use them, but this can be changed through **Server Settings → Integrations**. You can copy and paste the id of that server in the command above, without the brackets (eg. `npm run commands set 613425648685547541`).
 
-6. You can now run `node .`to start up CostBot 🎉
+6. You can now run `npm run start` to start up CostBot 🎉
 
 ## Important Documents
 
