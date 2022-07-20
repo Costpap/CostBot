@@ -10,10 +10,11 @@
 This repository is home to all the code used by CostBot, an [MIT-licensed](/LICENSE) Discord bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
 
 ## Requirements
-- [Node.js](https://nodejs.org/) version 16.9.0 or newer (LTS release recommended)
-- [npm](https://www.npmjs.com/) installed (pre-installed with Node)
-- [Git](https://git-scm.com/) installed
-- A Discord server for privileged commands
+
+-   [Node.js](https://nodejs.org/) version 16.9.0 or newer (LTS release recommended)
+-   [npm](https://www.npmjs.com/) installed (pre-installed with Node)
+-   [Git](https://git-scm.com/) installed
+-   A Discord server for privileged commands
 
 ## Setup Instructions
 
@@ -32,4 +33,5 @@ This repository is home to all the code used by CostBot, an [MIT-licensed](/LICE
 6. You can now run `npm run start` to start up CostBot 🎉
 
 ## Important Documents
+
 If you are planning to make contributions to the bot, please make yourself aware of the [Code of Conduct](.github/CODE_OF_CONDUCT.md) and [Contributing Guidelines](.github/CONTRIBUTING.md).

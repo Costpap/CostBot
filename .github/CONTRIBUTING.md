@@ -16,7 +16,7 @@ For your convenience, if you make any changes to events, you can test them using
 
 ### Code style & TS compiler errors
 
-Code style is automatically enforced by [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/). As mentioned above, you can run `npx eslint .` in a terminal or command prompt in order to make sure that everything is fine. If it gives you some errors, most of the time they can easily be fixed wih `npx eslint . --fix`. 
+Code style is automatically enforced by [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/). As mentioned above, you can run `npx eslint .` in a terminal or command prompt in order to make sure that everything is fine. If it gives you some errors, most of the time they can easily be fixed wih `npx eslint . --fix`.
 
 As this project is written in TypeScript, the TypeScript compiler is used in order to transpile the project and make it readable by Node.js. The TypeScript compiler can be ran using `npx tsc`. If it gives you errors, chances are your IDE will have a tooltip of some sorts to help you fix them.
 
