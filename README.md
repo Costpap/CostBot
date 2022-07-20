@@ -7,34 +7,30 @@
 </p>
 </div>
 
-This repository is home to all the code used by CostBot, an MIT-licensed Discord Bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
+This repository is home to all the code used by CostBot, an MIT-licensed Discord bot coded in [TypeScript](https://www.typescriptlang.org/) with the help of [discord.js](https://github.com/discordjs/discord.js).
 
-## Detailed instructions on how to run the bot
+## Requirements
+- [Node.js](https://nodejs.org/) version 16 or newer (LTS release recommended)
+- [npm](https://www.npmjs.com/) installed
+- [Git](https://git-scm.com/) installed
+- A Discord server for privileged commands
 
-### Discord-related set-up
+## Setup Instructions
 
-First and foremost, you will need a [Discord Developer Application](https://discord.com/developers/applications). You can create a new one or use an existing if you wish. You will need to have a bot account for the application. Save the token for later, as it will be needed during configuration.
+1. First, you will need an application, which you can create in [Discord's Developer Portal](https://discord.com/developers/applications). Once it is created, add a bot to the application and click the "Reset Token" button to access its credentials, which you will need later.
 
-### The rest of the set-up
+2. Once everything is installed, open your terminal and paste the following command: `git clone https://github.com/Costpap/CostBot.git`. You'll now see a new directory called "CostBot" which contains all of the bot's source code. Run `cd CostBot`, then `npm install`. If you get a warning from npm regarding peer or optional dependencies, you can ignore it.
 
-1. First of all, you should have at least version 16 of [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed. You can download them from [here](https://nodejs.org/en/download/). ~~We recommend using the latest Long Term Support (LTS) release~~.
-   However, if you want to use a version earlier than 16, that is entirely possible. Before following _step 6_ later on, you can edit `tsconfig.json` and change the `target` to the ECMAScript version corresponding to the Node one you want to use. When doing this, please keep in mind that there is no way of guaranteeing that the bot will still properly function, as the version requirement is also based on the bot's dependencies and not the bot itself.
+3. After all dependencies have been installed, you will need to setup the configuration files. Rename `.env.example` to `.env` and replace all the fields with appropriate values. Then go to the `/src` directory , rename `botconfig-example.ts` to `botconfig.ts` then replace all of the values as well.
 
-2. Once Node and npm has finished installing, you should also install [Git](https://git-scm.com/), as it is needed in order to clone the repository. You can download it from [here](https://git-scm.com/downloads).
+4. You will now need to compile the [TypeScript](https://www.typescriptlang.org/) code, which can be done by running `npm run build`. If you get any build errors, please open an [issue](https://github.com/Costpap/CostBot/issues/new?assignees=Costpap&labels=bug&template=bug_report.md).
 
-3. After having finished installing Git, open your terminal, command line, prompt, etc. and copy and paste the following command: `git clone https://github.com/Costpap/CostBot.git`.
+5. Before starting the bot, you need to register its commands with Discord by running `npm run commands set [guild id for privileged commands]`.
 
-4. Once that has finished, you should now see a new directory called `CostBot` which contains all of the bot's source code. Run `cd CostBot` and then `npm install`.
+⚠️ **Note**: Some commands are dangerous. As such, they are considered as **privileged** and can only be used in a specific server of your choice. By default, only admins in that server will be able to use them, but this can be changed through **Server Settings → Integrations**. You can copy and paste the id of that server in the command above, without the brackets (eg. `npm run commands set 613425648685547541`).
 
-5. When all dependencies have been installed (if you get any warnings from npm regarding peer or optional dependencies, you can simply ignore them), you will then need to set up the configuration files. Rename `.env.example` to `.env` and replace all the fields with their appropriate values. After that, you can go to the `src` directory and rename `botconfig-example.ts` to `botconfig.ts` and replace all of the values as well.
-
-6. Now, the only remaining step is to compile all of the [TypeScript](https://www.typescriptlang.org/) code, which can be done very easily with `npm run build`. If you get any errors, don't worry, you can _optionally_ delete the `build` directory if one exists and then run `npx tsc`. You should now see a `build` directory. If that still hasn't fixed your inquiry, please open an [issue](https://github.com/Costpap/CostBot/issues/new/choose).
-
-7. Finally, you can run `node .` or `node ./build/index.js`, and your bot should now be online. Congratulations!
+6. You can now run `node .`to start up CostBot 🎉
 
 ## Important Documents
 
-Please make sure to read all of the documents below, especially if you are planning on making contributions such as opening a Pull Request or Issue.
-
--   [Code of Conduct (CoC)](.github/CODE_OF_CONDUCT.md)
--   [Contributing Guidelines](.github/CONTRIBUTING.md)
+If you are planning to make contributions to the bot, please make yourself aware of the [Code of Conduct](.github/CODE_OF_CONDUCT.md) and [Contributing Guidelines](.github/CONTRIBUTING.md).
