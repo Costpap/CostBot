@@ -22,7 +22,7 @@ This repository is home to all the code used by CostBot, an [MIT-licensed](/LICE
 
 2. Once everything is installed, open your terminal and paste the following command: `git clone https://github.com/Costpap/CostBot.git`. You'll now see a new directory called "CostBot" which contains all of the bot's source code. Run `cd CostBot`, then `npm install`. If you get a warning from npm regarding peer or optional dependencies, you can ignore it.
 
-3. After all dependencies have been installed, you will need to setup the configuration files. Rename `.env.example` to `.env` and replace all the fields with appropriate values. Then go to the `/src` directory , rename `botconfig-example.ts` to `botconfig.ts` then replace all of the values as well.
+3. After all dependencies have been installed, you will need to setup the configuration files. Rename `.env.example` to `.env` and replace all the fields with appropriate values. Then go to the `/src` directory, rename `botconfig-example.ts` to `botconfig.ts` then replace all of the values as well.
 
 4. You will now need to compile the [TypeScript](https://www.typescriptlang.org/) code, which can be done by running `npm run build`. If you get any build errors, please open an [issue](https://github.com/Costpap/CostBot/issues/new?assignees=Costpap&labels=bug&template=bug_report.md).
 
