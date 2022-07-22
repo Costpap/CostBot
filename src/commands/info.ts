@@ -40,9 +40,10 @@ export default {
             .addFields(
                 { name: `${developers.length > 1 ? 'Developers' : 'Developer'}`, value: `${developers.join('\n')}` },
                 { name: 'Version', value: `${await version()}`, inline: true },
-                { name: 'Library', value: `discord.js v${libraryVersion}`, inline: true },
-                { name: 'Number of commands', value: `${client.commands.size}`, inline: true },
-                { name: 'GitHub Repository', value: `${repository}`, inline: true },
+                { name: 'Process ID', value: `${process.pid}`, inline: true },
+                { name: 'Commands', value: `${client.commands.size}`, inline: true },
+                { name: 'Library', value: `discord.js v${libraryVersion} (Node ${process.version})`, inline: false },
+                { name: 'GitHub Repository', value: `${repository}`, inline: false },
                 { name: '\u200B', value: '\u200B' },
             )
             .setTimestamp();
