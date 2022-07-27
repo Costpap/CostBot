@@ -2,7 +2,16 @@ import child_process from 'child_process';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
-import { Client, EmbedBuilder, Interaction, version as libraryVersion } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    Client,
+    DiscordAPIError,
+    EmbedBuilder,
+    Interaction,
+    RESTJSONErrorCodes,
+    User,
+    version as libraryVersion,
+} from 'discord.js';
 import humanizeDuration from 'humanize-duration';
 import { version as tsVersion } from 'typescript';
 import { promisify } from 'util';
@@ -207,6 +216,35 @@ export function parseDate(date: Date): string {
     const agoTime: string = dayjs().to(dayjs(actualDate));
     const completeDate = `${actualDate} UTC (Roughly ${agoTime})`;
     return completeDate;
+}
+
+/**
+ * DMs a user, usually when a moderation action is taken on them, in order to let them know of such action.
+ * @param {User} user - The user to DM
+ * @param {ChatInputCommandInteraction} interaction - The slash command interaction
+ * @param {string} actioned - Included in the message that gets sent to the user.
+ * Should let them know what action was taken.
+ * @returns {boolean} Whether or the bot was able to DM the user.
+ */
+export async function notifyUser(
+    user: User,
+    interaction: ChatInputCommandInteraction,
+    actioned: string,
+): Promise<boolean> {
+    try {
+        await user.send(
+            `Hi there **${user.username}**! You have been ${actioned} from **${interaction.guild.name}** ${
+                interaction.options?.getString('reason')
+                    ? `for the following reason: \n\n**${interaction.options?.getString('reason')}**`
+                    : '.'
+            }`,
+        );
+        return true;
+    } catch (error) {
+        if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.CannotSendMessagesToThisUser) {
+            return false;
+        }
+    }
 }
 
 export interface ClientStatOptions {

@@ -1,4 +1,5 @@
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { notifyUser } from '../utils/misc';
 
 export default {
     data: new SlashCommandBuilder()
@@ -7,6 +8,9 @@ export default {
         .addUserOption((option) => option.setName('user').setDescription('User to kick').setRequired(true))
         .addStringOption((option) =>
             option.setName('reason').setDescription('Reason for kicking the user').setRequired(false),
+        )
+        .addBooleanOption((option) =>
+            option.setName('silent').setDescription('Whether or not to DM the user').setRequired(false),
         )
         .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
@@ -47,6 +51,13 @@ export default {
             });
         }
 
+        let response = `🔨 Kicked \`${member.user.tag} (${member.id})\`.`;
+
+        if (!interaction.options.getBoolean('silent')) {
+            const notified = await notifyUser(user, interaction, 'kicked');
+            if (!notified) response += "\n\n⚠️ Couldn't send DM to user.";
+        }
+
         /* Attempts to kick the user. If the kick is successful,
         the bot will send a message indicating it was successful,
         otherwise an error message will be sent */
@@ -54,7 +65,7 @@ export default {
             await member.kick(
                 interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
             );
-            interaction.reply({ content: `🔨 Kicked \`${member.user.tag} (${member.id})\`.`, ephemeral: true });
+            interaction.reply({ content: response, ephemeral: true });
         } catch (error) {
             console.error(error);
             return interaction.reply({
