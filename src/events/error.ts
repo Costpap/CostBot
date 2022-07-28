@@ -1,17 +1,13 @@
-import { Client, EmbedBuilder, version } from 'discord.js';
+import { Client } from 'discord.js';
 import { errorLog } from '../utils/logs';
+import { generateBasicErrorEmbed } from '../utils/misc';
 
 export default {
     name: 'error',
     run: async (client: Client, error: string) => {
         console.error(error);
 
-        const embed = new EmbedBuilder()
-            .setColor('Red')
-            .setTitle(`${client.user.username} Client-Emitted Error`)
-            .setDescription(`\`\`\`${error}\`\`\``)
-            .setTimestamp()
-            .setFooter({ text: `Error occurred while running discord.js v${version}.` });
+        const embed = await generateBasicErrorEmbed(`${client.user.username} Client-Emitted Error`, 'Red', error);
 
         errorLog('', [embed], client, { noContent: true });
     },

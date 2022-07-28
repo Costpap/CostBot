@@ -15,7 +15,9 @@ export default {
 
             const embed = await generateBasicErrorEmbed(
                 `Generic command \`${interaction.commandName}\` error`,
+                'Red',
                 error,
+                { includeVersionInfo: true, includeInteractionInfo: true },
                 interaction,
             );
             errorLog('', [embed], client, { noContent: true });

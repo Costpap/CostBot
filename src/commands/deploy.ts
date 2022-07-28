@@ -25,7 +25,13 @@ export default {
         } catch (stderr) {
             console.error('Error compiling TypeScript code: \n', stderr);
 
-            const embed = await generateBasicErrorEmbed('Deployment TypeScript Compilation Error', stderr, interaction);
+            const embed = await generateBasicErrorEmbed(
+                'Deployment TypeScript Compilation Error',
+                'Red',
+                stderr,
+                {},
+                interaction,
+            );
             errorLog('', [embed], client, { noContent: true });
 
             logMessage.edit(`${logMessage.content}\n\n❌ Deployment resulted in error.`);

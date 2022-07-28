@@ -5,6 +5,7 @@ import utc from 'dayjs/plugin/utc';
 import {
     ChatInputCommandInteraction,
     Client,
+    ColorResolvable,
     DiscordAPIError,
     EmbedBuilder,
     Interaction,
@@ -166,38 +167,93 @@ export async function clientStats(
 /**
  * Generates an embed that is mostly useful for logging purposes in an error log channel.
  * @param {string} title - The title of the embed
+ * @param {ColorResolvable} color - The color of the embed
  * @param {string} error - The error message
- * @param interaction - discord.js Interaction
+ * @param {boolean} options.includeVersionInfo - Whether or not to include the bot, discord.js, TypeScript, and Node.js versions
+ * @param {boolean} options.includeInteractionInfo - Whether or not to include interaction info
+ * @param {Interaction} interaction - discord.js Interaction
  * @example
  * import { generateBasicErrorEmbed } from './src/utils/misc';
  *
- * const embed = await generateBasicErrorEmbed('ReferenceError', 'ReferenceError: message is not defined', message);
- * message.channel.send(embed);
+ *  const embed = await generateBasicErrorEmbed(
+        'ReferenceError',
+        'Red',
+        'ReferenceError: channel is not defined',
+        {
+            includeVersionInfo: true,
+            includeInteractionInfo: true,
+        },
+        interaction,
+        );
+ * channel.send({ embeds: [embed] });
  */
 export async function generateBasicErrorEmbed(
     title: string,
+    color: ColorResolvable,
     error: string,
-    interaction: Interaction,
+    options?: BasicErrorEmbedGeneratorOptions,
+    interaction?: Interaction,
 ): Promise<EmbedBuilder> {
     const embed = new EmbedBuilder()
-        .setColor('Red')
+        .setColor(color)
         .setTitle(title)
         .setDescription(`\`\`\`js\n${clean(error)}\`\`\``)
-        .addFields(
-            { name: 'Debug information:', value: '\u200B' },
-            { name: 'Bot Version', value: await version(), inline: true },
-            { name: 'TypeScript Version', value: `v${tsVersion}`, inline: true },
-            { name: 'discord.js Version', value: `v${libraryVersion}`, inline: true },
-            {
-                name: 'Guild and Channel name',
-                value: `\`${interaction.guild.name}\` ${interaction.channel.toString()}`,
-                inline: true,
-            },
-            { name: 'Interaction ID', value: interaction.id, inline: true },
-            { name: 'Initiated by', value: `\`${interaction.user.tag} (${interaction.user.id})\``, inline: true },
-        )
         .setTimestamp();
 
+    if (options?.includeVersionInfo && options?.includeInteractionInfo && interaction) {
+        embed.addFields(
+            { name: 'Debug information:', value: '\u200B' },
+            {
+                name: 'Version info',
+                value: `>>> Bot: ${await version()}\ndiscord.js: v${libraryVersion}\nTypeScript: v${tsVersion}\nNode: ${
+                    process.version
+                }`,
+                inline: true,
+            },
+            {
+                name: 'Interaction info',
+                value: `>>> Guild: \`${interaction.guild.name}\` (\`${
+                    interaction.guild.id
+                }\`)\nChannel: ${interaction.channel.toString()} (\`${interaction.channelId}\`)\nID: ${
+                    interaction.id
+                }\nUser: \`${interaction.user.tag}\` (\`${interaction.user.id}\`)`,
+                inline: true,
+            },
+        );
+        return embed;
+    }
+    if (options?.includeVersionInfo || !interaction) {
+        embed.addFields(
+            { name: 'Version info:', value: '\u200B' },
+            { name: 'Bot Version', value: await version(), inline: true },
+            { name: 'discord.js Version', value: `v${libraryVersion}`, inline: true },
+            { name: 'TypeScript Version', value: `v${tsVersion}`, inline: true },
+            { name: 'Node Version ', value: `${process.version}`, inline: true },
+        );
+        return embed;
+    }
+    if (options?.includeInteractionInfo && interaction) {
+        embed.addFields(
+            { name: 'Interaction info:', value: '\u200B' },
+            { name: 'Guild', value: `\`${interaction.guild.name}\` (\`${interaction.guild.id}\`)`, inline: true },
+            {
+                name: 'Channel',
+                value: `${interaction.channel.toString()} (\`${interaction.channelId}\`)`,
+                inline: true,
+            },
+            { name: 'User', value: `\`${interaction.user.tag}\` (\`${interaction.user.id}\`)`, inline: true },
+            { name: 'Interaction ID', value: interaction.id, inline: true },
+        );
+
+        if (
+            interaction.isChatInputCommand() ||
+            interaction.isContextMenuCommand() ||
+            interaction.isMessageContextMenuCommand()
+        ) {
+            embed.addFields({ name: 'Command ID', value: interaction.commandId, inline: true });
+        }
+        return embed;
+    }
     return embed;
 }
 
@@ -261,4 +317,9 @@ export interface ClientStatOptions {
     membersExcludingBots?: boolean;
     /** A more compact way to display both total members and total members excluding bots. */
     membersExcludingBots2?: boolean;
+}
+
+export interface BasicErrorEmbedGeneratorOptions {
+    includeVersionInfo?: boolean;
+    includeInteractionInfo?: boolean;
 }

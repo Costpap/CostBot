@@ -44,7 +44,9 @@ export default {
 
             const embed = await generateBasicErrorEmbed(
                 `TypeScript Compilation Error while reloading command \`${command.data.name}\``,
+                'Red',
                 stderr,
+                {},
                 interaction,
             );
             errorLog('', [embed], client, { noContent: true });
@@ -77,7 +79,7 @@ export default {
         } catch (error) {
             console.error(error);
 
-            const embed = await generateBasicErrorEmbed('Reload Miscellaneous Error', error, interaction);
+            const embed = await generateBasicErrorEmbed('Reload Miscellaneous Error', 'Red', error, {}, interaction);
             errorLog('', [embed], client, { noContent: true });
 
             logMessage.edit(
