@@ -37,7 +37,12 @@ export default {
         const textChannel = interaction.channel;
         try {
             const deletedMessages = await textChannel.bulkDelete(amount, true);
-            interaction.reply({ content: `✅ Pruned **${deletedMessages.size}** messages.`, ephemeral: true });
+            interaction.reply({
+                content: `✅ Pruned **${deletedMessages.size}** ${
+                    deletedMessages.size === 1 ? 'message' : 'messages'
+                }.`,
+                ephemeral: true,
+            });
         } catch (error) {
             console.error(
                 `Error pruning messages in #${textChannel.name} (${textChannel.id}) of ${textChannel.guild.id}:\n`,
