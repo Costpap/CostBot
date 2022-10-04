@@ -14,20 +14,17 @@ export default {
                 .setName('add')
                 .setDescription('Times out the selected user.')
                 .addUserOption((option) => option.setName('user').setDescription('User to time out').setRequired(true))
-                .addStringOption(
-                    (
-                        option,
-                    ) =>
-                        option
-                            .setName('duration')
-                            .setDescription('Duration of the timeout (e.g. 10sec/60m/2.5 hrs)')
-                            .setRequired(true),
+                .addStringOption((option) =>
+                    option
+                        .setName('duration')
+                        .setDescription('Duration of the timeout (e.g. 10sec/60m/2.5 hrs)')
+                        .setRequired(true),
                 )
                 .addStringOption((option) =>
                     option.setName('reason').setDescription('Reason for timing out the user').setRequired(false),
                 )
                 .addBooleanOption((option) =>
-                option.setName('silent').setDescription('Whether or not to DM the user').setRequired(false),
+                    option.setName('silent').setDescription('Whether or not to DM the user').setRequired(false),
                 ),
         )
         .addSubcommand((subcommand) =>
@@ -39,7 +36,7 @@ export default {
                 )
                 .addStringOption((option) =>
                     option.setName('reason').setDescription('Reason for removing the timeout').setRequired(false),
-                )
+                ),
         ),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
@@ -68,7 +65,10 @@ export default {
         const member = await interaction.guild.members.fetch(user.id);
 
         if (!member) {
-            return interaction.reply({ content: '❌ You need to specify a valid user to manage their timeout!', ephemeral: true });
+            return interaction.reply({
+                content: '❌ You need to specify a valid user to manage their timeout!',
+                ephemeral: true,
+            });
         }
 
         if (interaction.options.getSubcommand() === 'add') {
@@ -89,16 +89,14 @@ export default {
 
             if (msDuration == null) {
                 return interaction.reply({
-                    content:
-                        '❌ The format of the timeout duration is invalid!',
+                    content: '❌ The format of the timeout duration is invalid!',
                     ephemeral: true,
                 });
             }
 
             if (msDuration <= 0) {
                 return interaction.reply({
-                    content:
-                        '❌ The duration of the timeout must be greater than 0!',
+                    content: '❌ The duration of the timeout must be greater than 0!',
                     ephemeral: true,
                 });
             }
@@ -139,13 +137,13 @@ export default {
                     ephemeral: true,
                 });
             }
-            
+
             const response = `⌛ Removed the timeout from \`${member.user.tag} (${member.id})\``;
 
             try {
                 await member.timeout(
                     null,
-                    interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : ''
+                    interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
                 );
                 return interaction.reply({ content: response, ephemeral: true });
             } catch (error) {
