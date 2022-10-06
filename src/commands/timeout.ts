@@ -8,7 +8,7 @@ import ms from 'ms';
 export default {
     data: new SlashCommandBuilder()
         .setName('timeout')
-        .setDescription('Manages the timeout of a selected user.')
+        .setDescription('Manages user timeouts.')
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('add')
@@ -48,7 +48,7 @@ export default {
 
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
-                content: '❌ Sorry, I need the `Moderate Members` in order to execute this command.',
+                content: '❌ Sorry, I need the `Timeout Members` in order to execute this command.',
                 ephemeral: true,
             });
         }
@@ -56,7 +56,7 @@ export default {
             return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
         else if (!interaction.member.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
-                content: '⛔ You need the `Moderate Members` permission in order to use this command!',
+                content: '⛔ You need the `Timeout Members` permission in order to use this command!',
                 ephemeral: true,
             });
         }
@@ -71,89 +71,91 @@ export default {
             });
         }
 
-        if (interaction.options.getSubcommand() === 'add') {
-            if (member.id === interaction.user.id) {
-                return interaction.reply({ content: "Aww, please don't time out yourself! 💖", ephemeral: true });
+        switch (interaction.options.getSubcommand()) {
+            default:
+            case 'add': {
+                if (member.id === interaction.user.id) {
+                    return interaction.reply({ content: "Aww, please don't time out yourself! 💖", ephemeral: true });
+                }
+
+                if (member.moderatable === false) {
+                    return interaction.reply({
+                        content:
+                            '❌ I cannot time out this user! \n**Please make sure that my highest role is above theirs.**',
+                        ephemeral: true,
+                    });
+                }
+
+                const duration = interaction.options.getString('duration', true);
+                const msDuration = ms(duration);
+
+                if (msDuration == null) {
+                    return interaction.reply({
+                        content: '❌ Please specify a valid timeout duration.',
+                        ephemeral: true,
+                    });
+                }
+
+                if (msDuration <= 0) {
+                    return interaction.reply({
+                        content: '❌ The duration of the timeout must be greater than 0!',
+                        ephemeral: true,
+                    });
+                }
+
+                let response = `✅ Timed out \`${member.user.tag} (${member.id})\`.`;
+
+                if (!interaction.options.getBoolean('silent')) {
+                    const notified = await notifyUser(user, interaction, 'timed out');
+                    if (!notified) response += "\n\n⚠️ Couldn't send DM to user.";
+                }
+
+                try {
+                    await member.timeout(
+                        msDuration,
+                        interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
+                    );
+                    return interaction.reply({ content: response, ephemeral: true });
+                } catch (error) {
+                    console.error(error);
+                    return interaction.reply({
+                        content: `❌ I encountered an error while trying to time out \`${member.user.tag}\`: \n\`\`\`${
+                            error?.message || error
+                        }\`\`\``,
+                        ephemeral: true,
+                    });
+                }
             }
+            case 'remove': {
+                if (!member.isCommunicationDisabled()) {
+                    return interaction.reply({ content: '❌ This user is not currently timed out.', ephemeral: true });
+                }
 
-            if (member.moderatable === false) {
-                return interaction.reply({
-                    content:
-                        '❌ I cannot time out this user! \n**Please make sure that my highest role is above theirs.**',
-                    ephemeral: true,
-                });
-            }
+                if (member.moderatable === false) {
+                    return interaction.reply({
+                        content:
+                            '❌ I cannot remove the timeout from this user! \n**Please make sure that my highest role is above theirs.**',
+                        ephemeral: true,
+                    });
+                }
 
-            const duration = interaction.options.getString('duration', true);
-            const msDuration = ms(duration);
+                const response = `✅ Removed the timeout from \`${member.user.tag} (${member.id})\``;
 
-            if (msDuration == null) {
-                return interaction.reply({
-                    content: '❌ The format of the timeout duration is invalid!',
-                    ephemeral: true,
-                });
-            }
-
-            if (msDuration <= 0) {
-                return interaction.reply({
-                    content: '❌ The duration of the timeout must be greater than 0!',
-                    ephemeral: true,
-                });
-            }
-
-            let response = `⏳ Timed out \`${member.user.tag} (${member.id})\`.`;
-
-            if (!interaction.options.getBoolean('silent')) {
-                const notified = await notifyUser(user, interaction, 'timed out');
-                if (!notified) response += "\n\n⚠️ Couldn't send DM to user.";
-            }
-
-            try {
-                await member.timeout(
-                    msDuration,
-                    interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
-                );
-                return interaction.reply({ content: response, ephemeral: true });
-            } catch (error) {
-                console.error(error);
-                return interaction.reply({
-                    content: `❌ I encountered an error while trying to time out \`${member.user.tag}\`: \n\`\`\`${
-                        error?.message || error
-                    }\`\`\``,
-                    ephemeral: true,
-                });
-            }
-        }
-
-        if (interaction.options.getSubcommand() === 'remove') {
-            if (!member.isCommunicationDisabled()) {
-                return interaction.reply({ content: '❌ This user is not currently timed out.', ephemeral: true });
-            }
-
-            if (member.moderatable === false) {
-                return interaction.reply({
-                    content:
-                        '❌ I cannot remove the timeout from this user! \n**Please make sure that my highest role is above theirs.**',
-                    ephemeral: true,
-                });
-            }
-
-            const response = `⌛ Removed the timeout from \`${member.user.tag} (${member.id})\``;
-
-            try {
-                await member.timeout(
-                    null,
-                    interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
-                );
-                return interaction.reply({ content: response, ephemeral: true });
-            } catch (error) {
-                console.error(error);
-                return interaction.reply({
-                    content: `❌ I encountered an error while trying remove the timeout from \`${
-                        member.user.tag
-                    }\`: \n\`\`\`${error?.message || error}\`\`\``,
-                    ephemeral: true,
-                });
+                try {
+                    await member.timeout(
+                        null,
+                        interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
+                    );
+                    return interaction.reply({ content: response, ephemeral: true });
+                } catch (error) {
+                    console.error(error);
+                    return interaction.reply({
+                        content: `❌ I encountered an error while trying remove the timeout from \`${
+                            member.user.tag
+                        }\`: \n\`\`\`${error?.message || error}\`\`\``,
+                        ephemeral: true,
+                    });
+                }
             }
         }
     },
