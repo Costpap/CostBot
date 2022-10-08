@@ -153,7 +153,7 @@ export default {
                 } catch (error) {
                     console.error(error);
                     return interaction.reply({
-                        content: `❌ I encountered an error while trying remove the timeout from \`${
+                        content: `❌ I encountered an error while trying remove the timeout for \`${
                             member.user.tag
                         }\`: \n\`\`\`${error?.message || error}\`\`\``,
                         ephemeral: true,
