@@ -30,7 +30,7 @@ export default {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('remove')
-                .setDescription('Removes timeout from a user.')
+                .setDescription('Removes a timeout from a user.')
                 .addUserOption((option) =>
                     option.setName('user').setDescription('User to remove the timeout from').setRequired(true),
                 )
