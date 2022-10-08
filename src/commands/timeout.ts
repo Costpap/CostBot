@@ -142,7 +142,7 @@ export default {
                     });
                 }
 
-                const response = `✅ Removed the timeout from \`${member.user.tag} (${member.id})\``;
+                const response = `✅ Removed the timeout for \`${member.user.tag} (${member.id})\``;
 
                 try {
                     await member.timeout(
