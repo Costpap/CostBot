@@ -1,6 +1,3 @@
-//Template: https://github.com/Costpap/CostBot/blob/main/src/commands/kick.ts
-
-//imports
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import { notifyUser } from '../utils/misc';
 import ms from 'ms';
