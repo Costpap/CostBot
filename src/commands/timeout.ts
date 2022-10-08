@@ -89,7 +89,7 @@ export default {
                 const duration = interaction.options.getString('duration', true);
                 const msDuration = ms(duration);
 
-                if (msDuration == null) {
+                if (typeof msDuration !== 'number') {
                     return interaction.reply({
                         content: '❌ Please specify a valid timeout duration.',
                         ephemeral: true,
@@ -103,18 +103,24 @@ export default {
                     });
                 }
 
-                let response = `✅ Timed out \`${member.user.tag} (${member.id})\`.`;
-
-                if (!interaction.options.getBoolean('silent')) {
-                    const notified = await notifyUser(user, interaction, 'timed out');
-                    if (!notified) response += "\n\n⚠️ Couldn't send DM to user.";
+                if (msDuration <= 0) {
+                    return interaction.reply({
+                        content: '❌ The duration of the timeout must be less than or equal to 28 days!',
+                        ephemeral: true,
+                    });
                 }
+
+                let response = `✅ Timed out \`${member.user.tag} (${member.id})\`.`;
 
                 try {
                     await member.timeout(
                         msDuration,
                         interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
                     );
+                    if (!interaction.options.getBoolean('silent')) {
+                        const notified = await notifyUser(user, interaction, 'timed out');
+                        if (!notified) response += "\n\n⚠️ Couldn't send DM to user.";
+                    }
                     return interaction.reply({ content: response, ephemeral: true });
                 } catch (error) {
                     console.error(error);
