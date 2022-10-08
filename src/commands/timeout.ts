@@ -45,7 +45,7 @@ export default {
 
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
-                content: '❌ Sorry, I need the `Timeout Members` in order to execute this command.',
+                content: '❌ Sorry, I need the `Timeout Members` permission in order to execute this command.',
                 ephemeral: true,
             });
         }
