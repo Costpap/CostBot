@@ -27,9 +27,9 @@ export default {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('remove')
-                .setDescription('Removes a timeout from a user.')
+                .setDescription('Removes a timeout for a user.')
                 .addUserOption((option) =>
-                    option.setName('user').setDescription('User to remove the timeout from').setRequired(true),
+                    option.setName('user').setDescription('User to remove the timeout for').setRequired(true),
                 )
                 .addStringOption((option) =>
                     option.setName('reason').setDescription('Reason for removing the timeout').setRequired(false),
@@ -137,7 +137,7 @@ export default {
                 if (member.moderatable === false) {
                     return interaction.reply({
                         content:
-                            '❌ I cannot remove the timeout from this user! \n**Please make sure that my highest role is above theirs.**',
+                            '❌ I cannot remove the timeout for this user! \n**Please make sure that my highest role is above theirs.**',
                         ephemeral: true,
                     });
                 }
