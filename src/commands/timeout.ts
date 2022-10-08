@@ -1,6 +1,3 @@
-//Template: https://github.com/Costpap/CostBot/blob/main/src/commands/kick.ts
-
-//imports
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import { notifyUser } from '../utils/misc';
 import ms from 'ms';
@@ -30,7 +27,7 @@ export default {
         .addSubcommand((subcommand) =>
             subcommand
                 .setName('remove')
-                .setDescription('Removes timeout from a user.')
+                .setDescription('Removes a timeout from a user.')
                 .addUserOption((option) =>
                     option.setName('user').setDescription('User to remove the timeout from').setRequired(true),
                 )
@@ -48,7 +45,7 @@ export default {
 
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
-                content: '❌ Sorry, I need the `Timeout Members` in order to execute this command.',
+                content: '❌ Sorry, I need the `Timeout Members` permission in order to execute this command.',
                 ephemeral: true,
             });
         }
@@ -145,7 +142,7 @@ export default {
                     });
                 }
 
-                const response = `✅ Removed the timeout from \`${member.user.tag} (${member.id})\``;
+                const response = `✅ Removed the timeout for \`${member.user.tag} (${member.id})\``;
 
                 try {
                     await member.timeout(
@@ -156,7 +153,7 @@ export default {
                 } catch (error) {
                     console.error(error);
                     return interaction.reply({
-                        content: `❌ I encountered an error while trying remove the timeout from \`${
+                        content: `❌ I encountered an error while trying remove the timeout for \`${
                             member.user.tag
                         }\`: \n\`\`\`${error?.message || error}\`\`\``,
                         ephemeral: true,
