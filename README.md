@@ -1,6 +1,7 @@
 # CostBot
 
 <div align="center">
+<img src="https://costpap.me/r/ag24psewBdK8Eq.png" alt="CostBot's Banner"/>
 <br role="presentation" />
 <p>
 <a href="https://github.com/Costpap/CostBot/actions"><img src="https://github.com/Costpap/CostBot/workflows/CostBot%20Continuous%20Integration/badge.svg" alt="CostBot CI"/></a>
