@@ -2,58 +2,36 @@ import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discor
 
 export default {
     data: new SlashCommandBuilder()
-        .setName('hug')
-        .setDescription('Give a sweet little hug to someone!')
-        .addUserOption((option) => option.setName('user').setDescription('User you want to hug').setRequired(true)),
+        .setName('anime')
+        .setDescription('important info'),
     run: async (interaction: ChatInputCommandInteraction, client: Client) => {
-        const user = interaction.options.getUser('user', true);
-
-        if (user.id === interaction.user.id) {
-            return interaction.reply({
-                content: 'Why do you want to hug yourself? You can have a hug from me instead! 🤗',
-                ephemeral: true,
-            });
-        }
-        if (user.id === client.user.id) {
-            return interaction.reply({ content: 'Aww, thanks for hugging me! 💖', ephemeral: true });
-        }
-
-        /**
-         * Array containing a list of strings that can be used for the command.
-         * One of them is randomly selected by `hugString` on execution.
-         * Feel free to add your strings in the array
-         * if you'd like to see them used in the command.
-         *
-         * Notes about constants:
-         * `${user.toString()}` is used for the member getting hugged,
-         * and `${interaction.user.toString()}` is used for the person who is hugging them.
-         */
-        const hugStrings: string[] = [
-            `${user.toString()} just received a big hug from ${interaction.user.toString()}!`,
-            `${user.toString()}, you have received a hug from ${interaction.user.toString()}!`,
-            `${interaction.user.toString()} just hugged ${user.toString()}. How sweet!`,
-            `${interaction.user.toString()} awkwardly gave a hug to ${user.toString()}.`,
-            `${interaction.user.toString()} gave a very friendly hug to ${user.toString()}.`,
-            `${interaction.user.toString()} has given ${user.toString()} a small hug.`,
-            `${interaction.user.toString()} just gave ${user.toString()} a small hug.`,
-            `${interaction.user.toString()} gave a hug to ${user.toString()}, but where is mine?`,
-            `${interaction.user.toString()} wants to strengthen their friendship with ${user.toString()}, so they gave them a cute little hug!`,
-            `${interaction.user.toString()} wanted to fight ${user.toString()}, but gave them a hug in confusion.`,
+        const animeStrings: string[] = [
+            "Baka! Don't you know that anime is more than just a cartoon? It's a lifestyle, a culture, a passion. Get ready to become a true weeb with me by your side.",
+            "anime",
+            "ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME ANIME",
+            "Costpap is a weeb",
+            "My oh my! I love anime",
+            "OwO! What's this? Did someone say anime? I'm all ears! Let's talk about our favorite characters, ships, and moments. Who's in for a good kawaii time?",
+            "blushes M-My apologies, I seem to have become a little too excited. Let's get back to talking about anime. Who's your favorite waifu or husbando? I'm rooting for (insert character here).",
+            "UwU, hewwo evwyone! I'm youw favowite anime bot, hewe to bwing you awl the wates and gweatest nyews fwom the anime wowld. Who's weady to have some fun?",
+            "UwU, don't be shy, come and talk to me. I pwomise I won't bite. Wewl, unless you'we into that kind of thing. Then I might nibble a wittle.",
+            "I am an anime bot",
         ];
         /**
-         * Randomly picks a string from the `hugStrings` array in order to send to the user.
-         * @returns {string} Random string from `hugStrings` array.
+         * Randomly picks a string from the `animeStrings` array in order to send to the user.
+         * @returns {string} Random string from `animeStrings` array.
          */
-        const hugString: string = hugStrings[Math.floor(Math.random() * hugStrings.length)];
+        const animeString: string = animeStrings[Math.floor(Math.random() * animeStrings.length)];
 
         try {
-            interaction.reply(hugString);
+            interaction.reply(animeString);
         } catch (error) {
             console.error(error);
             return interaction.reply({
-                content: `❌ Sorry, I couldn't hug ${user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
+                content: `❌: \`\`\`js\n${error?.message || error}\`\`\``,
                 ephemeral: true,
             });
         }
     },
 };
+
