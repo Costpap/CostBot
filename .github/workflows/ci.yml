@@ -8,7 +8,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout to repository
-              uses: actions/checkout@v3.3.0
+              uses: actions/checkout@v3.4.0
             - name: Configure files
               run: mv src/botconfig-example.ts src/botconfig.ts | mv .env.example .env
             - name: Setup Node.js v16
@@ -25,7 +25,7 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout to repository
-              uses: actions/checkout@v3.3.0
+              uses: actions/checkout@v3.4.0
             - name: Configure files
               run: mv src/botconfig-example.ts src/botconfig.ts | mv .env.example .env
             - name: Setup Node.js v16
