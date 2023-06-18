@@ -23,7 +23,7 @@ export default {
 
         if (!command) {
             return interaction.reply({
-                content: `❌ There is no command with named \`${commandName}\`!`,
+                content: `❌ There is no command named \`${commandName}\`!`,
                 ephemeral: true,
             });
         }
