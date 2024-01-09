@@ -16,7 +16,7 @@
     },
     "devDependencies": {
         "@types/humanize-duration": "^3.27.4",
-        "@types/node": "^20.10.7",
+        "@types/node": "^20.10.8",
         "@types/node-fetch": "^2.6.4",
         "@types/ws": "^8.5.10",
         "@typescript-eslint/eslint-plugin": "^5.62.0",
