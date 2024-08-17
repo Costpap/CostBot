@@ -4,7 +4,7 @@ import { parseDate } from '../utils/misc';
 export default {
     data: new SlashCommandBuilder()
         .setName('user-info')
-        .setDescription('Displays info about the mentioned user or yourself.')
+        .setDescription('Displays info about the provided user or yourself.')
         .addUserOption((option) =>
             option.setName('user').setDescription('User to get information on').setRequired(false),
         )
@@ -22,6 +22,11 @@ export default {
         const user = interaction.options?.getUser('user') ?? interaction.user;
 
         const member = interaction.guild.members.cache.get(user.id);
+
+        if (!member)
+            return interaction.reply({
+                content: ':x: The provided user is not currently a member of this server.',
+            });
 
         const embed = new EmbedBuilder()
             .setColor(member.displayHexColor)
