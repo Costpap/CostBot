@@ -23,10 +23,10 @@ export default {
 
         const member = interaction.guild.members.cache.get(user.id);
 
-        if(!member) 
-            return interaction.reply({ 
-                content: ":x: The provided user is not currently a member of this server."
-            })
+        if (!member)
+            return interaction.reply({
+                content: ':x: The provided user is not currently a member of this server.'
+            });
 
         const embed = new EmbedBuilder()
             .setColor(member.displayHexColor)
