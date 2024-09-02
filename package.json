@@ -7,7 +7,7 @@
     "types": "./src/typings/index.d.ts",
     "private": true,
     "dependencies": {
-        "@discordjs/rest": "^2.2.0",
+        "@discordjs/rest": "^2.4.0",
         "dayjs": "^1.11.13",
         "discord.js": "^14.15.3",
         "dotenv": "^16.4.5",
