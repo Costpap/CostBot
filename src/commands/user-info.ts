@@ -26,6 +26,7 @@ export default {
         if (!member)
             return interaction.reply({
                 content: ':x: The provided user is not currently a member of this server.',
+                ephemeral: true,
             });
 
         const embed = new EmbedBuilder()
