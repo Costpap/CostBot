@@ -1,6 +1,6 @@
 import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
-import { notifyUser } from '../utils/misc';
 import ms from 'ms';
+import { notifyUser } from '../utils/misc';
 
 export default {
     data: new SlashCommandBuilder()
@@ -34,14 +34,11 @@ export default {
                 .addStringOption((option) =>
                     option.setName('reason').setDescription('Reason for removing the timeout').setRequired(false),
                 ),
-        ),
+        )
+        .setDMPermission(false),
     run: async (interaction: ChatInputCommandInteraction) => {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
-
-        if (interaction.inGuild() === false) {
-            return interaction.reply({ content: "❌ I can't execute this command inside DMs!", ephemeral: true });
-        }
 
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
