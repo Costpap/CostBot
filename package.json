@@ -9,7 +9,7 @@
     "dependencies": {
         "@discordjs/rest": "^2.4.0",
         "dayjs": "^1.11.13",
-        "discord.js": "^14.15.3",
+        "discord.js": "^14.16.1",
         "dotenv": "^16.4.5",
         "humanize-duration": "^3.32.1",
         "ms": "^2.1.3",
