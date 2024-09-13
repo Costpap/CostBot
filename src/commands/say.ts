@@ -1,10 +1,9 @@
 import {
-    ChannelType,
     ChatInputCommandInteraction,
     EmbedBuilder,
+    GuildTextBasedChannel,
     InteractionResponse,
     SlashCommandBuilder,
-    TextBasedChannel,
 } from 'discord.js';
 
 export default {
@@ -55,8 +54,7 @@ async function send(input: string, interaction: ChatInputCommandInteraction): Pr
     // Typeguard in order to ensure having access to ChatInputCommand interaction options.
     if (!interaction.isChatInputCommand()) return;
 
-    const channel = (interaction.options?.getChannel('channel') ?? interaction.channel) as TextBasedChannel;
-    if (channel.type === ChannelType.DM) return;
+    const channel = (interaction.options?.getChannel('channel') ?? interaction.channel) as GuildTextBasedChannel;
 
     try {
         await channel?.send({ content: `${input}` });
@@ -83,8 +81,7 @@ async function sendEmbed(
     // Typeguard in order to ensure having access to ChatInputCommand interaction options.
     if (!interaction.isChatInputCommand()) return;
 
-    const channel = (interaction.options?.getChannel('channel') ?? interaction.channel) as TextBasedChannel;
-    if (channel.type === ChannelType.DM) return;
+    const channel = (interaction.options?.getChannel('channel') ?? interaction.channel) as GuildTextBasedChannel;
 
     try {
         await channel?.send({ embeds: embeds });
