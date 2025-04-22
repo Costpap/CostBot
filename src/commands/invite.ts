@@ -1,6 +1,7 @@
 import {
     ChatInputCommandInteraction,
     Client,
+    MessageFlags,
     OAuth2Scopes,
     PermissionFlagsBits,
     SlashCommandBuilder,
@@ -22,6 +23,9 @@ export default {
                 PermissionFlagsBits.ModerateMembers,
             ],
         });
-        interaction.reply({ content: `You can invite me to your server [here](${link}).`, ephemeral: true });
+        interaction.reply({
+            content: `You can invite me to your server [here](${link}).`,
+            flags: MessageFlags.Ephemeral,
+        });
     },
 };

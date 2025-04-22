@@ -1,4 +1,10 @@
-import Discord, { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import Discord, {
+    ChatInputCommandInteraction,
+    Client,
+    EmbedBuilder,
+    MessageFlags,
+    SlashCommandBuilder,
+} from 'discord.js';
 import { inspect } from 'util';
 import { Context, runInNewContext, RunningScriptOptions } from 'vm';
 import { parseCodeblock } from '../utils/misc';
@@ -16,7 +22,7 @@ export default {
         // Typeguard in order to ensure having access to ChatInputCommand interaction options.
         if (!interaction.isChatInputCommand()) return;
 
-        await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
         const code: string = parseCodeblock(interaction.options.getString('code', true));
 
         const options = {

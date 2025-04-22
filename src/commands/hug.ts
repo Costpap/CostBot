@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, MessageFlags, SlashCommandBuilder } from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -11,11 +11,11 @@ export default {
         if (user.id === interaction.user.id) {
             return interaction.reply({
                 content: 'Why do you want to hug yourself? You can have a hug from me instead! 🤗',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
         if (user.id === client.user.id) {
-            return interaction.reply({ content: 'Aww, thanks for hugging me! 💖', ephemeral: true });
+            return interaction.reply({ content: 'Aww, thanks for hugging me! 💖', flags: MessageFlags.Ephemeral });
         }
 
         /**
@@ -52,7 +52,7 @@ export default {
             console.error(error);
             return interaction.reply({
                 content: `❌ Sorry, I couldn't hug ${user.tag} for you: \`\`\`js\n${error?.message || error}\`\`\``,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
     },

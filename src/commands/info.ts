@@ -2,6 +2,7 @@ import {
     ChatInputCommandInteraction,
     Client,
     EmbedBuilder,
+    MessageFlags,
     SlashCommandBuilder,
     User,
     version as libraryVersion,
@@ -28,7 +29,7 @@ export default {
                 console.error(error);
                 return interaction.reply({
                     content: `❌ Encountered an error while getting developer information: \`\`\`js\n${error}\`\`\``,
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
             }
         }

@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
 
@@ -17,7 +17,7 @@ export default {
             client,
             { noWebhook: true },
         );
-        await interaction.deferReply({ ephemeral: true });
+        await interaction.deferReply({ flags: MessageFlags.Ephemeral });
         const start: number = Date.now();
         try {
             const { stderr } = await exec('npx tsc');

@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 import ms from 'ms';
 import { notifyUser } from '../utils/misc';
 
@@ -43,15 +43,18 @@ export default {
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Timeout Members` permission in order to execute this command.',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
         if (typeof interaction.member.permissions === 'string')
-            return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
+            return interaction.reply({
+                content: '❌ Unknown permissions. Please try again later.',
+                flags: MessageFlags.Ephemeral,
+            });
         else if (!interaction.member.permissions.has(PermissionFlagsBits.ModerateMembers)) {
             return interaction.reply({
                 content: '⛔ You need the `Timeout Members` permission in order to use this command!',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
 
@@ -61,7 +64,7 @@ export default {
         if (!member) {
             return interaction.reply({
                 content: '❌ You need to specify a valid user to manage their timeout!',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
 
@@ -69,14 +72,17 @@ export default {
             default:
             case 'add': {
                 if (member.id === interaction.user.id) {
-                    return interaction.reply({ content: "Aww, please don't time out yourself! 💖", ephemeral: true });
+                    return interaction.reply({
+                        content: "Aww, please don't time out yourself! 💖",
+                        flags: MessageFlags.Ephemeral,
+                    });
                 }
 
                 if (member.moderatable === false) {
                     return interaction.reply({
                         content:
                             '❌ I cannot time out this user! \n**Please make sure that my highest role is above theirs.**',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
 
@@ -86,21 +92,21 @@ export default {
                 if (typeof msDuration !== 'number') {
                     return interaction.reply({
                         content: '❌ Please specify a valid timeout duration.',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
 
                 if (msDuration <= 0) {
                     return interaction.reply({
                         content: '❌ The duration of the timeout must be greater than 0!',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
 
                 if (msDuration > 2419200000) {
                     return interaction.reply({
                         content: '❌ The duration of the timeout must be less than or equal to 28 days!',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
 
@@ -115,27 +121,30 @@ export default {
                         const notified = await notifyUser(user, interaction, 'timed out');
                         if (!notified) response += "\n\n⚠️ Couldn't send DM to user.";
                     }
-                    return interaction.reply({ content: response, ephemeral: true });
+                    return interaction.reply({ content: response, flags: MessageFlags.Ephemeral });
                 } catch (error) {
                     console.error(error);
                     return interaction.reply({
                         content: `❌ I encountered an error while trying to time out \`${member.user.tag}\`: \n\`\`\`${
                             error?.message || error
                         }\`\`\``,
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
             }
             case 'remove': {
                 if (!member.isCommunicationDisabled()) {
-                    return interaction.reply({ content: '❌ This user is not currently timed out.', ephemeral: true });
+                    return interaction.reply({
+                        content: '❌ This user is not currently timed out.',
+                        flags: MessageFlags.Ephemeral,
+                    });
                 }
 
                 if (member.moderatable === false) {
                     return interaction.reply({
                         content:
                             '❌ I cannot remove the timeout for this user! \n**Please make sure that my highest role is above theirs.**',
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
 
@@ -146,14 +155,14 @@ export default {
                         null,
                         interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
                     );
-                    return interaction.reply({ content: response, ephemeral: true });
+                    return interaction.reply({ content: response, flags: MessageFlags.Ephemeral });
                 } catch (error) {
                     console.error(error);
                     return interaction.reply({
                         content: `❌ I encountered an error while trying remove the timeout for \`${
                             member.user.tag
                         }\`: \n\`\`\`${error?.message || error}\`\`\``,
-                        ephemeral: true,
+                        flags: MessageFlags.Ephemeral,
                     });
                 }
             }

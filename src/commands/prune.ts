@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, MessageFlags, PermissionFlagsBits, SlashCommandBuilder } from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -20,15 +20,18 @@ export default {
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.ManageMessages)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Manage Messages` permission in order to execute this command.',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
         if (typeof interaction.member.permissions === 'string')
-            return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
+            return interaction.reply({
+                content: '❌ Unknown permissions. Please try again later.',
+                flags: MessageFlags.Ephemeral,
+            });
         else if (!interaction.member.permissions.has(PermissionFlagsBits.ManageMessages)) {
             return interaction.reply({
                 content: '⛔ You need the `Manage Messages` permission in order to use this command!',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
         /** The total number of messages to bulkDelete. */
@@ -41,7 +44,7 @@ export default {
                 content: `✅ Pruned **${deletedMessages.size}** ${
                     deletedMessages.size === 1 ? 'message' : 'messages'
                 }.`,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         } catch (error) {
             console.error(
@@ -52,7 +55,7 @@ export default {
                 content: `❌ I encountered an error while trying to prune messages in this channel: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
     },

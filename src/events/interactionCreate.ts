@@ -1,4 +1,4 @@
-import { Client, Interaction } from 'discord.js';
+import { Client, Interaction, MessageFlags } from 'discord.js';
 import { errorLog } from '../utils/logs';
 import { generateBasicErrorEmbed } from '../utils/misc';
 
@@ -25,7 +25,7 @@ export default {
                 content: `❌ I encountered an error while trying to execute this command: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
     },

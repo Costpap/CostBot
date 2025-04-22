@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { coreLog } from '../utils/logs';
 
 export default {
@@ -14,7 +14,7 @@ export default {
             noWebhook: true,
         });
         console.log(`Shutdown initiated by ${interaction.user.tag} (${interaction.user.id}).`),
-            await interaction.reply({ content: '✅ Shutting down...', ephemeral: true });
+            await interaction.reply({ content: '✅ Shutting down...', flags: MessageFlags.Ephemeral });
         process.exit();
     },
 };

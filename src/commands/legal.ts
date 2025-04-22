@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder, User } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, MessageFlags, SlashCommandBuilder, User } from 'discord.js';
 import { botOwner, repository } from '../botconfig';
 
 export default {
@@ -35,7 +35,7 @@ export default {
                 console.error(error);
                 return interaction.reply({
                     content: `❌ Encountered an error while getting owner information: \`\`\`js\n${error}\`\`\``,
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
             }
         }
@@ -85,7 +85,7 @@ export default {
         }
 
         try {
-            await interaction.reply({ content: `${strings.permNote}`, embeds: [embed], ephemeral: true });
+            await interaction.reply({ content: `${strings.permNote}`, embeds: [embed], flags: MessageFlags.Ephemeral });
         } catch (error) {
             return console.error(
                 `Could not send legal info to ${interaction.user.tag} (${interaction.user.id}):\n`,

@@ -2,6 +2,7 @@ import {
     ChatInputCommandInteraction,
     Client,
     DiscordAPIError,
+    MessageFlags,
     PermissionFlagsBits,
     RESTJSONErrorCodes,
     SlashCommandBuilder,
@@ -23,27 +24,30 @@ export default {
         if (!interaction.guild.members.me.permissions.has(PermissionFlagsBits.BanMembers)) {
             return interaction.reply({
                 content: '❌ Sorry, I need the `Ban Members` permission in order to execute this command.',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
         if (typeof interaction.member.permissions === 'string')
-            return interaction.reply({ content: '❌ Unknown permissions. Please try again later.', ephemeral: true });
+            return interaction.reply({
+                content: '❌ Unknown permissions. Please try again later.',
+                flags: MessageFlags.Ephemeral,
+            });
         else if (!interaction.member.permissions.has(PermissionFlagsBits.BanMembers)) {
             return interaction.reply({
                 content: '⛔ You need the `Ban Members` permission in order to use this command!',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
 
         const user = interaction.options.getUser('user');
 
         if (user.id === interaction.user.id) {
-            return interaction.reply({ content: 'How do you unban yourself? 🤔', ephemeral: true });
+            return interaction.reply({ content: 'How do you unban yourself? 🤔', flags: MessageFlags.Ephemeral });
         }
         if (user.id === client.user.id) {
             return interaction.reply({
                 content: 'If I was banned, would you be seeing this message? 🤔',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
         try {
@@ -51,12 +55,12 @@ export default {
                 user,
                 interaction.options?.getString('reason') ? `${interaction.options?.getString('reason')}` : '',
             );
-            interaction.reply({ content: `✅ Unbanned \`${user.tag} (${user.id})\`.`, ephemeral: true });
+            interaction.reply({ content: `✅ Unbanned \`${user.tag} (${user.id})\`.`, flags: MessageFlags.Ephemeral });
         } catch (error) {
             if (error instanceof DiscordAPIError && error.code === RESTJSONErrorCodes.UnknownBan) {
                 return interaction.reply({
                     content: '❌ This user is not currently banned.',
-                    ephemeral: true,
+                    flags: MessageFlags.Ephemeral,
                 });
             }
 
@@ -65,7 +69,7 @@ export default {
                 content: `❌ I encountered an error while trying to unban \`${user.tag}\`: \n\`\`\`${
                     error?.message || error
                 }\`\`\``,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
     },

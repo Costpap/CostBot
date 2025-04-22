@@ -1,4 +1,11 @@
-import { ChatInputCommandInteraction, EmbedBuilder, InteractionResponse, SlashCommandBuilder, User } from 'discord.js';
+import {
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    InteractionResponse,
+    MessageFlags,
+    SlashCommandBuilder,
+    User,
+} from 'discord.js';
 
 export default {
     data: new SlashCommandBuilder()
@@ -19,7 +26,10 @@ export default {
 
         const dmUser = interaction.options.getUser('user', true);
         if (dmUser.bot) {
-            return interaction.reply({ content: '❌ You cannot send messages to bots.', ephemeral: true });
+            return interaction.reply({
+                content: '❌ You cannot send messages to bots.',
+                flags: MessageFlags.Ephemeral,
+            });
         }
 
         if (interaction.options.getBoolean('embed')) {
@@ -41,7 +51,10 @@ async function send(
 ): Promise<InteractionResponse> {
     try {
         user.send({ content: input, embeds: embeds });
-        await interaction.reply({ content: `✅ Successfully sent DM to **${user.tag}**!`, ephemeral: true });
+        await interaction.reply({
+            content: `✅ Successfully sent DM to **${user.tag}**!`,
+            flags: MessageFlags.Ephemeral,
+        });
     } catch (error) {
         console.error(
             `Could not send ${interaction.user.tag}'s (${interaction.user.id}) DM to ${user.tag} (${user.id}):\n`,
@@ -49,7 +62,7 @@ async function send(
         );
         return interaction.reply({
             content: `❌ Could not send message to **${user.tag}**.`,
-            ephemeral: true,
+            flags: MessageFlags.Ephemeral,
         });
     }
 }

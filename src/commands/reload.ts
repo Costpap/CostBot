@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, Message, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, Message, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../typings/index';
 import { coreLog, errorLog } from '../utils/logs';
 import { clean, exec, generateBasicErrorEmbed } from '../utils/misc';
@@ -24,11 +24,11 @@ export default {
         if (!command) {
             return interaction.reply({
                 content: `❌ There is no command named \`${commandName}\`!`,
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
         }
 
-        interaction.deferReply({ ephemeral: true });
+        interaction.deferReply({ flags: MessageFlags.Ephemeral });
         const logMessage: Message = await coreLog(
             `🔁 Reload of command **${command.data.name}** initiated by \`${interaction.user.tag} (${interaction.user.id})\`.`,
             [],

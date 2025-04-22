@@ -3,6 +3,7 @@ import {
     EmbedBuilder,
     GuildTextBasedChannel,
     InteractionResponse,
+    MessageFlags,
     SlashCommandBuilder,
 } from 'discord.js';
 
@@ -60,9 +61,15 @@ async function send(input: string, interaction: ChatInputCommandInteraction): Pr
         await channel?.send({ content: `${input}` });
     } catch (error) {
         console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
-        return interaction.reply({ content: `❌ Could not send message to ${channel.toString()}.`, ephemeral: true });
+        return interaction.reply({
+            content: `❌ Could not send message to ${channel.toString()}.`,
+            flags: MessageFlags.Ephemeral,
+        });
     }
-    interaction.reply({ content: `✅ Successfully sent message to ${channel.toString()}!`, ephemeral: true });
+    interaction.reply({
+        content: `✅ Successfully sent message to ${channel.toString()}!`,
+        flags: MessageFlags.Ephemeral,
+    });
 }
 
 /**
@@ -87,7 +94,13 @@ async function sendEmbed(
         await channel?.send({ embeds: embeds });
     } catch (error) {
         console.error(`Could not send message to #${channel?.name ?? 'unknown-name'} (${channel.id}):\n`, error);
-        return interaction.reply({ content: `❌ Could not send message to ${channel.toString()}.`, ephemeral: true });
+        return interaction.reply({
+            content: `❌ Could not send message to ${channel.toString()}.`,
+            flags: MessageFlags.Ephemeral,
+        });
     }
-    interaction.reply({ content: `✅ Successfully sent message to ${channel.toString()}!`, ephemeral: true });
+    interaction.reply({
+        content: `✅ Successfully sent message to ${channel.toString()}!`,
+        flags: MessageFlags.Ephemeral,
+    });
 }

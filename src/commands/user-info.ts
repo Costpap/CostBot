@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import { parseDate } from '../utils/misc';
 
 export default {
@@ -26,7 +26,7 @@ export default {
         if (!member)
             return interaction.reply({
                 content: ':x: The provided user is not currently a member of this server.',
-                ephemeral: true,
+                flags: MessageFlags.Ephemeral,
             });
 
         const embed = new EmbedBuilder()

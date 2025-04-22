@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, Client, EmbedBuilder, SlashCommandBuilder } from 'discord.js';
+import { ChatInputCommandInteraction, Client, EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../typings';
 import { version } from '../utils/version';
 
@@ -20,6 +20,6 @@ export default {
             embed.addFields([{ name: `/${command.data.name}`, value: command.data.description || 'No description' }]);
         });
 
-        interaction.reply({ embeds: [embed], ephemeral: true });
+        interaction.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
     },
 };
