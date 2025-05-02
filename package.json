@@ -33,7 +33,7 @@
         "bufferutil": "^4.0.9",
         "erlpack": "github:discord/erlpack",
         "utf-8-validate": "^6.0.5",
-        "zlib-sync": "^0.1.9"
+        "zlib-sync": "^0.1.10"
     },
     "scripts": {
         "test": "npm run lint && npm run build",
