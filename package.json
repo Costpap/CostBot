@@ -8,7 +8,7 @@
     "private": true,
     "dependencies": {
         "@discordjs/rest": "^2.6.0",
-        "dayjs": "^1.11.13",
+        "dayjs": "^1.11.18",
         "discord.js": "^14.24.1",
         "dotenv": "^17.2.2",
         "humanize-duration": "^3.33.0",
