@@ -11,7 +11,7 @@
         "dayjs": "^1.11.18",
         "discord.js": "^14.24.1",
         "dotenv": "^17.2.3",
-        "humanize-duration": "^3.33.0",
+        "humanize-duration": "^3.33.1",
         "ms": "^2.1.3",
         "node-fetch": "^2.7.0"
     },
