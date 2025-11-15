@@ -27,7 +27,7 @@
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^4.2.5",
         "prettier": "^2.8.8",
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.3"
     },
     "optionalDependencies": {
         "bufferutil": "^4.0.9",
